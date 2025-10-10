@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="style.css" rel="stylesheet" type="text/css">
+<title>🎬 Neovid : Minimal Web Video Player</title>
+</head>
+<body>
+<h1>🎬 Neovid : Minimal Web Video Player</h1>
+<div class="version">Version 0.1.0</div>
+<div class="notice">
+⚠️ <strong>Notice:</strong> Only external or local <code>.vtt</code>/<code>.srt</code> subtitle files are supported.<br>
+Embedded subtitles inside video files are not supported.
+</div>
+<form id="videoForm">
+  <div class="switch-container">
+    <label for="loadType">Load Type:</label>
+    <select id="loadType">
+      <option value="url">URL</option>
+      <option value="local">Local File</option>
+    </select>
+  </div>
+  <input type="url" id="videoUrl" placeholder="Enter video URL">
+  <input type="url" id="subtitleUrl" placeholder="Enter subtitle URL (.vtt/.srt) [optional]">
+  <input type="file" id="videoFile" accept="video/*" style="display:none">
+  <input type="file" id="subtitleFile" accept=".vtt,.srt" style="display:none">
+  <button type="submit">Play Video</button>
+</form>
+<video id="videoPlayer" controls></video>
+<div id="recentList">
+  <h3>Recently Played</h3>
+  <ul id="recentItems"></ul>
+</div>
+<footer>© 2025 🎬 Neovid</footer>
+<script src="script.js"></script>
+</body>
+</html>
