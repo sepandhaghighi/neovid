@@ -6,7 +6,7 @@ const subFileInput = document.getElementById("subtitleFile");
 const loadTypeSelect = document.getElementById("loadType");
 const player = document.getElementById("videoPlayer");
 const recentItems = document.getElementById("recentItems");
-const RECENT_KEY = "recentVideos";
+const recentKey = "recentVideos";
 
 let currentVideo = null;
 let currentType = "url";
@@ -14,9 +14,9 @@ let currentTitle = "";
 
 function playVideo(src, subtitle = "", title = null, type = "url") {
   player.innerHTML = "";
-  const sourceEl = document.createElement("source");
-  sourceEl.src = src;
-  player.appendChild(sourceEl);
+  const sourceElement = document.createElement("source");
+  sourceElement.src = src;
+  player.appendChild(sourceElement);
 
   if (subtitle) {
     const track = document.createElement("track");
@@ -37,28 +37,28 @@ function playVideo(src, subtitle = "", title = null, type = "url") {
 }
 
 function saveRecent(title, url, progress, type) {
-  let recent = JSON.parse(localStorage.getItem(RECENT_KEY) || "[]");
+  let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
   recent = recent.filter(item => !(item.title===title && item.type===type));
   recent.unshift({title, url, progress, type});
   if (recent.length>5) recent = recent.slice(0,5);
-  localStorage.setItem(RECENT_KEY, JSON.stringify(recent));
+  localStorage.setItem(recentKey, JSON.stringify(recent));
   renderRecent();
 }
 
 function updateProgress() {
   if(!currentVideo || !player.duration) return;
   const percent = Math.min(100, Math.round((player.currentTime/player.duration)*100));
-  let recent = JSON.parse(localStorage.getItem(RECENT_KEY) || "[]");
+  let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
   const idx = recent.findIndex(item => item.title===currentTitle && item.type===currentType);
   if(idx!==-1){
     recent[idx].progress = percent;
-    localStorage.setItem(RECENT_KEY, JSON.stringify(recent));
+    localStorage.setItem(recentKey, JSON.stringify(recent));
     renderRecent();
   }
 }
 
 function renderRecent(){
-  const recent = JSON.parse(localStorage.getItem(RECENT_KEY) || "[]");
+  const recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
   recentItems.innerHTML="";
   recent.forEach(item=>{
     const li=document.createElement("li");
@@ -75,7 +75,7 @@ function renderRecent(){
     spanProgress.textContent=`${item.progress||0}%`;
     li.appendChild(spanTitle);
     li.appendChild(spanProgress);
-    li.addEventListener("click", ()=>{
+    li.addEventListener("click", function(){
       if(item.type==="url"){
         playVideo(item.url);
       } else {
@@ -88,7 +88,7 @@ function renderRecent(){
 }
 
 
-loadTypeSelect.addEventListener("change",()=>{
+loadTypeSelect.addEventListener("change",function(){
   const isLocal = loadTypeSelect.value === "local";
   urlInput.style.display = isLocal ? "none" : "block";
   subUrlInput.style.display = isLocal ? "none" : "block";
@@ -96,7 +96,7 @@ loadTypeSelect.addEventListener("change",()=>{
   subFileInput.style.display = isLocal ? "block" : "none";
 });
 
-form.addEventListener("submit", e=>{
+form.addEventListener("submit", function(e){
   e.preventDefault();
   if(loadTypeSelect.value==="url"){
     const url = urlInput.value.trim();
@@ -116,6 +116,6 @@ form.addEventListener("submit", e=>{
 
 player.addEventListener("timeupdate", updateProgress);
 
-window.addEventListener("DOMContentLoaded",()=>{
+window.addEventListener("DOMContentLoaded",function(){
   renderRecent();
 });
