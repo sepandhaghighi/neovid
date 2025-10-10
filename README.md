@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://github.com/sepandhaghighi/neovid/raw/main/images/logo.png" alt="Neovid Logo" width="424">
+    <img src="https://github.com/sepandhaghighi/neovid/raw/readme/images/logo.png" alt="Neovid Logo" width="424">
 	<h1>🎬 Neovid : Minimal Web Video Player</h1>
 </div>
 
