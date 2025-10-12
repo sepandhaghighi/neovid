@@ -1,6 +1,8 @@
 {
-  "name": "Neovid",
+  "name": "Neovid : Minimal Web Video Player",
   "short_name": "Neovid",
+  "start_url": "/",
+  "scope": "/",
   "icons": [
     {
       "src": "assets/web-app-manifest-192x192.png",
@@ -15,7 +17,8 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
-  "display": "standalone"
+  "theme_color": "#eff1f2",
+  "background_color": "#eff1f2",
+  "display": "fullscreen",
+  "orientation": "portrait"
 }
