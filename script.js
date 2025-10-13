@@ -36,10 +36,10 @@ function playVideo(src, subtitle = "", title = null, type = "url") {
   saveRecent(currentTitle, src, 0, type);
 }
 
-function saveRecent(title, url, progress, type) {
+function saveRecent(title, video, progress, type) {
   let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
   recent = recent.filter(item => !(item.title===title && item.type===type));
-  recent.unshift({title, url, progress, type});
+  recent.unshift({title, video, progress, type});
   if (recent.length>5) recent = recent.slice(0,5);
   localStorage.setItem(recentKey, JSON.stringify(recent));
   renderRecent();
@@ -77,7 +77,7 @@ function renderRecent(){
     li.appendChild(spanProgress);
     li.addEventListener("click", function(){
       if(item.type==="url"){
-        playVideo(item.url);
+        playVideo(item.video);
       } else {
         alert("Please reselect the local file to play it again.");
       }
