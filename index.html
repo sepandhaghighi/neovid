@@ -34,26 +34,44 @@
 ⚠️ <strong>Notice:</strong> Only external or local <code>.vtt</code>/<code>.srt</code> subtitle files are supported.<br>
 Embedded subtitles inside video files are not supported.
 </div>
+
 <form id="videoForm">
-  <div class="switch-container">
-    <label for="loadType">Load Type:</label>
-    <select id="loadType">
-      <option value="url">URL</option>
-      <option value="local">Local File</option>
-    </select>
-  </div>
-  <input type="url" id="videoUrl" placeholder="Enter video URL">
-  <input type="url" id="subtitleUrl" placeholder="Enter subtitle URL (.vtt/.srt) [optional]">
-  <input type="file" id="videoFile" accept="video/*" style="display:none">
-  <input type="file" id="subtitleFile" accept=".vtt,.srt" style="display:none">
+  <fieldset>
+    <legend>Video</legend>
+    <div class="switch-container">
+      <label for="videoLoadType">Load Type:</label>
+      <select id="videoLoadType">
+        <option value="url">URL</option>
+        <option value="local">Local File</option>
+      </select>
+    </div>
+    <input type="url" id="videoUrl" placeholder="Enter video URL">
+    <input type="file" id="videoFile" accept="video/*" style="display:none">
+  </fieldset>
+  <fieldset>
+    <legend>Subtitle (optional)</legend>
+    <div class="switch-container">
+      <label for="subtitleLoadType">Load Type:</label>
+      <select id="subtitleLoadType">
+        <option value="url">URL</option>
+        <option value="local">Local File</option>
+      </select>
+    </div>
+    <input type="url" id="subtitleUrl" placeholder="Enter subtitle URL (.vtt/.srt)">
+    <input type="file" id="subtitleFile" accept=".vtt,.srt" style="display:none">
+  </fieldset>
   <button type="submit">Play Video</button>
 </form>
+
 <video id="videoPlayer" controls></video>
+
 <div id="recentList">
   <h3>Recently Played</h3>
   <ul id="recentItems"></ul>
 </div>
+
 <footer>© 2025 🎬 Neovid</footer>
+
 <script src="script.js"></script>
 </body>
 </html>
