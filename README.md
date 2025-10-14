@@ -21,17 +21,14 @@ It supports both online and local video playback with optional subtitles.
 
 ## Usage
 
-### Play via URL
-1. Select **URL mode** from the switch menu  
-2. Paste your video URL  
-3. (Optional) Enter a `.vtt`/`.srt` subtitle URL  
-4. Click **Play Video**
-
-### Play Local File
-1. Switch to **Local mode**  
-2. Choose a local video file  
-3. (Optional) Upload a `.vtt`/`.srt` subtitle file  
-4. Click **Play Video**
+### Play a Video
+1. In the **Video** section, choose how you want to load your video:
+   - **URL** → Paste a direct video link (e.g., `.mp4`, `.webm`)
+   - **Local File** → Select a video file from your device
+2. In the **Subtitle** section, choose how to load subtitles (optional):
+   - **URL** → Enter a `.vtt` or `.srt` subtitle link
+   - **Local File** → Select a subtitle file from your device
+3. Click **Play Video**
 
 ### Recent Plays
 - Neovid automatically saves the **last 5 videos** and your **view progress**
