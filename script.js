@@ -1,9 +1,14 @@
 const form = document.getElementById("videoForm");
-const urlInput = document.getElementById("videoUrl");
-const subUrlInput = document.getElementById("subtitleUrl");
-const videoFileInput = document.getElementById("videoFile");
-const subFileInput = document.getElementById("subtitleFile");
-const loadTypeSelect = document.getElementById("loadType");
+const videoUrl = document.getElementById("videoUrl");
+const videoFile = document.getElementById("videoFile");
+const videoLoadSelect = document.getElementById("videoLoadType");
+
+
+const subtitleUrl = document.getElementById("subtitleUrl");
+const subtitleFile = document.getElementById("subtitleFile");
+const subtitleLoadSelect = document.getElementById("subtitleLoadType");
+
+
 const player = document.getElementById("videoPlayer");
 const recentItems = document.getElementById("recentItems");
 const recentKey = "recentVideos";
@@ -12,13 +17,16 @@ let currentVideo = null;
 let currentType = "url";
 let currentTitle = "";
 
+
 function playVideo(src, subtitle = "", title = null, type = "url") {
+  if(currentType === "local" && currentVideo) URL.revokeObjectURL(currentVideo);
   player.innerHTML = "";
+
   const sourceElement = document.createElement("source");
   sourceElement.src = src;
   player.appendChild(sourceElement);
 
-  if (subtitle) {
+  if(subtitle){
     const track = document.createElement("track");
     track.src = subtitle;
     track.kind = "subtitles";
@@ -26,30 +34,36 @@ function playVideo(src, subtitle = "", title = null, type = "url") {
     track.label = "English";
     track.default = true;
     player.appendChild(track);
+    player.textTracks[0].mode = "showing";
   }
 
   player.load();
   player.play().catch(()=>{});
+
   currentVideo = src;
   currentType = type;
   currentTitle = title || (type==="url"? src.split("/").pop(): title);
-  saveRecent(currentTitle, src, subtitle, 0, type);
 }
 
-function saveRecent(title, video, subtitle, progress, type) {
+
+function saveRecent(title, video, videoType, subtitle="", subtitleType="url", progress=0){
   let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
-  recent = recent.filter(item => !(item.title===title && item.type===type));
-  recent.unshift({title, video, subtitle, progress, type});
-  if (recent.length>5) recent = recent.slice(0,5);
+
+
+  recent = recent.filter(item => !(item.video===video && item.subtitle===subtitle));
+
+  recent.unshift({title, video, videoType, subtitle, subtitleType, progress});
+  if(recent.length>5) recent = recent.slice(0,5);
+
   localStorage.setItem(recentKey, JSON.stringify(recent));
   renderRecent();
 }
 
-function updateProgress() {
+function updateProgress(){
   if(!currentVideo || !player.duration) return;
   const percent = Math.min(100, Math.round((player.currentTime/player.duration)*100));
   let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
-  const idx = recent.findIndex(item => item.title===currentTitle && item.type===currentType);
+  const idx = recent.findIndex(item => item.video===currentVideo);
   if(idx!==-1){
     recent[idx].progress = percent;
     localStorage.setItem(recentKey, JSON.stringify(recent));
@@ -61,61 +75,91 @@ function renderRecent(){
   const recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
   recentItems.innerHTML="";
   recent.forEach(item=>{
-    const li=document.createElement("li");
-    const spanTitle=document.createElement("span");
-    spanTitle.textContent=item.title;
-    if(item.type==="local"){
-      const tag=document.createElement("span");
+    const li = document.createElement("li");
+    const spanTitle = document.createElement("span");
+    spanTitle.textContent = item.title;
+
+    if(item.videoType==="local"){
+      const tag = document.createElement("span");
       tag.className="local-tag";
-      tag.textContent="(local)";
+      tag.textContent="(local video)";
       spanTitle.appendChild(tag);
     }
-    const spanProgress=document.createElement("span");
+    if(item.subtitle && item.subtitleType==="local"){
+      const tag = document.createElement("span");
+      tag.className="local-tag";
+      tag.textContent="(local subtitle)";
+      spanTitle.appendChild(tag);
+    }
+
+    const spanProgress = document.createElement("span");
     spanProgress.className="progress";
-    spanProgress.textContent=`${item.progress||0}%`;
+    spanProgress.textContent = `${item.progress||0}%`;
+
     li.appendChild(spanTitle);
     li.appendChild(spanProgress);
-    li.addEventListener("click", function(){
-      if(item.type==="url"){
-        playVideo(item.video, item.subtitle);
+
+    li.addEventListener("click", ()=>{
+      if(item.videoType==="url" && (!item.subtitle || item.subtitleType==="url")){
+        playVideo(item.video, item.subtitle, item.title, item.videoType);
       } else {
-        alert("Please reselect the local file to play it again.");
+        alert("Please reselect the local video/subtitle to play it again.");
       }
     });
+
     recentItems.appendChild(li);
   });
-  document.getElementById("recentList").style.display=recent.length?"block":"none";
+
+  document.getElementById("recentList").style.display = recent.length ? "block" : "none";
 }
 
 
-loadTypeSelect.addEventListener("change",function(){
-  const isLocal = loadTypeSelect.value === "local";
-  urlInput.style.display = isLocal ? "none" : "block";
-  subUrlInput.style.display = isLocal ? "none" : "block";
-  videoFileInput.style.display = isLocal ? "block" : "none";
-  subFileInput.style.display = isLocal ? "block" : "none";
+videoLoadSelect.addEventListener("change", ()=>{
+  const isLocal = videoLoadSelect.value === "local";
+  videoUrl.style.display = isLocal ? "none" : "block";
+  videoFile.style.display = isLocal ? "block" : "none";
 });
+
+subtitleLoadSelect.addEventListener("change", ()=>{
+  const isLocal = subtitleLoadSelect.value === "local";
+  subtitleUrl.style.display = isLocal ? "none" : "block";
+  subtitleFile.style.display = isLocal ? "block" : "none";
+});
+
 
 form.addEventListener("submit", function(e){
   e.preventDefault();
-  if(loadTypeSelect.value==="url"){
-    const url = urlInput.value.trim();
-    const sub = subUrlInput.value.trim();
-    if(url) playVideo(url, sub, url.split("/").pop(), "url");
-    else alert("Please enter a video URL.");
+
+
+  let videoSrc = "", videoTitle = "", videoType = videoLoadSelect.value;
+  if(videoType==="url"){
+    const url = videoUrl.value.trim();
+    if(!url) return alert("Please enter a video URL.");
+    videoSrc = url;
+    videoTitle = url.split("/").pop();
   } else {
-    const file = videoFileInput.files[0];
-    const subFile = subFileInput.files[0];
-    if(file){
-      const videoBlob = URL.createObjectURL(file);
-      const subBlob = subFile ? URL.createObjectURL(subFile) : "";
-      playVideo(videoBlob, subBlob, file.name, "local");
-    } else alert("Please select a local video file.");
+    const file = videoFile.files[0];
+    if(!file) return alert("Please select a local video file.");
+    videoSrc = URL.createObjectURL(file);
+    videoTitle = file.name;
   }
+
+
+  let subSrc = "", subType = subtitleLoadSelect.value;
+  if(subType==="url"){
+    subSrc = subtitleUrl.value.trim();
+  } else {
+    const subFile = subtitleFile.files[0];
+    if(subFile) subSrc = URL.createObjectURL(subFile);
+  }
+
+
+  playVideo(videoSrc, subSrc, videoTitle, videoType);
+
+
+  saveRecent(videoTitle, videoSrc, videoType, subSrc, subType, 0);
 });
 
+// ---------- Progress update ----------
 player.addEventListener("timeupdate", updateProgress);
-
-window.addEventListener("DOMContentLoaded",function(){
-  renderRecent();
-});
+window.addEventListener("DOMContentLoaded", renderRecent);
