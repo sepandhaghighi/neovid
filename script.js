@@ -22,9 +22,9 @@ function playVideo(src, subtitle = "", title = null, type = "url") {
   if(currentType === "local" && currentVideo) URL.revokeObjectURL(currentVideo);
   player.innerHTML = "";
 
-  const source = document.createElement("source");
-  source.src = src;
-  player.appendChild(source);
+  const sourceElement = document.createElement("source");
+  sourceElement.src = src;
+  player.appendChild(sourceElement);
 
   if(subtitle){
     const track = document.createElement("track");
