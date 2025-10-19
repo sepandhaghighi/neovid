@@ -78,10 +78,11 @@ function updateProgress(){
 function renderRecent(){
   const recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
   recentItems.innerHTML="";
+  let maxLimit = recentItems.offsetWidth  / 9;
   recent.forEach(item=>{
     const li = document.createElement("li");
     const spanTitle = document.createElement("span");
-    spanTitle.textContent = item.title;
+    spanTitle.textContent=truncateTitle(item.title, maxLimit);
 
     if(item.videoType==="local"){
       const tag = document.createElement("span");
