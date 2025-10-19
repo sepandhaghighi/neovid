@@ -17,6 +17,10 @@ let currentVideo = null;
 let currentType = "url";
 let currentTitle = "";
 
+function truncateTitle(title, maxLength = 24) {
+  if (!title) return "";
+  return title.length > maxLength ? title.slice(0, maxLength - 3) + "..." : title;
+}
 
 function playVideo(src, subtitle = "", title = null, type = "url") {
   if(currentType === "local" && currentVideo) URL.revokeObjectURL(currentVideo);
