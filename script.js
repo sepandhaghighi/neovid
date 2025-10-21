@@ -78,25 +78,35 @@ function updateProgress(){
 function renderRecent(){
   const recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
   recentItems.innerHTML="";
-  let maxLimit = recentItems.offsetWidth  / 9;
+  let maxLimit = recentItems.offsetWidth  / 11;
   recent.forEach(item=>{
     const li = document.createElement("li");
     const spanTitle = document.createElement("span");
     spanTitle.textContent=truncateTitle(item.title, maxLimit);
-
+    if(item.videoType==="url"){
+      const tag = document.createElement("span");
+      tag.className="url-tag";
+      tag.textContent="🌐";
+      spanTitle.appendChild(tag);
+    }
     if(item.videoType==="local"){
       const tag = document.createElement("span");
       tag.className="local-tag";
-      tag.textContent="(local video)";
+      tag.textContent="💾";
       spanTitle.appendChild(tag);
     }
     if(item.subtitle && item.subtitleType==="local"){
       const tag = document.createElement("span");
       tag.className="local-tag";
-      tag.textContent="(local subtitle)";
+      tag.textContent="📄";
       spanTitle.appendChild(tag);
     }
-
+    if(item.subtitle && item.subtitleType==="url"){
+      const tag = document.createElement("span");
+      tag.className="url-tag";
+      tag.textContent="💬";
+      spanTitle.appendChild(tag);
+    }
     const spanProgress = document.createElement("span");
     spanProgress.className="progress";
     spanProgress.textContent = `${item.progress||0}%`;
