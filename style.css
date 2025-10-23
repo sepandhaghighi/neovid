@@ -61,7 +61,7 @@ video {
 }
 #recentList li:last-child { border-bottom: none; }
 #recentList li:hover { background: #f2f2f2; }
-.progress { font-size: 0.8rem; color: #555; flex-shrink: 0; margin-left: 1rem; }
-.local-tag { color: #888; font-size: 0.8rem; margin-left: 0.5rem; }
+.progress { font-size: 0.8rem; color: #555; flex-shrink: 0; margin-left: 0; }
+.local-tag,.url-tag { color: #888; font-size: 0.8rem; margin-left: 0.5rem; }
 footer {margin-bottom: 1rem; margin-top: 2rem; font-size: 0.85rem; color: #777; position:relative;}
 @media (max-width: 600px) { h1 { font-size: 1.25rem; } }
