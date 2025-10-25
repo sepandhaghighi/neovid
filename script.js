@@ -188,4 +188,5 @@ form.addEventListener("submit", function(e){
 
 // ---------- Progress update ----------
 player.addEventListener("timeupdate", updateProgress);
+player.addEventListener("loadedmetadata", loadPlayerTime);
 window.addEventListener("DOMContentLoaded", renderRecent);
