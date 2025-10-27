@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Video resume support
 ### Changed
 - `Recently Played` section size bug fixed
+- `saveRecent` function bug fixed
 ## [0.1] - 2025-10-18
 ### Added
 - Load video from file
