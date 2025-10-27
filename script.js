@@ -75,6 +75,17 @@ function updateProgress(){
   }
 }
 
+function loadPlayerTime(){
+  if(!currentVideo || !player.duration) return;
+  let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+  const idx = recent.findIndex(item => item.video===currentVideo);
+  if(idx!==-1){
+    const currentTime = (recent[idx].progress / 100) * player.duration
+    player.currentTime = currentTime;
+    
+  }
+}
+
 function renderRecent(){
   const recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
   recentItems.innerHTML="";
@@ -177,4 +188,5 @@ form.addEventListener("submit", function(e){
 
 // ---------- Progress update ----------
 player.addEventListener("timeupdate", updateProgress);
+player.addEventListener("loadedmetadata", loadPlayerTime);
 window.addEventListener("DOMContentLoaded", renderRecent);
