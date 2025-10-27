@@ -54,7 +54,7 @@ function saveRecent(title, video, videoType, subtitle="", subtitleType="url", pr
   let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
 
 
-  recent = recent.filter(item => !(item.video===video && item.subtitle===subtitle));
+  recent = recent.filter(item => !(item.video===video));
 
   recent.unshift({title, video, videoType, subtitle, subtitleType, progress});
   if(recent.length>5) recent = recent.slice(0,5);
