@@ -54,7 +54,7 @@ function saveRecent(title, video, videoType, subtitle="", subtitleType="url", pr
   let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
 
 
-  recent = recent.filter(item => !(item.video===video));
+  recent = recent.filter(item => !(item.title===title));
 
   recent.unshift({title, video, videoType, subtitle, subtitleType, progress});
   if(recent.length>5) recent = recent.slice(0,5);
@@ -128,6 +128,11 @@ function renderRecent(){
     li.addEventListener("click", ()=>{
       if(item.videoType==="url" && (!item.subtitle || item.subtitleType==="url")){
         playVideo(item.video, item.subtitle, item.title, item.videoType);
+        saveRecent(item.title, item.video, item.videoType, item.subtitle, item.subtitleType, item.progress);
+        videoUrl.value = item.video;
+        if (item.subtitle && item.subtitleType==="url"){
+            subtitleUrl.value = item.subtitle;
+        }
       } else {
         alert("Please reselect the local video/subtitle to play it again.");
       }
