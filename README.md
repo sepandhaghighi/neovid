@@ -22,8 +22,6 @@ It supports both online and local video playback with optional subtitles.
 	</tr>
 </table>
 
----
-
 ## Features
 
 - **Zero dependencies**: pure HTML, CSS, and JavaScript  
