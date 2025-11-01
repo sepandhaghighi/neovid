@@ -141,7 +141,7 @@ function renderRecent(){
     recentItems.appendChild(li);
   });
 
-  document.getElementById("recentList").style.display = recent.length ? "block" : "none";
+  document.getElementById("recent-list").style.display = recent.length ? "block" : "none";
 }
 
 
