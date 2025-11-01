@@ -28,7 +28,7 @@ input[type="url"], input[type="file"], select {
   padding: 0.75rem; border-radius: 0.5rem;
   border: 1px solid #ccc; font-size: 1rem;
 }
-#videoUrl, #videoFile {
+#video-url, #videoFile {
     width: 90%;
     margin-top: 7px;
 }

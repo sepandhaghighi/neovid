@@ -1,5 +1,5 @@
 const form = document.getElementById("videoForm");
-const videoUrl = document.getElementById("videoUrl");
+const videoUrl = document.getElementById("video-url");
 const videoFile = document.getElementById("videoFile");
 const videoLoadSelect = document.getElementById("videoLoadType");
 
