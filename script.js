@@ -1,11 +1,11 @@
 const form = document.getElementById("videoForm");
-const videoUrl = document.getElementById("videoUrl");
-const videoFile = document.getElementById("videoFile");
+const videoUrl = document.getElementById("video-url");
+const videoFile = document.getElementById("video-file");
 const videoLoadSelect = document.getElementById("videoLoadType");
 
 
-const subtitleUrl = document.getElementById("subtitleUrl");
-const subtitleFile = document.getElementById("subtitleFile");
+const subtitleUrl = document.getElementById("subtitle-url");
+const subtitleFile = document.getElementById("subtitle-file");
 const subtitleLoadSelect = document.getElementById("subtitleLoadType");
 
 
@@ -141,7 +141,7 @@ function renderRecent(){
     recentItems.appendChild(li);
   });
 
-  document.getElementById("recentList").style.display = recent.length ? "block" : "none";
+  document.getElementById("recent-list").style.display = recent.length ? "block" : "none";
 }
 
 

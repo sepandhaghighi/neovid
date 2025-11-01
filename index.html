@@ -45,8 +45,8 @@ Embedded subtitles inside video files are not supported.
         <option value="local">Local File</option>
       </select>
     </div>
-    <input type="url" id="videoUrl" placeholder="Enter video URL">
-    <input type="file" id="videoFile" accept="video/*" style="display:none">
+    <input type="url" id="video-url" placeholder="Enter video URL">
+    <input type="file" id="video-file" accept="video/*" style="display:none">
   </fieldset>
   <fieldset>
     <legend>Subtitle (optional)</legend>
@@ -57,15 +57,15 @@ Embedded subtitles inside video files are not supported.
         <option value="local">Local File</option>
       </select>
     </div>
-    <input type="url" id="subtitleUrl" placeholder="Enter subtitle URL (.vtt/.srt)">
-    <input type="file" id="subtitleFile" accept=".vtt,.srt" style="display:none">
+    <input type="url" id="subtitle-url" placeholder="Enter subtitle URL (.vtt/.srt)">
+    <input type="file" id="subtitle-file" accept=".vtt,.srt" style="display:none">
   </fieldset>
   <button type="submit">Play Video</button>
 </form>
 
 <video id="videoPlayer" controls preload="auto"></video>
 
-<div id="recentList">
+<div id="recent-list">
   <h3>Recently Played</h3>
   <div class="notice">
       💾 Local Video<br/>
