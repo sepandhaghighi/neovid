@@ -32,7 +32,7 @@ input[type="url"], input[type="file"], select {
     width: 90%;
     margin-top: 7px;
 }
-#subtitleUrl, #subtitleFile {
+#subtitle-url, #subtitleFile {
     width: 90%;
     margin-top: 7px;
 }

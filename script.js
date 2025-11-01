@@ -4,7 +4,7 @@ const videoFile = document.getElementById("videoFile");
 const videoLoadSelect = document.getElementById("videoLoadType");
 
 
-const subtitleUrl = document.getElementById("subtitleUrl");
+const subtitleUrl = document.getElementById("subtitle-url");
 const subtitleFile = document.getElementById("subtitleFile");
 const subtitleLoadSelect = document.getElementById("subtitleLoadType");
 
