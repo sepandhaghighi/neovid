@@ -57,7 +57,10 @@ button {
   border-radius: 0.5rem; background-color: #007bff;
   color: white; cursor: pointer; transition: background 0.2s;
 }
-button:hover { background-color: #0056b3; }
+
+button:hover {
+  background-color: #0056b3;
+}
 
 video {
   width: 100%; max-width: 600px;
@@ -87,8 +90,14 @@ video {
   display: flex; justify-content: space-between; align-items: center;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
-#recent-list li:last-child { border-bottom: none; }
-#recent-list li:hover { background: #f2f2f2; }
+
+#recent-list li:last-child {
+  border-bottom: none;
+}
+
+#recent-list li:hover {
+  background: #f2f2f2;
+}
 
 .progress {
   font-size: 0.8rem;
@@ -111,4 +120,8 @@ footer {
   position:relative;
 }
 
-@media (max-width: 600px) { h1 { font-size: 1.25rem; } }
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.25rem;
+  } 
+}
