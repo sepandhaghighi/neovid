@@ -9,59 +9,70 @@ body {
   margin: 0;
   padding: 2rem 1rem;
 }
-h1 { font-size: 1.5rem; margin-bottom: 0.5rem; text-align: center; }
+h1 {font-size: 1.5rem; margin-bottom: 0.5rem; text-align: center; }
 .version { font-size: 0.85rem; color: #666; margin-bottom: 1rem; }
+
 .notice {
   background: #fff3cd; color: #856404;
   border: 1px solid #ffeeba; border-radius: 0.5rem;
   padding: 0.75rem 1rem; font-size: 0.9rem;
   max-width: 600px; margin-bottom: 1.5rem;
 }
+
 form {
   display: flex; flex-direction: column; width: 100%;
   max-width: 400px; gap: 0.75rem; margin-bottom: 1.5rem;
 }
+
 .switch-container {
   display: flex; align-items: center; gap: 0.5rem;
 }
+
 input[type="url"], input[type="file"], select {
   padding: 0.75rem; border-radius: 0.5rem;
   border: 1px solid #ccc; font-size: 1rem;
 }
-#videoUrl, #videoFile {
+
+#video-url, #video-file {
     width: 90%;
     margin-top: 7px;
 }
-#subtitleUrl, #subtitleFile {
+
+#subtitle-url, #subtitle-file {
     width: 90%;
     margin-top: 7px;
 }
+
 button {
   padding: 0.75rem; font-size: 1rem; border: none;
   border-radius: 0.5rem; background-color: #007bff;
   color: white; cursor: pointer; transition: background 0.2s;
 }
 button:hover { background-color: #0056b3; }
+
 video {
   width: 100%; max-width: 600px;
   border-radius: 0.75rem; background: #000;
 }
-#recentList { margin-top: 1.5rem; width: 100%; max-width: 600px; }
-#recentList h3 { font-size: 1rem; margin-bottom: 0.5rem; }
-#recentList ul {
+#recent-list { margin-top: 1.5rem; width: 100%; max-width: 600px; }
+#recent-list h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+
+#recent-list ul {
   list-style: none; padding: 0; margin: 0;
   background: #fff; border: 1px solid #ddd;
   border-radius: 0.5rem; overflow: hidden;
 }
-#recentList li {
+
+#recent-list li {
   padding: 0.5rem 0.75rem; border-bottom: 1px solid #eee;
   font-size: 0.9rem; cursor: pointer;
   display: flex; justify-content: space-between; align-items: center;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
-#recentList li:last-child { border-bottom: none; }
-#recentList li:hover { background: #f2f2f2; }
+#recent-list li:last-child { border-bottom: none; }
+#recent-list li:hover { background: #f2f2f2; }
 .progress { font-size: 0.8rem; color: #555; flex-shrink: 0; margin-left: 0; }
 .local-tag,.url-tag { color: #888; font-size: 0.8rem; margin-left: 0.5rem; }
 footer {margin-bottom: 1rem; margin-top: 2rem; font-size: 0.85rem; color: #777; position:relative;}
+
 @media (max-width: 600px) { h1 { font-size: 1.25rem; } }
