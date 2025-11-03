@@ -9,7 +9,7 @@ const subtitleFile = document.getElementById("subtitle-file");
 const subtitleLoadSelect = document.getElementById("subtitle-load-type");
 
 
-const player = document.getElementById("videoPlayer");
+const player = document.getElementById("video-player");
 const recentItems = document.getElementById("recent-items");
 const recentKey = "recentVideos";
 
