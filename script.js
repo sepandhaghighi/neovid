@@ -1,7 +1,7 @@
 const form = document.getElementById("video-form");
 const videoUrl = document.getElementById("video-url");
 const videoFile = document.getElementById("video-file");
-const videoLoadSelect = document.getElementById("videoLoadType");
+const videoLoadSelect = document.getElementById("video-load-type");
 
 
 const subtitleUrl = document.getElementById("subtitle-url");
