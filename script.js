@@ -1,4 +1,4 @@
-const form = document.getElementById("videoForm");
+const form = document.getElementById("video-form");
 const videoUrl = document.getElementById("video-url");
 const videoFile = document.getElementById("video-file");
 const videoLoadSelect = document.getElementById("videoLoadType");
