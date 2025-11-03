@@ -10,7 +10,7 @@ const subtitleLoadSelect = document.getElementById("subtitle-load-type");
 
 
 const player = document.getElementById("videoPlayer");
-const recentItems = document.getElementById("recentItems");
+const recentItems = document.getElementById("recent-items");
 const recentKey = "recentVideos";
 
 let currentVideo = null;
