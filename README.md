@@ -1,6 +1,6 @@
 <div align="center">
     <img src="https://github.com/sepandhaghighi/neovid/raw/main/assets/logo.png" alt="Neovid Logo" width="220">
-    <h1>🎬 Neovid : Minimal Web Video Player</h1>
+    <h1>🎬 Neovid: Minimal Web Video Player</h1>
     <br/>
     <a href="https://neovid.top"><img src="https://img.shields.io/badge/demo-neovid.top-green.svg"></a>
     <a href="https://github.com/sepandhaghighi/neovid"><img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/sepandhaghighi/neovid"></a>

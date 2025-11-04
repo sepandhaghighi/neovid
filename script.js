@@ -1,16 +1,16 @@
-const form = document.getElementById("videoForm");
+const form = document.getElementById("video-form");
 const videoUrl = document.getElementById("video-url");
 const videoFile = document.getElementById("video-file");
-const videoLoadSelect = document.getElementById("videoLoadType");
+const videoLoadSelect = document.getElementById("video-load-type");
 
 
 const subtitleUrl = document.getElementById("subtitle-url");
 const subtitleFile = document.getElementById("subtitle-file");
-const subtitleLoadSelect = document.getElementById("subtitleLoadType");
+const subtitleLoadSelect = document.getElementById("subtitle-load-type");
 
 
-const player = document.getElementById("videoPlayer");
-const recentItems = document.getElementById("recentItems");
+const player = document.getElementById("video-player");
+const recentItems = document.getElementById("recent-items");
 const recentKey = "recentVideos";
 
 let currentVideo = null;
