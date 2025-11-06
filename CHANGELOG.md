@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - `README.md` updated
 - Title updated
+- Video load hover bug fixed
+- Subtitle load hover bug fixed
 ## [0.2] - 2025-10-31
 ### Added
 - Video resume support
