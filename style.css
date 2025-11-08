@@ -60,6 +60,14 @@ input[type="url"], input[type="file"], select {
     margin-top: 7px;
 }
 
+#video-load-type:hover {
+    cursor: pointer;
+}
+
+#subtitle-load-type:hover {
+    cursor: pointer;
+}
+
 #subtitle-url, #subtitle-file {
     width: 90%;
     margin-top: 7px;
