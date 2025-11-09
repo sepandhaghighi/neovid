@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - 404 page
+- Query string loader for video and subtitle parameters
 ### Changed
 - `README.md` updated
 - Title updated
