@@ -17,6 +17,21 @@ let currentVideo = null;
 let currentType = "url";
 let currentTitle = "";
 
+function loadFromQuery() {
+  const query = window.location.search.substring(1);
+  if (!query) return;
+  const videoMatch = query.match(/(?:^|&)video=([^&]*)/);
+  const subtitleMatch = query.match(/(?:^|&)subtitle=([^&]*)/);
+  const videoUrlQuery = videoMatch ? decodeURIComponent(videoMatch[1]) : null;
+  const subtitleUrlQuery = subtitleMatch ? decodeURIComponent(subtitleMatch[1]) : null;
+  if (videoUrlQuery){
+    videoUrl.value = videoUrlQuery;
+  }
+  if (subtitleUrlQuery){
+    subtitleUrl.value = subtitleUrlQuery;
+  }
+}
+
 function truncateTitle(title, maxLength = 24) {
   if (!title) return "";
   return title.length > maxLength ? title.slice(0, maxLength - 3) + "..." : title;
@@ -194,4 +209,5 @@ form.addEventListener("submit", function(e){
 // ---------- Progress update ----------
 player.addEventListener("timeupdate", updateProgress);
 player.addEventListener("loadedmetadata", loadPlayerTime);
+window.addEventListener("DOMContentLoaded", loadFromQuery);
 window.addEventListener("DOMContentLoaded", renderRecent);
