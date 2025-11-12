@@ -19,7 +19,7 @@ SECURITY_ITEMS = ["| {0}           | :white_check_mark: |", "| < {0}         | :
 FILES = {
     "index.html": INDEX_ITEMS,
     "CHANGELOG.md": CHANGELOG_ITEMS,
-    #"SECURITY.md": SECURITY_ITEMS,
+    "SECURITY.md": SECURITY_ITEMS,
     os.path.join(
         ".github",
         "ISSUE_TEMPLATE",
