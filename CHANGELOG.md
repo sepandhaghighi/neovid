@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Query string loader for video and subtitle parameters
 - `sitemap.xml`
 - `robots.txt`
+- `SECURITY.md`
 ### Changed
 - `README.md` updated
 - Title updated
