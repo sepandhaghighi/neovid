@@ -10,7 +10,7 @@ VERSION = "0.2"
 INDEX_ITEMS = ['<div class="version">Version {0}</div>']
 CHANGELOG_ITEMS = [
     "## [{0}]",
-    "https://github.com/sepandhaghighi/neovid/compare/v{0}...dev",
+    "https://github.com/sepandhaghighi/neovid/compare/v{0}...main",
     "[{0}]:"]
 
 ISSUE_TEMPLATE_ITEMS = ["- Neovid {0}"]
