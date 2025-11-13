@@ -1,0 +1,64 @@
+# -*- coding: utf-8 -*-
+"""Version-check script."""
+import os
+import sys
+import codecs
+
+Failed = 0
+VERSION = "0.2"
+
+INDEX_ITEMS = ['<div class="version">Version {0}</div>']
+CHANGELOG_ITEMS = [
+    "## [{0}]",
+    "https://github.com/sepandhaghighi/neovid/compare/v{0}...main",
+    "[{0}]:"]
+
+ISSUE_TEMPLATE_ITEMS = ["- Neovid {0}"]
+SECURITY_ITEMS = ["| {0}           | :white_check_mark: |", "| < {0}         | :x:                |"]
+
+FILES = {
+    "index.html": INDEX_ITEMS,
+    "CHANGELOG.md": CHANGELOG_ITEMS,
+    "SECURITY.md": SECURITY_ITEMS,
+    os.path.join(
+        ".github",
+        "ISSUE_TEMPLATE",
+        "bug_report.yml"): ISSUE_TEMPLATE_ITEMS,
+}
+
+TEST_NUMBER = len(FILES)
+
+
+def print_result(failed: bool = False) -> None:
+    """
+    Print final result.
+
+    :param failed: failed flag
+    """
+    message = "Version tag tests "
+    if not failed:
+        print("\n" + message + "passed!")
+    else:
+        print("\n" + message + "failed!")
+    print("Passed : " + str(TEST_NUMBER - Failed) + "/" + str(TEST_NUMBER))
+
+
+if __name__ == "__main__":
+    for file_name in FILES:
+        try:
+            file_content = codecs.open(
+                file_name, "r", "utf-8", "ignore").read()
+            for test_item in FILES[file_name]:
+                if file_content.find(test_item.format(VERSION)) == -1:
+                    print("Incorrect version tag in " + file_name)
+                    Failed += 1
+                    break
+        except Exception as e:
+            Failed += 1
+            print("Error in " + file_name + "\n" + "Message : " + str(e))
+    if Failed == 0:
+        print_result(False)
+        sys.exit(0)
+    else:
+        print_result(True)
+        sys.exit(1)
