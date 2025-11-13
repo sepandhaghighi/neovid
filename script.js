@@ -12,6 +12,7 @@ const subtitleLoadSelect = document.getElementById("subtitle-load-type");
 const player = document.getElementById("video-player");
 const recentItems = document.getElementById("recent-items");
 const recentKey = "recentVideos";
+const recentSize = 10;
 
 let currentVideo = null;
 let currentType = "url";
@@ -72,7 +73,7 @@ function saveRecent(title, video, videoType, subtitle="", subtitleType="url", pr
   recent = recent.filter(item => !(item.title===title));
 
   recent.unshift({title, video, videoType, subtitle, subtitleType, progress});
-  if(recent.length>5) recent = recent.slice(0,5);
+  if(recent.length>recentSize) recent = recent.slice(0,recentSize);
 
   localStorage.setItem(recentKey, JSON.stringify(recent));
   renderRecent();
