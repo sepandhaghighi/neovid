@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `SECURITY.md`
 ### Changed
 - `README.md` updated
+- Logo updated
 - Title updated
 - Video load hover bug fixed
 - Subtitle load hover bug fixed
