@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - [Statcounter](https://statcounter.com/) script
+### Changed
+- Reloading bug fixed
+- `saveRecent` function bug fixed
 ## [0.3] - 2025-11-17
 ### Added
 - 404 page
