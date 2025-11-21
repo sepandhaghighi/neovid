@@ -148,7 +148,7 @@ function renderRecent(){
     li.addEventListener("click", ()=>{
       if(item.videoType==="url" && (!item.subtitle || item.subtitleType==="url")){
         playVideo(item.video, item.subtitle, item.title, item.videoType);
-        saveRecent(item.title, item.video, item.videoType, item.subtitle, item.subtitleType, item.progress);
+        saveRecent(item.title, item.video, item.videoType, item.subtitle, item.subtitleType);
         videoUrl.value = item.video;
         if (item.subtitle && item.subtitleType==="url"){
             subtitleUrl.value = item.subtitle;
@@ -208,7 +208,7 @@ form.addEventListener("submit", function(e){
   playVideo(videoSrc, subSrc, videoTitle, videoType);
 
 
-  saveRecent(videoTitle, videoSrc, videoType, subSrc, subType, 0);
+  saveRecent(videoTitle, videoSrc, videoType, subSrc, subType);
 });
 
 // ---------- Progress update ----------
