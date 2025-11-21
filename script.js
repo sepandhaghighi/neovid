@@ -66,9 +66,13 @@ function playVideo(src, subtitle = "", title = null, type = "url") {
 }
 
 
-function saveRecent(title, video, videoType, subtitle="", subtitleType="url", progress=0){
+function saveRecent(title, video, videoType, subtitle="", subtitleType="url"){
   let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
-
+  let progress = 0;
+  const idx = recent.findIndex(item => item.title===title);
+  if(idx!==-1){
+    progress = recent[idx].progress;
+  }
 
   recent = recent.filter(item => !(item.title===title));
 
