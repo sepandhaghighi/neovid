@@ -146,15 +146,11 @@ function renderRecent(){
     li.appendChild(spanProgress);
 
     li.addEventListener("click", ()=>{
-      if(item.videoType==="url" && (!item.subtitle || item.subtitleType==="url")){
-        playVideo(item.video, item.subtitle, item.title, item.videoType);
-        saveRecent(item.title, item.video, item.videoType, item.subtitle, item.subtitleType);
+      if(item.videoType==="url"){
         videoUrl.value = item.video;
-        if (item.subtitle && item.subtitleType==="url"){
-            subtitleUrl.value = item.subtitle;
-        }
-      } else {
-        alert("Please reselect the local video/subtitle to play it again.");
+      }
+      if (item.subtitle && item.subtitleType==="url"){
+        subtitleUrl.value = item.subtitle;
       }
     });
 
