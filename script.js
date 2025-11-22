@@ -149,8 +149,18 @@ function renderRecent(){
       if(item.videoType==="url"){
         videoUrl.value = item.video;
       }
-      if (item.subtitle && item.subtitleType==="url"){
-        subtitleUrl.value = item.subtitle;
+      else{
+        videoUrl.value = "";
+        alert("Please reselect the local video.");
+      }
+      if (item.subtitle){
+        if (item.subtitleType==="url"){
+          subtitleUrl.value = item.subtitle;    
+        }
+        else{
+          subtitleUrl.value = "";
+          alert("Please reselect the local subtitle.");
+        }
       }
     });
 
