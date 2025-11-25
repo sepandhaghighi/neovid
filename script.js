@@ -18,6 +18,11 @@ let currentVideo = null;
 let currentType = "url";
 let currentTitle = "";
 
+function getProgressBackground(progress) {
+  const p = Math.max(0, Math.min(progress, 100));
+  return  `linear-gradient(to right, #c3fcc3, #41fc41) 0 0 / ${p}% 100% no-repeat`;
+}
+
 function loadFromQuery() {
   const query = window.location.search.substring(1);
   if (!query) return;
@@ -113,6 +118,7 @@ function renderRecent(){
   recent.forEach(item=>{
     const li = document.createElement("li");
     const spanTitle = document.createElement("span");
+    li.style.background = getProgressBackground(item.progress);
     spanTitle.textContent=truncateTitle(item.title, maxLimit);
     if(item.videoType==="url"){
       const tag = document.createElement("span");
