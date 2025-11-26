@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Reloading bug fixed
 - `saveRecent` function bug fixed
+- Video form scroll bug fixed
 ## [0.3] - 2025-11-17
 ### Added
 - 404 page
