@@ -152,8 +152,10 @@ function renderRecent(){
     li.appendChild(spanProgress);
 
     li.addEventListener("click", ()=>{
+      let isDataLoaded = false;
       if(item.videoType==="url"){
         videoUrl.value = item.video;
+        isDataLoaded = true;
       }
       else{
         videoUrl.value = "";
@@ -161,12 +163,16 @@ function renderRecent(){
       }
       if (item.subtitle){
         if (item.subtitleType==="url"){
-          subtitleUrl.value = item.subtitle;    
+          subtitleUrl.value = item.subtitle;
+          isDataLoaded = true;   
         }
         else{
           subtitleUrl.value = "";
           alert("Please reselect the local subtitle.");
         }
+      }
+      if (isDataLoaded){
+        form.scrollIntoView({"behavior": "smooth"});
       }
     });
 
