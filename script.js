@@ -147,7 +147,7 @@ function renderRecent(){
     if(item.progress>=97){
       const tag = document.createElement("span");
       tag.className="completed-tag";
-      tag.textContent="✅";
+      tag.textContent="✔️";
       spanTitle.appendChild(tag);
     }
     const spanProgress = document.createElement("span");
