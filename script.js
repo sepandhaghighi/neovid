@@ -151,7 +151,7 @@ function renderRecent(){
       spanTitle.appendChild(tag);
     }
     const spanProgress = document.createElement("span");
-    spanProgress.className="progress";
+    spanProgress.className="recent-progress";
     spanProgress.textContent = `${item.progress||0}%`;
 
     li.appendChild(spanTitle);

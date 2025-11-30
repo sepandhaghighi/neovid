@@ -142,7 +142,7 @@ video {
   background: #f2f2f2;
 }
 
-.progress {
+.recent-progress {
   font-size: 0.8rem;
   color: #555;
   flex-shrink: 0;
