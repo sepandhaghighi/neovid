@@ -125,7 +125,6 @@ video {
   padding: 0.5rem 0.75rem;
   border-bottom: 1px solid #eee;
   font-size: 0.9rem;
-  cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -147,6 +146,14 @@ video {
   color: #555;
   flex-shrink: 0;
   margin-left: 0;
+}
+
+.recent-remove:hover{
+  cursor: pointer;
+}
+
+.recent-title:hover{
+  cursor: pointer;
 }
 
 .local-tag,.url-tag,.completed-tag {
