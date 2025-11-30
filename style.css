@@ -149,7 +149,7 @@ video {
   margin-left: 0;
 }
 
-.local-tag,.url-tag {
+.local-tag,.url-tag,.completed-tag {
   color: #888;
   font-size: 0.8rem;
   margin-left: 0.5rem;

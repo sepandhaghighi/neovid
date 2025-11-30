@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - [Statcounter](https://statcounter.com/) script
 - Video progress background
+- `Completed Video` sign
 ### Changed
 - Reloading bug fixed
 - `saveRecent` function bug fixed
