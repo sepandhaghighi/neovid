@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - [Statcounter](https://statcounter.com/) script
 - Video progress background
 - `Completed Video` sign
-- `Remove` button added
+- `Remove` button
 ### Changed
 - Reloading bug fixed
 - `saveRecent` function bug fixed
