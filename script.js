@@ -118,8 +118,12 @@ function renderRecent(){
   recent.forEach(item=>{
     const li = document.createElement("li");
     const spanTitle = document.createElement("span");
+    const spanRemove = document.createElement("span");
     li.style.background = getProgressBackground(item.progress);
-    spanTitle.textContent=truncateTitle(item.title, maxLimit);
+    spanTitle.textContent = truncateTitle(item.title, maxLimit);
+    spanTitle.className = "recent-title";
+    spanRemove.textContent = "🗑️";
+    spanRemove.className = "recent-remove";
     if(item.videoType==="url"){
       const tag = document.createElement("span");
       tag.className="url-tag";
@@ -151,13 +155,20 @@ function renderRecent(){
       spanTitle.appendChild(tag);
     }
     const spanProgress = document.createElement("span");
-    spanProgress.className="progress";
+    spanProgress.className="recent-progress";
     spanProgress.textContent = `${item.progress||0}%`;
 
+    li.appendChild(spanRemove);
     li.appendChild(spanTitle);
     li.appendChild(spanProgress);
 
-    li.addEventListener("click", ()=>{
+    spanRemove.addEventListener("click", ()=>{
+      let newRecent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+      newRecent = newRecent.filter(recentItem => !(recentItem.title===item.title));
+      localStorage.setItem(recentKey, JSON.stringify(newRecent));
+      renderRecent();
+    });
+    spanTitle.addEventListener("click", ()=>{
       let isDataLoaded = false;
       if(item.videoType==="url"){
         videoUrl.value = item.video;
