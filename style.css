@@ -152,6 +152,11 @@ video {
   cursor: pointer;
 }
 
+.recent-title{
+  margin-right: auto;
+  margin-left: 3px;
+}
+
 .recent-title:hover{
   cursor: pointer;
 }
