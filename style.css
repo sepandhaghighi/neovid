@@ -124,7 +124,7 @@ video {
 #recent-list li {
   padding: 0.5rem 0.75rem;
   border-bottom: 1px solid #eee;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -142,7 +142,6 @@ video {
 }
 
 .recent-progress {
-  font-size: 0.8rem;
   color: #555;
   flex-shrink: 0;
   margin-left: 0;
@@ -163,8 +162,7 @@ video {
 
 .local-tag,.url-tag,.completed-tag {
   color: #888;
-  font-size: 0.8rem;
-  margin-left: 0.5rem;
+  margin-left: 0.4rem;
 }
 
 footer {
