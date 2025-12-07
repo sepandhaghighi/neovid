@@ -165,6 +165,17 @@ video {
   margin-left: 0.4rem;
 }
 
+.watch-time-container {
+  font-size: 1rem;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+#watch-time-label {
+  font-weight: bold;
+}
+
 footer {
   margin-bottom: 1rem;
   margin-top: 2rem;
