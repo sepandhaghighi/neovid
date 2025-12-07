@@ -11,12 +11,38 @@ const subtitleLoadSelect = document.getElementById("subtitle-load-type");
 
 const player = document.getElementById("video-player");
 const recentItems = document.getElementById("recent-items");
+const watchTime = document.getElementById("watch-time");
 const recentKey = "recentVideos";
+const watchTimeKey = "watchTime";
 const recentSize = 10;
 
 let currentVideo = null;
 let currentType = "url";
 let currentTitle = "";
+let lastStart = null;
+
+function formatTime(totalSeconds) {
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  return (
+    String(hours).padStart(2, "0") + ":" +
+    String(minutes).padStart(2, "0") + ":" +
+    String(seconds).padStart(2, "0")
+  );
+}
+
+function updateWatchTime() {
+  let accumulated = parseInt(localStorage.getItem(watchTimeKey) || "0", 10);
+  if (lastStart !== null) {
+    const delta = Math.floor((Date.now() - lastStart) / 1000);
+    accumulated += delta;
+    localStorage.setItem(watchTimeKey, accumulated);
+    lastStart = null;
+  }
+  watchTime.textContent = formatTime(accumulated);
+}
 
 function getProgressBackground(progress) {
   const p = Math.max(0, Math.min(progress, 100));
@@ -244,8 +270,14 @@ form.addEventListener("submit", function(e){
   saveRecent(videoTitle, videoSrc, videoType, subSrc, subType);
 });
 
-// ---------- Progress update ----------
+updateWatchTime();
+player.addEventListener("play", () => {
+        lastStart = Date.now();
+    });
 player.addEventListener("timeupdate", updateProgress);
 player.addEventListener("loadedmetadata", loadPlayerTime);
+player.addEventListener("pause", updateWatchTime);
+player.addEventListener("ended", updateWatchTime);
 window.addEventListener("DOMContentLoaded", loadFromQuery);
 window.addEventListener("DOMContentLoaded", renderRecent);
+window.addEventListener("beforeunload", updateWatchTime);
