@@ -187,10 +187,13 @@ function renderRecent(){
     li.appendChild(spanProgress);
 
     spanRemove.addEventListener("click", ()=>{
-      let newRecent = JSON.parse(localStorage.getItem(recentKey) || "[]");
-      newRecent = newRecent.filter(recentItem => !(recentItem.title===item.title));
-      localStorage.setItem(recentKey, JSON.stringify(newRecent));
-      renderRecent();
+      const userConfirmed = confirm("Are you sure you want to remove this video?");
+      if (userConfirmed){
+        let newRecent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+        newRecent = newRecent.filter(recentItem => !(recentItem.title===item.title));
+        localStorage.setItem(recentKey, JSON.stringify(newRecent));
+        renderRecent();
+      }
     });
     spanTitle.addEventListener("click", ()=>{
       let isDataLoaded = false;
