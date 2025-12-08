@@ -124,7 +124,7 @@ video {
 #recent-list li {
   padding: 0.5rem 0.75rem;
   border-bottom: 1px solid #eee;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -163,6 +163,17 @@ video {
 .local-tag,.url-tag,.completed-tag {
   color: #888;
   margin-left: 0.4rem;
+}
+
+.watch-time-container {
+  font-size: 1rem;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+#watch-time-label {
+  font-weight: bold;
 }
 
 footer {
