@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Watch time
+- Remove confirmation dialog
 ### Changed
 - `renderRecent` function updated
 ## [0.4] - 2025-12-02
