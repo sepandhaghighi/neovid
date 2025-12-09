@@ -187,10 +187,13 @@ function renderRecent(){
     li.appendChild(spanProgress);
 
     spanRemove.addEventListener("click", ()=>{
-      let newRecent = JSON.parse(localStorage.getItem(recentKey) || "[]");
-      newRecent = newRecent.filter(recentItem => !(recentItem.title===item.title));
-      localStorage.setItem(recentKey, JSON.stringify(newRecent));
-      renderRecent();
+      const userConfirmed = confirm("Are you sure you want to remove this video?");
+      if (userConfirmed){
+        let newRecent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+        newRecent = newRecent.filter(recentItem => !(recentItem.title===item.title));
+        localStorage.setItem(recentKey, JSON.stringify(newRecent));
+        renderRecent();
+      }
     });
     spanTitle.addEventListener("click", ()=>{
       let isDataLoaded = false;
@@ -270,7 +273,6 @@ form.addEventListener("submit", function(e){
   saveRecent(videoTitle, videoSrc, videoType, subSrc, subType);
 });
 
-updateWatchTime();
 player.addEventListener("play", () => {
         lastStart = Date.now();
     });
@@ -280,4 +282,5 @@ player.addEventListener("pause", updateWatchTime);
 player.addEventListener("ended", updateWatchTime);
 window.addEventListener("DOMContentLoaded", loadFromQuery);
 window.addEventListener("DOMContentLoaded", renderRecent);
+window.addEventListener("DOMContentLoaded", updateWatchTime);
 window.addEventListener("beforeunload", updateWatchTime);
