@@ -9,7 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Watch time
 - Remove confirmation dialog
 ### Changed
+- Recent plays history size changed to 20
 - `renderRecent` function updated
+- `README.md` updated
 ## [0.4] - 2025-12-02
 ### Added
 - [Statcounter](https://statcounter.com/) script
