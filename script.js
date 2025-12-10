@@ -14,7 +14,7 @@ const recentItems = document.getElementById("recent-items");
 const watchTime = document.getElementById("watch-time");
 const recentKey = "recentVideos";
 const watchTimeKey = "watchTime";
-const recentSize = 10;
+const recentSize = 20;
 
 let currentVideo = null;
 let currentType = "url";
