@@ -282,14 +282,12 @@ form.addEventListener("submit", function(e){
   saveRecent(videoTitle, videoSrc, videoType, subSrc, subType);
 });
 
-player.addEventListener("play", () => {
-        lastStart = Date.now();
-    });
+
 player.addEventListener("timeupdate", updateProgress);
+player.addEventListener("timeupdate", updateWatchTime);
 player.addEventListener("loadedmetadata", loadPlayerTime);
-player.addEventListener("pause", updateWatchTime);
-player.addEventListener("ended", updateWatchTime);
 window.addEventListener("DOMContentLoaded", loadFromQuery);
 window.addEventListener("DOMContentLoaded", renderRecent);
-window.addEventListener("DOMContentLoaded", updateWatchTime);
-window.addEventListener("beforeunload", updateWatchTime);
+window.addEventListener("DOMContentLoaded", () => {
+  watchTime.textContent = formatTime(totalWatchTime);
+});
