@@ -19,7 +19,9 @@ const recentSize = 20;
 let currentVideo = null;
 let currentType = "url";
 let currentTitle = "";
-let lastStart = null;
+let videoLastTime = null;
+let totalWatchTime = parseInt(localStorage.getItem(watchTimeKey) || "0", 10);
+let accumulatedWatchTime = 0;
 
 function formatTime(totalSeconds) {
   const hours = Math.floor(totalSeconds / 3600);
@@ -34,14 +36,21 @@ function formatTime(totalSeconds) {
 }
 
 function updateWatchTime() {
-  let accumulated = parseInt(localStorage.getItem(watchTimeKey) || "0", 10);
-  if (lastStart !== null) {
-    const delta = Math.floor((Date.now() - lastStart) / 1000);
-    accumulated += delta;
-    localStorage.setItem(watchTimeKey, accumulated);
-    lastStart = null;
+  const videoCurrentTime = player.currentTime;
+  if (videoLastTime !== null) {
+    const diff = videoCurrentTime - videoLastTime;
+    if (diff > 0 && diff < 5) {
+      accumulatedWatchTime += diff;
+      while (accumulatedWatchTime >= 1) {
+        totalWatchTime += 1;
+        accumulatedWatchTime -= 1;
+        localStorage.setItem(watchTimeKey, totalWatchTime);
+        watchTime.textContent = formatTime(totalWatchTime);
+        
+      }
+    }
   }
-  watchTime.textContent = formatTime(accumulated);
+  videoLastTime = videoCurrentTime;
 }
 
 function getProgressBackground(progress) {
@@ -273,14 +282,12 @@ form.addEventListener("submit", function(e){
   saveRecent(videoTitle, videoSrc, videoType, subSrc, subType);
 });
 
-player.addEventListener("play", () => {
-        lastStart = Date.now();
-    });
+
 player.addEventListener("timeupdate", updateProgress);
+player.addEventListener("timeupdate", updateWatchTime);
 player.addEventListener("loadedmetadata", loadPlayerTime);
-player.addEventListener("pause", updateWatchTime);
-player.addEventListener("ended", updateWatchTime);
 window.addEventListener("DOMContentLoaded", loadFromQuery);
 window.addEventListener("DOMContentLoaded", renderRecent);
-window.addEventListener("DOMContentLoaded", updateWatchTime);
-window.addEventListener("beforeunload", updateWatchTime);
+window.addEventListener("DOMContentLoaded", () => {
+  watchTime.textContent = formatTime(totalWatchTime);
+});
