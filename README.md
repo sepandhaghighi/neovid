@@ -31,6 +31,7 @@ It supports both online and local video playback with optional subtitles.
 - **Recent plays history** (tracks last 20 videos)  
 - **Progress tracking**: remembers last watched percentage per video
 - **Query string loader**: automatically loads video and subtitle URLs from `video=` and `subtitle=` parameters
+- **Watch time**: tracks total time spent watching videos
 
 ## Usage
 
