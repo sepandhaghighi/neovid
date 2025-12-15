@@ -287,8 +287,8 @@ player.addEventListener("timeupdate", () => {
   updateWatchTime();
 });
 player.addEventListener("loadedmetadata", loadPlayerTime);
-window.addEventListener("DOMContentLoaded", loadFromQuery);
-window.addEventListener("DOMContentLoaded", renderRecent);
 window.addEventListener("DOMContentLoaded", () => {
   watchTime.textContent = formatTime(totalWatchTime);
+  loadFromQuery();
+  renderRecent();
 });
