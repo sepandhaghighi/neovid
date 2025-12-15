@@ -282,9 +282,10 @@ form.addEventListener("submit", function(e){
   saveRecent(videoTitle, videoSrc, videoType, subSrc, subType);
 });
 
-
-player.addEventListener("timeupdate", updateProgress);
-player.addEventListener("timeupdate", updateWatchTime);
+player.addEventListener("timeupdate", () => {
+  updateProgress();
+  updateWatchTime();
+});
 player.addEventListener("loadedmetadata", loadPlayerTime);
 window.addEventListener("DOMContentLoaded", loadFromQuery);
 window.addEventListener("DOMContentLoaded", renderRecent);
