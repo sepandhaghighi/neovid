@@ -45,5 +45,11 @@ It supports both online and local video playback with optional subtitles.
 3. Click **Play Video**
 
 ### Recent Plays
-- Neovid automatically saves the **last 5 videos** and your **view progress**
+- Neovid automatically saves the **last 20 videos** and your **view progress**
 - Data is stored locally in your browser (no server involved)
+
+## Issues & Bug Reports
+
+Just fill an issue and describe it. We'll check it ASAP! or send an email to [info@neovid.top](mailto:info@neovid.top "info@neovid.top"). 
+
+- Please complete the issue template
