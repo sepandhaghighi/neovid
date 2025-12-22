@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changed
 - `README.md` updated
+- `404.html` links bug fixed
 ## [0.5] - 2025-12-17
 ### Added
 - Watch time
