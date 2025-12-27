@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - `CODE_OF_CONDUCT.md`
+- Skip button
 ### Changed
 - `README.md` updated
 - `404.html` links bug fixed

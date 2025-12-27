@@ -63,7 +63,10 @@ Embedded subtitles inside video files are not supported.
   <button type="submit">► Play Video</button>
 </form>
 
-<video id="video-player" controls preload="auto"></video>
+<div class="video-wrapper">
+  <video id="video-player" controls preload="auto"></video>
+  <button id="skip-button">⏭️ Skip Ending</button>
+</div>
 
 <div class="watch-time-container">
   <p id="watch-time-label">Total Watch Time</p>
