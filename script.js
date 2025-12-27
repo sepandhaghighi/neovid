@@ -190,6 +190,7 @@ function renderRecent(){
 
     if(item.progress>=97){
       spanProgress.textContent = "✔️";
+      skipButton.style.display = "block";
     }
 
     li.appendChild(spanRemove);
