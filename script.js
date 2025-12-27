@@ -16,6 +16,7 @@ const watchTime = document.getElementById("watch-time");
 const recentKey = "recentVideos";
 const watchTimeKey = "watchTime";
 const recentSize = 20;
+const skipThreshold = 60;
 
 let currentVideo = null;
 let currentType = "url";
@@ -52,6 +53,17 @@ function updateWatchTime() {
     }
   }
   videoLastTime = videoCurrentTime;
+}
+
+function handleSkipButton() {
+  if (player.duration && player.currentTime) {
+    const remaining = player.duration - player.currentTime;
+    if (player.duration > 3 * skipThreshold && remaining <= skipThreshold && !player.ended) {
+      skipButton.style.display = "block";
+    } else {
+      skipButton.style.display = "none";
+    }
+  }   
 }
 
 function getProgressBackground(progress) {
@@ -190,7 +202,6 @@ function renderRecent(){
 
     if(item.progress>=97){
       spanProgress.textContent = "✔️";
-      skipButton.style.display = "block";
     }
 
     li.appendChild(spanRemove);
@@ -287,6 +298,7 @@ form.addEventListener("submit", function(e){
 player.addEventListener("timeupdate", () => {
   updateProgress();
   updateWatchTime();
+  handleSkipButton();
 });
 player.addEventListener("loadedmetadata", loadPlayerTime);
 window.addEventListener("DOMContentLoaded", () => {
