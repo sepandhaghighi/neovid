@@ -2,6 +2,7 @@ const form = document.getElementById("video-form");
 const videoUrl = document.getElementById("video-url");
 const videoFile = document.getElementById("video-file");
 const videoLoadSelect = document.getElementById("video-load-type");
+const skipButton = document.getElementById("skip-button");
 
 
 const subtitleUrl = document.getElementById("subtitle-url");
@@ -291,4 +292,11 @@ window.addEventListener("DOMContentLoaded", () => {
   watchTime.textContent = formatTime(totalWatchTime);
   loadFromQuery();
   renderRecent();
+});
+player.addEventListener("ended", () => {
+  skipButton.style.display = "none";
+});
+skipButton.addEventListener("click", () => {
+  player.currentTime = Math.max(player.duration - 0.1, 0);
+  skipButton.style.display = "none";
 });
