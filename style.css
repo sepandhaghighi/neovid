@@ -108,7 +108,7 @@ video {
 
 #skip-button {
   position: absolute;
-  bottom: 12%;
+  top: 10%;
   right: 6%;
   padding: 0.5rem 0.75rem;
   border-radius: 999px;
