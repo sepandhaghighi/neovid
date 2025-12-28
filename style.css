@@ -78,7 +78,7 @@ input[type="url"], input[type="file"], select {
     margin-top: 7px;
 }
 
-button {
+#play-button {
   padding: 0.75rem;
   font-size: 1rem;
   border: none;
@@ -89,7 +89,7 @@ button {
   transition: background 0.2s;
 }
 
-button:hover {
+#play-button:hover {
   background-color: #0056b3;
 }
 
