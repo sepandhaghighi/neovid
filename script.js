@@ -2,6 +2,7 @@ const form = document.getElementById("video-form");
 const videoUrl = document.getElementById("video-url");
 const videoFile = document.getElementById("video-file");
 const videoLoadSelect = document.getElementById("video-load-type");
+const skipButton = document.getElementById("skip-button");
 
 
 const subtitleUrl = document.getElementById("subtitle-url");
@@ -15,6 +16,7 @@ const watchTime = document.getElementById("watch-time");
 const recentKey = "recentVideos";
 const watchTimeKey = "watchTime";
 const recentSize = 20;
+const skipThreshold = 60;
 
 let currentVideo = null;
 let currentType = "url";
@@ -51,6 +53,17 @@ function updateWatchTime() {
     }
   }
   videoLastTime = videoCurrentTime;
+}
+
+function handleSkipButton() {
+  if (player.duration && player.currentTime) {
+    const remaining = player.duration - player.currentTime;
+    if (player.duration > 3 * skipThreshold && remaining <= skipThreshold && !player.ended) {
+      skipButton.style.display = "block";
+    } else {
+      skipButton.style.display = "none";
+    }
+  }   
 }
 
 function getProgressBackground(progress) {
@@ -285,10 +298,18 @@ form.addEventListener("submit", function(e){
 player.addEventListener("timeupdate", () => {
   updateProgress();
   updateWatchTime();
+  handleSkipButton();
 });
 player.addEventListener("loadedmetadata", loadPlayerTime);
 window.addEventListener("DOMContentLoaded", () => {
   watchTime.textContent = formatTime(totalWatchTime);
   loadFromQuery();
   renderRecent();
+});
+player.addEventListener("ended", () => {
+  skipButton.style.display = "none";
+});
+skipButton.addEventListener("click", () => {
+  player.currentTime = Math.max(player.duration - 0.1, 0);
+  skipButton.style.display = "none";
 });

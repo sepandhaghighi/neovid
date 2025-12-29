@@ -78,7 +78,7 @@ input[type="url"], input[type="file"], select {
     margin-top: 7px;
 }
 
-button {
+#play-button {
   padding: 0.75rem;
   font-size: 1rem;
   border: none;
@@ -89,8 +89,14 @@ button {
   transition: background 0.2s;
 }
 
-button:hover {
+#play-button:hover {
   background-color: #0056b3;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
 }
 
 video {
@@ -98,6 +104,26 @@ video {
   max-width: 600px;
   border-radius: 0.75rem;
   background: #000;
+}
+
+#skip-button {
+  position: absolute;
+  top: 10%;
+  right: 6%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
+  border: none;
+  opacity: 0.75;
+  background-color: #000;
+  color: #fff;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: none;
+  z-index: 2;
+}
+
+#skip-button:active {
+  transform: scale(0.95);
 }
 
 #recent-list {
