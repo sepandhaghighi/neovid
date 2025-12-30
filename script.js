@@ -313,3 +313,6 @@ skipButton.addEventListener("click", () => {
   player.currentTime = Math.max(player.duration - 0.1, 0);
   skipButton.style.display = "none";
 });
+window.addEventListener("resize", () => {
+  renderRecent();
+});
