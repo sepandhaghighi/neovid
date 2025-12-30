@@ -186,6 +186,33 @@ video {
   cursor: pointer;
 }
 
+.recent-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.recent-actions button {
+  flex: 1;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.75rem;
+  border-radius: 0.4rem;
+  border: 1px solid #ccc;
+  background: #f8f9fa;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.05s;
+}
+
+.recent-actions button:hover {
+  background: #e9ecef;
+  border-color: #bbb;
+}
+
+.recent-actions button:active {
+  transform: scale(0.97);
+}
+
 .local-tag,.url-tag,.completed-tag {
   color: #888;
   margin-left: 0.4rem;
