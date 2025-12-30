@@ -3,6 +3,7 @@ const videoUrl = document.getElementById("video-url");
 const videoFile = document.getElementById("video-file");
 const videoLoadSelect = document.getElementById("video-load-type");
 const skipButton = document.getElementById("skip-button");
+const exportButton = document.getElementById("export-button");
 
 
 const subtitleUrl = document.getElementById("subtitle-url");
@@ -312,6 +313,19 @@ player.addEventListener("ended", () => {
 skipButton.addEventListener("click", () => {
   player.currentTime = Math.max(player.duration - 0.1, 0);
   skipButton.style.display = "none";
+});
+exportButton.addEventListener("click", () => {
+  const data = localStorage.getItem(recentKey);
+  if (!data) {
+    alert("No recent data to export.");
+    return;
+  };
+  const blob = new Blob([data], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "neovid-recent.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
 });
 window.addEventListener("resize", () => {
   renderRecent();
