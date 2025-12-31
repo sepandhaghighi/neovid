@@ -4,6 +4,8 @@ const videoFile = document.getElementById("video-file");
 const videoLoadSelect = document.getElementById("video-load-type");
 const skipButton = document.getElementById("skip-button");
 const exportButton = document.getElementById("export-button");
+const importButton = document.getElementById("import-button");
+const recentFile = document.getElementById("recent-file");
 
 
 const subtitleUrl = document.getElementById("subtitle-url");
@@ -326,6 +328,30 @@ exportButton.addEventListener("click", () => {
   a.download = "neovid-recent.json";
   a.click();
   URL.revokeObjectURL(a.href);
+});
+importButton.addEventListener("click", () => {
+  const ok = confirm(
+    "Importing will REPLACE current recent data.\nThis action is NOT reversible.\n\nContinue?"
+  );
+  if (ok) importFile.click();
+});
+recentFile.addEventListener("change", () => {
+  const file = recentFile.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const parsed = JSON.parse(reader.result);
+      if (!Array.isArray(parsed)) throw new Error();
+      localStorage.setItem(recentKey, JSON.stringify(parsed));
+      renderRecent();
+      alert("Recent data imported successfully.");
+    } catch {
+      alert("Invalid recent data file.");
+    }
+    importFile.value = "";
+  };
+  reader.readAsText(file);
 });
 window.addEventListener("resize", () => {
   renderRecent();
