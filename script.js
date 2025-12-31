@@ -319,7 +319,7 @@ exportButton.addEventListener("click", () => {
   if (!data) {
     alert("No recent data to export.");
     return;
-  };
+  }
   const blob = new Blob([data], { type: "application/json" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
