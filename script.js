@@ -343,6 +343,19 @@ recentFile.addEventListener("change", () => {
     try {
       const parsed = JSON.parse(reader.result);
       if (!Array.isArray(parsed)) throw new Error();
+      const isValid = parsed.every(item =>
+        item &&
+        typeof item === "object" &&
+        typeof item.title === "string" &&
+        typeof item.video === "string" &&
+        (item.videoType === "url" || item.videoType === "local") &&
+        (item.subtitle === "" || typeof item.subtitle === "string") &&
+        (item.subtitleType === "url" || item.subtitleType === "local") &&
+        typeof item.progress === "number" &&
+        item.progress >= 0 &&
+        item.progress <= 100
+      );
+      if (!isValid) throw new Error();
       localStorage.setItem(recentKey, JSON.stringify(parsed));
       renderRecent();
       alert("Recent data imported successfully.");
