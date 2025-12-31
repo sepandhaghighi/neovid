@@ -248,7 +248,7 @@ function renderRecent(){
     recentItems.appendChild(li);
   });
 
-  document.getElementById("recent-list").style.display = recent.length ? "block" : "none";
+  exportButton.style.display = recent.length ? "inline-block" : "none";
 }
 
 
@@ -333,7 +333,7 @@ importButton.addEventListener("click", () => {
   const ok = confirm(
     "Importing will REPLACE current recent data.\nThis action is NOT reversible.\n\nContinue?"
   );
-  if (ok) importFile.click();
+  if (ok) recentFile.click();
 });
 recentFile.addEventListener("change", () => {
   const file = recentFile.files[0];
@@ -349,7 +349,7 @@ recentFile.addEventListener("change", () => {
     } catch {
       alert("Invalid recent data file.");
     }
-    importFile.value = "";
+    recentFile.value = "";
   };
   reader.readAsText(file);
 });
