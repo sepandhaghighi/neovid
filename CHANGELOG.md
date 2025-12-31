@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `CODE_OF_CONDUCT.md`
 - Skip button
 - Export button
+- Import button
 ### Changed
 - `README.md` updated
 - `404.html` links bug fixed
