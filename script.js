@@ -4,6 +4,8 @@ const videoFile = document.getElementById("video-file");
 const videoLoadSelect = document.getElementById("video-load-type");
 const skipButton = document.getElementById("skip-button");
 const exportButton = document.getElementById("export-button");
+const importButton = document.getElementById("import-button");
+const recentFile = document.getElementById("recent-file");
 
 
 const subtitleUrl = document.getElementById("subtitle-url");
@@ -246,7 +248,7 @@ function renderRecent(){
     recentItems.appendChild(li);
   });
 
-  document.getElementById("recent-list").style.display = recent.length ? "block" : "none";
+  exportButton.style.display = recent.length ? "inline-block" : "none";
 }
 
 
@@ -326,6 +328,43 @@ exportButton.addEventListener("click", () => {
   a.download = "neovid-recent.json";
   a.click();
   URL.revokeObjectURL(a.href);
+});
+importButton.addEventListener("click", () => {
+  const ok = confirm(
+    "Importing will REPLACE current recent data.\nThis action is NOT reversible.\n\nContinue?"
+  );
+  if (ok) recentFile.click();
+});
+recentFile.addEventListener("change", () => {
+  const file = recentFile.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const parsed = JSON.parse(reader.result);
+      if (!Array.isArray(parsed)) throw new Error();
+      const isValid = parsed.every(item =>
+        item &&
+        typeof item === "object" &&
+        typeof item.title === "string" &&
+        typeof item.video === "string" &&
+        (item.videoType === "url" || item.videoType === "local") &&
+        (item.subtitle === "" || typeof item.subtitle === "string") &&
+        (item.subtitleType === "url" || item.subtitleType === "local") &&
+        typeof item.progress === "number" &&
+        item.progress >= 0 &&
+        item.progress <= 100
+      );
+      if (!isValid) throw new Error();
+      localStorage.setItem(recentKey, JSON.stringify(parsed));
+      renderRecent();
+      alert("Recent data imported successfully.");
+    } catch {
+      alert("Invalid recent data file.");
+    }
+    recentFile.value = "";
+  };
+  reader.readAsText(file);
 });
 window.addEventListener("resize", () => {
   renderRecent();
