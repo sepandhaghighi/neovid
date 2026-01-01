@@ -28,7 +28,7 @@ It supports both online and local video playback with optional subtitles.
 - **Mobile responsive** design  
 - **Play video from URL or local file**  
 - **Subtitle support**  
-- **Recent plays history** (tracks last 20 videos)  
+- **Recent plays history** (tracks last 25 videos)  
 - **Progress tracking**: remembers last watched percentage per video
 - **Query string loader**: automatically loads video and subtitle URLs from `video=` and `subtitle=` parameters
 - **Watch time**: tracks total time spent watching videos
@@ -47,7 +47,7 @@ It supports both online and local video playback with optional subtitles.
 3. Click **Play Video**
 
 ### Recent Plays
-- Neovid automatically saves the **last 20 videos** and your **view progress**
+- Neovid automatically saves the **last 25 videos** and your **view progress**
 - Data is stored locally in your browser (no server involved)
 - You can **export** your recent plays to a file for backup or transfer
 - You can **import** a previously exported file to restore your recent plays
