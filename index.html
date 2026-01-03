@@ -65,12 +65,12 @@ Embedded subtitles inside video files are not supported.
 
 <div class="video-wrapper">
   <video id="video-player" controls preload="auto"></video>
-  <button id="skip-button">⏭️ Skip Ending</button>
+  <button id="skip-button" aria-label="Skip video ending">⏭️ Skip Ending</button>
 </div>
 
 <div class="watch-time-container">
   <p id="watch-time-label">Total Watch Time</p>
-  <p id="watch-time"></p>
+  <p id="watch-time" aria-live="polite"></p>
 </div>
 
 <div id="recent-list">
