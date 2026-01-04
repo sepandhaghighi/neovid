@@ -13,9 +13,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="apple-mobile-web-app-title" content="Neovid">
 <meta name="description" content="Neovid is a minimal, mobile-responsive, zero-dependency video player that supports online and local playback with subtitle and progress tracking.">
-<meta name="keywords" content="neovid, video player, html5 video, open source, javascript, subtitles, minimal, web app, mobile video player">
 <meta name="author" content="Sepand Haghighi">
 <meta name="robots" content="index, follow">
+<meta property="og:site_name" content="Neovid">
 <meta property="og:title" content="Neovid: Minimal Web Video Player">
 <meta property="og:description" content="Play videos instantly from the web or your device with Neovid. No dependencies. Just HTML, CSS, and JS.">
 <meta property="og:type" content="website">
@@ -46,7 +46,7 @@ Embedded subtitles inside video files are not supported.
       </select>
     </div>
     <input type="url" id="video-url" placeholder="Enter video URL">
-    <input type="file" id="video-file" accept="video/*" style="display:none">
+    <input type="file" id="video-file" accept="video/*" style="display:none" aria-label="Select local video file">
   </fieldset>
   <fieldset>
     <legend>Subtitle (optional)</legend>
@@ -58,27 +58,27 @@ Embedded subtitles inside video files are not supported.
       </select>
     </div>
     <input type="url" id="subtitle-url" placeholder="Enter subtitle URL (.vtt/.srt)">
-    <input type="file" id="subtitle-file" accept=".vtt,.srt" style="display:none">
+    <input type="file" id="subtitle-file" accept=".vtt,.srt" style="display:none" aria-label="Select local subtitle file">
   </fieldset>
   <button type="submit" id="play-button">► Play Video</button>
 </form>
 
 <div class="video-wrapper">
   <video id="video-player" controls preload="auto"></video>
-  <button id="skip-button">⏭️ Skip Ending</button>
+  <button id="skip-button" aria-label="Skip video ending">⏭️ Skip Ending</button>
 </div>
 
 <div class="watch-time-container">
   <p id="watch-time-label">Total Watch Time</p>
-  <p id="watch-time"></p>
+  <p id="watch-time" aria-live="polite"></p>
 </div>
 
 <div id="recent-list">
   <h3>Recently Played</h3>
   <div class="recent-actions">
-    <button id="export-button" type="button">⬇️ Export</button>
-    <button id="import-button" type="button">⬆️ Import</button>
-    <input id="recent-file" type="file" accept="application/json" hidden>
+    <button id="export-button" type="button" aria-label="Export recently played list">⬆️ Export</button>
+    <button id="import-button" type="button" aria-label="Import recently played list">⬇️ Import</button>
+    <input id="recent-file" type="file" accept="application/json" aria-label="Import recently played list file" hidden>
   </div>
   <div class="notice">
       <p>💾 Local Video</p>
