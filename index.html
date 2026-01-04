@@ -46,7 +46,7 @@ Embedded subtitles inside video files are not supported.
       </select>
     </div>
     <input type="url" id="video-url" placeholder="Enter video URL">
-    <input type="file" id="video-file" accept="video/*" style="display:none">
+    <input type="file" id="video-file" accept="video/*" style="display:none" aria-label="Select local video file">
   </fieldset>
   <fieldset>
     <legend>Subtitle (optional)</legend>
@@ -58,7 +58,7 @@ Embedded subtitles inside video files are not supported.
       </select>
     </div>
     <input type="url" id="subtitle-url" placeholder="Enter subtitle URL (.vtt/.srt)">
-    <input type="file" id="subtitle-file" accept=".vtt,.srt" style="display:none">
+    <input type="file" id="subtitle-file" accept=".vtt,.srt" style="display:none" aria-label="Select local subtitle file">
   </fieldset>
   <button type="submit" id="play-button">► Play Video</button>
 </form>
@@ -76,9 +76,9 @@ Embedded subtitles inside video files are not supported.
 <div id="recent-list">
   <h3>Recently Played</h3>
   <div class="recent-actions">
-    <button id="export-button" type="button">⬇️ Export</button>
-    <button id="import-button" type="button">⬆️ Import</button>
-    <input id="recent-file" type="file" accept="application/json" hidden>
+    <button id="export-button" type="button" aria-label="Export recently played list">⬇️ Export</button>
+    <button id="import-button" type="button" aria-label="Import recently played list">⬆️ Import</button>
+    <input id="recent-file" type="file" accept="application/json" aria-label="Import recently played list file" hidden>
   </div>
   <div class="notice">
       <p>💾 Local Video</p>
