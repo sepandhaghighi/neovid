@@ -85,6 +85,7 @@ body:
       label: Neovid version
       description: Which version of Neovid are you using?
       options:
+        - Neovid 0.6
         - Neovid 0.5
         - Neovid 0.4
         - Neovid 0.3
