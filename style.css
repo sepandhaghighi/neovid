@@ -228,6 +228,13 @@ video {
   font-weight: bold;
 }
 
+.recent-remove, .recent-title, .recent-progress {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
 footer {
   margin-bottom: 1rem;
   margin-top: 2rem;
