@@ -322,7 +322,8 @@ exportButton.addEventListener("click", () => {
     alert("No recent data to export.");
     return;
   }
-  let filename = prompt("File Name", "neovid-recent.json").trim()
+  let filename = prompt("File Name:", "neovid-recent.json").trim();
+  filename = filename.replaceAll(" ", "-");
   if (!filename) {
     filename = "neovid-recent.json";
   }
