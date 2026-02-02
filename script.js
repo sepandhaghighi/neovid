@@ -322,15 +322,15 @@ exportButton.addEventListener("click", () => {
     alert("No recent data to export.");
     return;
   }
-  let filename = prompt("File Name:", "neovid-recent.json").trim();
-  filename = filename.replaceAll(" ", "-");
-  if (!filename) {
-    filename = "neovid-recent.json";
+  let fileName = prompt("File Name:", "neovid-recent.json").trim();
+  fileName = fileName.replaceAll(" ", "-");
+  if (!fileName) {
+    fileName = "neovid-recent.json";
   }
   const blob = new Blob([data], { type: "application/json" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = filename;
+  a.download = fileName;
   a.click();
   URL.revokeObjectURL(a.href);
 });
