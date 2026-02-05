@@ -335,10 +335,17 @@ exportButton.addEventListener("click", () => {
   URL.revokeObjectURL(a.href);
 });
 importButton.addEventListener("click", () => {
-  const ok = confirm(
+  let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+  if (recent.length > 0) {
+    const ok = confirm(
     "Importing will REPLACE current recent data.\nThis action is NOT reversible.\n\nContinue?"
-  );
+    );
   if (ok) recentFile.click();
+  }
+  else {
+    recentFile.click();
+  }
+  
 });
 recentFile.addEventListener("change", () => {
   const file = recentFile.files[0];
