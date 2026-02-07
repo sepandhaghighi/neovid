@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Export file name dialog
 ### Changed
 - `Recently Played` section text selection disabled
+- Import button bug fixed
 ## [0.6] - 2026-01-06
 ### Added
 - `CODE_OF_CONDUCT.md`

@@ -175,6 +175,7 @@ video {
 
 .recent-remove:hover{
   cursor: pointer;
+  transform: scale(1.2);
 }
 
 .recent-title{
@@ -184,6 +185,7 @@ video {
 
 .recent-title:hover{
   cursor: pointer;
+  transform: scale(1.02);
 }
 
 .recent-actions {
