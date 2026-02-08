@@ -6,6 +6,7 @@ const skipButton = document.getElementById("skip-button");
 const exportButton = document.getElementById("export-button");
 const importButton = document.getElementById("import-button");
 const recentFile = document.getElementById("recent-file");
+const recentNotice = document.getElementById("recent-notice");
 
 
 const subtitleUrl = document.getElementById("subtitle-url");
@@ -249,6 +250,7 @@ function renderRecent(){
   });
 
   exportButton.style.display = recent.length ? "inline-block" : "none";
+  recentNotice.style.display = recent.length ? "block" : "none";
 }
 
 
