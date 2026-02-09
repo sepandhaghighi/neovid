@@ -132,9 +132,12 @@ video {
   max-width: 600px;
 }
 
-#recent-list h3 {
+#recent-header {
   font-size: 1rem;
-  margin-bottom: 0.5rem;
+  font-weight: bolder;
+  color: #000;
+  margin-bottom: 0.8rem;
+  text-align: center;
 }
 
 #recent-list ul {

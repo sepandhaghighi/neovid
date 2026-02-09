@@ -6,6 +6,7 @@ const skipButton = document.getElementById("skip-button");
 const exportButton = document.getElementById("export-button");
 const importButton = document.getElementById("import-button");
 const recentFile = document.getElementById("recent-file");
+const recentNotice = document.getElementById("recent-notice");
 
 
 const subtitleUrl = document.getElementById("subtitle-url");
@@ -139,6 +140,16 @@ function saveRecent(title, video, videoType, subtitle="", subtitleType="url"){
   renderRecent();
 }
 
+function removeRecent(title) {
+  const userConfirmed = confirm("Are you sure you want to remove this video?");
+  if (userConfirmed){
+    let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+    recent = recent.filter(item => !(item.title===title));
+    localStorage.setItem(recentKey, JSON.stringify(recent));
+    renderRecent();
+  }
+}
+
 function updateProgress(){
   if(!currentVideo || !player.duration) return;
   const percent = Math.min(100, Math.round((player.currentTime/player.duration)*100));
@@ -212,13 +223,7 @@ function renderRecent(){
     li.appendChild(spanProgress);
 
     spanRemove.addEventListener("click", ()=>{
-      const userConfirmed = confirm("Are you sure you want to remove this video?");
-      if (userConfirmed){
-        let newRecent = JSON.parse(localStorage.getItem(recentKey) || "[]");
-        newRecent = newRecent.filter(recentItem => !(recentItem.title===item.title));
-        localStorage.setItem(recentKey, JSON.stringify(newRecent));
-        renderRecent();
-      }
+      removeRecent(item.title);
     });
     spanTitle.addEventListener("click", ()=>{
       let isDataLoaded = false;
@@ -249,6 +254,7 @@ function renderRecent(){
   });
 
   exportButton.style.display = recent.length ? "inline-block" : "none";
+  recentNotice.style.display = recent.length ? "block" : "none";
 }
 
 
