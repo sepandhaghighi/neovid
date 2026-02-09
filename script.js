@@ -387,3 +387,58 @@ recentFile.addEventListener("change", () => {
 window.addEventListener("resize", () => {
   renderRecent();
 });
+
+function showUpdateAlert(registration) {
+  if (confirm("🚀 A new version is available. Reload now?")) {
+    registration.waiting.postMessage("SKIP_WAITING");
+    window.location.reload();
+  }
+}
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", async () => {
+    const reg = await navigator.serviceWorker.register("/service-worker.js");
+
+    if (reg.waiting) {
+      showUpdateAlert(reg);
+    }
+
+    reg.addEventListener("updatefound", () => {
+      const sw = reg.installing;
+      sw.addEventListener("statechange", () => {
+        if (sw.state === "installed" && navigator.serviceWorker.controller) {
+          showUpdateAlert(reg);
+        }
+      });
+    });
+  });
+}
+
+let deferredPrompt;
+let isInstalled = false;
+
+
+window.addEventListener("appinstalled", () => {
+  isInstalled = true;
+});
+
+
+window.addEventListener("beforeinstallprompt", event => {
+  event.preventDefault();
+  deferredPrompt = event;
+
+  setTimeout(() => {
+    if (!isInstalled) {
+      const install = confirm(
+        "📲 Install this app for a better offline experience?"
+      );
+
+      if (install && deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.finally(() => {
+          deferredPrompt = null;
+        });
+      }
+    }
+  }, 3000);
+});
