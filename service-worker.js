@@ -5,14 +5,14 @@ const appShell = [
   "/style.css",
   "/script.js",
   "/site.webmanifest",
-  "assets/apple-touch-icon.png",
-  "assets/logo.png",
-  "assets/og-preview.png",
-  "assets/web-app-manifest-192x192.png",
-  "assets/web-app-manifest-512x512.png",
-  "assets/favicon/favicon.svg",
-  "assets/favicon/favicon.ico",
-  "assets/favicon/favicon-96x96.png"
+  "/assets/apple-touch-icon.png",
+  "/assets/logo.png",
+  "/assets/og-preview.png",
+  "/assets/web-app-manifest-192x192.png",
+  "/assets/web-app-manifest-512x512.png",
+  "/assets/favicon/favicon.svg",
+  "/assets/favicon/favicon.ico",
+  "/assets/favicon/favicon-96x96.png"
 ];
 
 
