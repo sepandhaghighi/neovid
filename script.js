@@ -414,31 +414,40 @@ if ("serviceWorker" in navigator) {
   });
 }
 
-let deferredPrompt;
+
+let deferredPrompt = null;
 let isInstalled = false;
 
+const installButton = document.getElementById("install-button");
 
 window.addEventListener("appinstalled", () => {
   isInstalled = true;
+  deferredPrompt = null;
+  installButton.style.display = "none";
+  console.log("PWA installed");
 });
 
-
-window.addEventListener("beforeinstallprompt", event => {
+window.addEventListener("beforeinstallprompt", (event) => {
   event.preventDefault();
+
+  // Save the event
   deferredPrompt = event;
 
-  setTimeout(() => {
-    if (!isInstalled) {
-      const install = confirm(
-        "📲 Install this app for a better offline experience?"
-      );
-
-      if (install && deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.finally(() => {
-          deferredPrompt = null;
-        });
-      }
-    }
-  }, 3000);
+  if (!isInstalled) {
+    installButton.style.display = "block";
+  }
 });
+
+installButton.addEventListener("click", async () => {
+  if (!deferredPrompt) return;
+
+  deferredPrompt.prompt();
+
+  const { outcome } = await deferredPrompt.userChoice;
+
+  console.log("User choice:", outcome);
+
+  deferredPrompt = null;
+  installButton.style.display = "none";
+});
+
