@@ -391,7 +391,6 @@ window.addEventListener("resize", () => {
 function showUpdateAlert(registration) {
   if (confirm("🚀 A new version is available. Reload now?")) {
     registration.waiting.postMessage({ type: "SKIP_WAITING" });
-    window.location.reload();
   }
 }
 
@@ -410,6 +409,10 @@ if ("serviceWorker" in navigator) {
           showUpdateAlert(reg);
         }
       });
+    });
+
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      window.location.reload();
     });
   });
 }
