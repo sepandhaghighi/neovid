@@ -39,10 +39,43 @@ self.addEventListener("activate", event => {
 
 
 self.addEventListener("fetch", event => {
+  const { request } = event;
+
+  if (request.method !== "GET") return;
+
+  const url = new URL(request.url);
+  if (url.origin !== self.location.origin) return;
+
+
+  if (request.mode === "navigate") {
+    event.respondWith(
+      fetch(request)
+        .then(response => {
+          const copy = response.clone();
+          caches.open(cacheName).then(cache => cache.put(request, copy));
+          return response;
+        })
+        .catch(() => caches.match(request))
+    );
+    return;
+  }
+
+
   event.respondWith(
-    caches.match(event.request).then(res => res || fetch(event.request))
+    caches.match(request).then(cached => {
+      return (
+        cached ||
+        fetch(request).then(response => {
+          caches.open(cacheName).then(cache => {
+            cache.put(request, response.clone());
+          });
+          return response;
+        })
+      );
+    })
   );
 });
+
 
 
 self.addEventListener("message", event => {
