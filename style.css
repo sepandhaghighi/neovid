@@ -10,10 +10,17 @@ body {
   padding: 2rem 1rem;
 }
 
-#install-button {
+#install-banner {
   position: fixed;
   top: 0;
   left: 0;
+  width: 100%;
+  background: #000;
+  display: none;
+  z-index: 9999;
+}
+
+#install-button {
   width: 100%;
   padding: 12px;
   border: none;
@@ -21,13 +28,27 @@ body {
   color: #fff;
   font-size: 16px;
   cursor: pointer;
-  display: none;
-  z-index: 9999;
 }
 
 #install-button:hover {
   opacity: 0.9;
 }
+
+#close-install {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#close-install:hover {
+  opacity: 0.7;
+}
+
 
 
 h1 {
