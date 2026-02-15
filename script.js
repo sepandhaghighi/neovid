@@ -5,6 +5,9 @@ const videoLoadSelect = document.getElementById("video-load-type");
 const skipButton = document.getElementById("skip-button");
 const exportButton = document.getElementById("export-button");
 const importButton = document.getElementById("import-button");
+const installButton = document.getElementById("install-button");
+const closeInstallButton = document.getElementById("close-install");
+const installBanner = document.getElementById("install-banner");
 const recentFile = document.getElementById("recent-file");
 const recentNotice = document.getElementById("recent-notice");
 
@@ -421,12 +424,12 @@ if ("serviceWorker" in navigator) {
 let deferredPrompt = null;
 let isInstalled = false;
 
-const installButton = document.getElementById("install-button");
+
 
 window.addEventListener("appinstalled", () => {
   isInstalled = true;
   deferredPrompt = null;
-  installButton.style.display = "none";
+  installBanner.style.display = "none";
   console.log("PWA installed");
 });
 
@@ -437,7 +440,7 @@ window.addEventListener("beforeinstallprompt", (event) => {
   deferredPrompt = event;
 
   if (!isInstalled) {
-    installButton.style.display = "block";
+    installBanner.style.display = "block";
   }
 });
 
@@ -451,6 +454,10 @@ installButton.addEventListener("click", async () => {
   console.log("User choice:", outcome);
 
   deferredPrompt = null;
-  installButton.style.display = "none";
+  installBanner.style.display = "none";
+});
+
+closeInstallButton.addEventListener("click", () => {
+  installBanner.style.display = "none";
 });
 
