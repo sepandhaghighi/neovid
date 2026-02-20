@@ -229,7 +229,7 @@ video {
 
 .recent-title:hover{
   cursor: pointer;
-  transform: scale(1.02);
+  font-weight: bolder;
 }
 
 .recent-actions {
