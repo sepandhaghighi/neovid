@@ -217,7 +217,7 @@ video {
   margin-left: 0;
 }
 
-.recent-remove:hover{
+.recent-remove:hover {
   cursor: pointer;
   transform: scale(1.2);
 }
@@ -227,7 +227,7 @@ video {
   margin-left: 3px;
 }
 
-.recent-title:hover{
+.recent-title:hover {
   cursor: pointer;
   font-weight: bolder;
 }
