@@ -85,10 +85,10 @@ function loadFromQuery() {
   const subtitleMatch = query.match(/(?:^|&)subtitle=([^&]*)/);
   const videoUrlQuery = videoMatch ? decodeURIComponent(videoMatch[1]) : null;
   const subtitleUrlQuery = subtitleMatch ? decodeURIComponent(subtitleMatch[1]) : null;
-  if (videoUrlQuery){
+  if (videoUrlQuery) {
     videoUrl.value = videoUrlQuery;
   }
-  if (subtitleUrlQuery){
+  if (subtitleUrlQuery) {
     subtitleUrl.value = subtitleUrlQuery;
   }
 }
@@ -106,7 +106,7 @@ function playVideo(src, subtitle = "", title = null, type = "url") {
   sourceElement.src = src;
   player.appendChild(sourceElement);
 
-  if(subtitle){
+  if(subtitle) {
     const track = document.createElement("track");
     track.src = subtitle;
     track.kind = "subtitles";
@@ -130,7 +130,7 @@ function saveRecent(title, video, videoType, subtitle="", subtitleType="url"){
   let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
   let progress = 0;
   const idx = recent.findIndex(item => item.title===title);
-  if(idx!==-1){
+  if(idx!==-1) {
     progress = recent[idx].progress;
   }
 
@@ -145,7 +145,7 @@ function saveRecent(title, video, videoType, subtitle="", subtitleType="url"){
 
 function removeRecent(title) {
   const userConfirmed = confirm("Are you sure you want to remove this video?");
-  if (userConfirmed){
+  if (userConfirmed) {
     let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
     recent = recent.filter(item => !(item.title===title));
     localStorage.setItem(recentKey, JSON.stringify(recent));
@@ -153,30 +153,30 @@ function removeRecent(title) {
   }
 }
 
-function updateProgress(){
+function updateProgress() {
   if(!currentVideo || !player.duration) return;
   const percent = Math.min(100, Math.round((player.currentTime/player.duration)*100));
   let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
   const idx = recent.findIndex(item => item.video===currentVideo);
-  if(idx!==-1){
+  if(idx!==-1) {
     recent[idx].progress = percent;
     localStorage.setItem(recentKey, JSON.stringify(recent));
     renderRecent();
   }
 }
 
-function loadPlayerTime(){
+function loadPlayerTime() {
   if(!currentVideo || !player.duration) return;
   let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
   const idx = recent.findIndex(item => item.video===currentVideo);
-  if(idx!==-1){
+  if(idx!==-1) {
     const currentTime = (recent[idx].progress / 100) * player.duration
     player.currentTime = currentTime;
     
   }
 }
 
-function renderRecent(){
+function renderRecent() {
   const recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
   recentItems.innerHTML="";
   let maxLimit = recentItems.offsetWidth  / 11;
@@ -189,25 +189,25 @@ function renderRecent(){
     spanTitle.className = "recent-title";
     spanRemove.textContent = "🗑️";
     spanRemove.className = "recent-remove";
-    if(item.videoType==="url"){
+    if(item.videoType==="url") {
       const tag = document.createElement("span");
       tag.className="url-tag";
       tag.textContent="🌐";
       spanTitle.appendChild(tag);
     }
-    if(item.videoType==="local"){
+    if(item.videoType==="local") {
       const tag = document.createElement("span");
       tag.className="local-tag";
       tag.textContent="💾";
       spanTitle.appendChild(tag);
     }
-    if(item.subtitle && item.subtitleType==="local"){
+    if(item.subtitle && item.subtitleType==="local") {
       const tag = document.createElement("span");
       tag.className="local-tag";
       tag.textContent="📄";
       spanTitle.appendChild(tag);
     }
-    if(item.subtitle && item.subtitleType==="url"){
+    if(item.subtitle && item.subtitleType==="url") {
       const tag = document.createElement("span");
       tag.className="url-tag";
       tag.textContent="💬";
@@ -225,10 +225,10 @@ function renderRecent(){
     li.appendChild(spanTitle);
     li.appendChild(spanProgress);
 
-    spanRemove.addEventListener("click", ()=>{
+    spanRemove.addEventListener("click", () => {
       removeRecent(item.title);
     });
-    spanTitle.addEventListener("click", ()=>{
+    spanTitle.addEventListener("click", () => {
       let isDataLoaded = false;
       if(item.videoType==="url"){
         videoUrl.value = item.video;
@@ -261,20 +261,20 @@ function renderRecent(){
 }
 
 
-videoLoadSelect.addEventListener("change", ()=>{
+videoLoadSelect.addEventListener("change", () => {
   const isLocal = videoLoadSelect.value === "local";
   videoUrl.style.display = isLocal ? "none" : "block";
   videoFile.style.display = isLocal ? "block" : "none";
 });
 
-subtitleLoadSelect.addEventListener("change", ()=>{
+subtitleLoadSelect.addEventListener("change", () => {
   const isLocal = subtitleLoadSelect.value === "local";
   subtitleUrl.style.display = isLocal ? "none" : "block";
   subtitleFile.style.display = isLocal ? "block" : "none";
 });
 
 
-form.addEventListener("submit", function(e){
+form.addEventListener("submit", function(e) {
   e.preventDefault();
 
 
@@ -430,13 +430,11 @@ window.addEventListener("appinstalled", () => {
   isInstalled = true;
   deferredPrompt = null;
   installBanner.style.display = "none";
-  console.log("PWA installed");
 });
 
 window.addEventListener("beforeinstallprompt", (event) => {
   event.preventDefault();
 
-  // Save the event
   deferredPrompt = event;
 
   if (!isInstalled) {
@@ -450,8 +448,6 @@ installButton.addEventListener("click", async () => {
   deferredPrompt.prompt();
 
   const { outcome } = await deferredPrompt.userChoice;
-
-  console.log("User choice:", outcome);
 
   deferredPrompt = null;
   installBanner.style.display = "none";
