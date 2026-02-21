@@ -430,7 +430,6 @@ window.addEventListener("appinstalled", () => {
   isInstalled = true;
   deferredPrompt = null;
   installBanner.style.display = "none";
-  console.log("PWA installed");
 });
 
 window.addEventListener("beforeinstallprompt", (event) => {
@@ -449,8 +448,6 @@ installButton.addEventListener("click", async () => {
   deferredPrompt.prompt();
 
   const { outcome } = await deferredPrompt.userChoice;
-
-  console.log("User choice:", outcome);
 
   deferredPrompt = null;
   installBanner.style.display = "none";
