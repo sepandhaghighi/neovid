@@ -22,7 +22,7 @@ const recentItems = document.getElementById("recent-items");
 const watchTime = document.getElementById("watch-time");
 const recentKey = "recentVideos";
 const watchTimeKey = "watchTime";
-const recentSize = 25;
+const recentSize = 30;
 const skipThreshold = 60;
 
 let currentVideo = null;
