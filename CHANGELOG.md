@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - `README.md` updated
 - Recent plays history size changed to 30
+- Offline-first bug fixed
 ## [0.7] - 2026-02-23
 ### Added
 - PWA setup
