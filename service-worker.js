@@ -49,13 +49,7 @@ self.addEventListener("fetch", event => {
 
   if (request.mode === "navigate") {
     event.respondWith(
-      fetch(request)
-        .then(response => {
-          const copy = response.clone();
-          caches.open(cacheName).then(cache => cache.put(request, copy));
-          return response;
-        })
-        .catch(() => caches.match(request))
+      caches.match("/index.html")
     );
     return;
   }
