@@ -52,6 +52,22 @@ It supports both online and local video playback with optional subtitles.
 - You can **export** your recent plays to a file for backup or transfer
 - You can **import** a previously exported file to restore your recent plays
 
+## Local Development
+
+To test Neovid locally, you can use [Ghps](https://github.com/sepandhaghighi/ghps) a minimal GitHub Pages simulator written in pure Python.
+
+Run:
+
+```console
+ghps --port 8000
+```
+
+Then open your browser and visit:
+
+```console
+http://localhost:8000
+```
+
 ## Issues & Bug Reports
 
 Just fill an issue and describe it. We'll check it ASAP! or send an email to [info@neovid.top](mailto:info@neovid.top "info@neovid.top"). 
