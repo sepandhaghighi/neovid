@@ -260,24 +260,7 @@ function renderRecent() {
   recentNotice.style.display = recent.length ? "block" : "none";
 }
 
-
-videoLoadSelect.addEventListener("change", () => {
-  const isLocal = videoLoadSelect.value === "local";
-  videoUrl.style.display = isLocal ? "none" : "block";
-  videoFile.style.display = isLocal ? "block" : "none";
-});
-
-subtitleLoadSelect.addEventListener("change", () => {
-  const isLocal = subtitleLoadSelect.value === "local";
-  subtitleUrl.style.display = isLocal ? "none" : "block";
-  subtitleFile.style.display = isLocal ? "block" : "none";
-});
-
-
-form.addEventListener("submit", function(e) {
-  e.preventDefault();
-
-
+function getFormData() {
   let videoSrc = "", videoTitle = "", videoType = videoLoadSelect.value;
   if(videoType==="url") {
     const url = videoUrl.value.trim();
@@ -299,12 +282,36 @@ form.addEventListener("submit", function(e) {
     const subFile = subtitleFile.files[0];
     if(subFile) subSrc = URL.createObjectURL(subFile);
   }
+  return {
+    videoSrc,
+    videoTitle,
+    videoType,
+    subSrc,
+    subType
+  };
+}
 
 
-  playVideo(videoSrc, subSrc, videoTitle, videoType);
+
+videoLoadSelect.addEventListener("change", () => {
+  const isLocal = videoLoadSelect.value === "local";
+  videoUrl.style.display = isLocal ? "none" : "block";
+  videoFile.style.display = isLocal ? "block" : "none";
+});
+
+subtitleLoadSelect.addEventListener("change", () => {
+  const isLocal = subtitleLoadSelect.value === "local";
+  subtitleUrl.style.display = isLocal ? "none" : "block";
+  subtitleFile.style.display = isLocal ? "block" : "none";
+});
 
 
-  saveRecent(videoTitle, videoSrc, videoType, subSrc, subType);
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+  const data = getFormData();
+  if (!data) return;
+  playVideo(data.videoSrc, data.subSrc, data.videoTitle, data.videoType);
+  saveRecent(data.videoTitle, data.videoSrc, data.videoType, data.subSrc, data.subType);
 });
 
 player.addEventListener("timeupdate", () => {
