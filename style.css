@@ -125,6 +125,7 @@ input[type="url"], input[type="file"], select {
 }
 
 #play-button, #add-button {
+  flex: 1;
   padding: 0.75rem;
   font-size: 1rem;
   border: none;
@@ -132,11 +133,7 @@ input[type="url"], input[type="file"], select {
   background-color: #007bff;
   color: white;
   cursor: pointer;
-  transition: background 0.2s;
-}
-
-#play-button {
-  flex: 1;
+  transition: background 0.2s, transform 0.05s;
 }
 
 #play-button:hover {
