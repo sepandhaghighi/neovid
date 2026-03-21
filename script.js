@@ -2,6 +2,7 @@ const form = document.getElementById("video-form");
 const videoUrl = document.getElementById("video-url");
 const videoFile = document.getElementById("video-file");
 const videoLoadSelect = document.getElementById("video-load-type");
+const addButton = document.getElementById("add-button");
 const skipButton = document.getElementById("skip-button");
 const exportButton = document.getElementById("export-button");
 const importButton = document.getElementById("import-button");
@@ -312,6 +313,19 @@ form.addEventListener("submit", function(e) {
   if (!data) return;
   playVideo(data.videoSrc, data.subSrc, data.videoTitle, data.videoType);
   saveRecent(data.videoTitle, data.videoSrc, data.videoType, data.subSrc, data.subType);
+});
+
+addButton.addEventListener("click", () => {
+  const data = getFormData();
+  if (!data) return;
+  saveRecent(
+    data.videoTitle,
+    data.videoSrc,
+    data.videoType,
+    data.subSrc,
+    data.subType
+  );
+  alert("Video added to list.");
 });
 
 player.addEventListener("timeupdate", () => {
