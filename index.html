@@ -64,7 +64,10 @@ Embedded subtitles inside video files are not supported.
     <input type="url" id="subtitle-url" placeholder="Enter subtitle URL (.vtt/.srt)">
     <input type="file" id="subtitle-file" accept=".vtt,.srt" style="display:none" aria-label="Select local subtitle file">
   </fieldset>
-  <button type="submit" id="play-button">► Play Video</button>
+  <div class="action-buttons">
+    <button type="submit" id="play-button">► Play Video</button>
+    <button type="button" id="add-button">➕ Add to List</button>
+  </div>
 </form>
 
 <div class="video-wrapper">
