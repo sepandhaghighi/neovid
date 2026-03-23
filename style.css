@@ -119,7 +119,13 @@ input[type="url"], input[type="file"], select {
     margin-top: 7px;
 }
 
-#play-button {
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#play-button, #add-button {
+  flex: 1;
   padding: 0.75rem;
   font-size: 1rem;
   border: none;
@@ -127,10 +133,14 @@ input[type="url"], input[type="file"], select {
   background-color: #007bff;
   color: white;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.05s;
 }
 
 #play-button:hover {
+  background-color: #0056b3;
+}
+
+#add-button:hover {
   background-color: #0056b3;
 }
 
