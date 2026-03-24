@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- Add to list button
+- Watch later button
 ### Changed
 - `README.md` updated
 - Recent plays history size changed to 30
