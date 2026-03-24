@@ -2,7 +2,7 @@ const form = document.getElementById("video-form");
 const videoUrl = document.getElementById("video-url");
 const videoFile = document.getElementById("video-file");
 const videoLoadSelect = document.getElementById("video-load-type");
-const addButton = document.getElementById("add-button");
+const watchLaterButton = document.getElementById("watch-later-button");
 const skipButton = document.getElementById("skip-button");
 const exportButton = document.getElementById("export-button");
 const importButton = document.getElementById("import-button");
@@ -315,7 +315,7 @@ form.addEventListener("submit", function(e) {
   saveRecent(data.videoTitle, data.videoSrc, data.videoType, data.subSrc, data.subType);
 });
 
-addButton.addEventListener("click", () => {
+watchLaterButton.addEventListener("click", () => {
   const data = getFormData();
   if (!data) return;
   saveRecent(

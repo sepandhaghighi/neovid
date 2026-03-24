@@ -124,7 +124,7 @@ input[type="url"], input[type="file"], select {
   gap: 0.5rem;
 }
 
-#play-button, #add-button {
+#play-button, #watch-later-button {
   flex: 1;
   padding: 0.75rem;
   font-size: 1rem;
@@ -140,7 +140,7 @@ input[type="url"], input[type="file"], select {
   background-color: #0056b3;
 }
 
-#add-button:hover {
+#watch-later-button:hover {
   background-color: #0056b3;
 }
 
