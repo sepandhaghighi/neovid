@@ -49,7 +49,7 @@ self.addEventListener("fetch", event => {
 
   if (request.mode === "navigate") {
     event.respondWith(
-      caches.match("/index.html")
+      caches.match("index.html")
     );
     return;
   }

@@ -420,7 +420,7 @@ function showUpdateAlert(registration) {
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", async () => {
-    const reg = await navigator.serviceWorker.register("/service-worker.js");
+    const reg = await navigator.serviceWorker.register("service-worker.js");
 
     if (reg.waiting) {
       showUpdateAlert(reg);
