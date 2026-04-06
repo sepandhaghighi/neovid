@@ -58,14 +58,12 @@ function downloadFile(src) {
 }
 
 function updateDownloadButtons() {
-  // Video button
   if (!currentVideo || currentType === "local") {
     downloadVideoButton.disabled = true;
   } else {
     downloadVideoButton.disabled = false;
   }
 
-  // Subtitle button
   if (!currentSubtitle || currentSubtitleType === "local") {
     downloadSubtitleButton.disabled = true;
   } else {
