@@ -3,6 +3,8 @@ const videoUrl = document.getElementById("video-url");
 const videoFile = document.getElementById("video-file");
 const videoLoadSelect = document.getElementById("video-load-type");
 const watchLaterButton = document.getElementById("watch-later-button");
+const downloadVideoButton = document.getElementById("download-video-button");
+const downloadSubtitleButton = document.getElementById("download-subtitle-button");
 const skipButton = document.getElementById("skip-button");
 const exportButton = document.getElementById("export-button");
 const importButton = document.getElementById("import-button");
@@ -28,6 +30,8 @@ const skipThreshold = 60;
 
 let currentVideo = null;
 let currentType = "url";
+let currentSubtitle = "";
+let currentSubtitleType = "url";
 let currentTitle = "";
 let videoLastTime = null;
 let totalWatchTime = parseInt(localStorage.getItem(watchTimeKey) || "0", 10);
@@ -43,6 +47,28 @@ function formatTime(totalSeconds) {
     String(minutes).padStart(2, "0") + ":" +
     String(seconds).padStart(2, "0")
   );
+}
+
+function downloadFile(src) {
+  const a = document.createElement("a");
+  a.href = src;
+  a.target = "_blank";
+  a.rel = "noopener";
+  a.click();
+}
+
+function updateDownloadButtons() {
+  if (!currentVideo || currentType === "local") {
+    downloadVideoButton.disabled = true;
+  } else {
+    downloadVideoButton.disabled = false;
+  }
+
+  if (!currentSubtitle || currentSubtitleType === "local") {
+    downloadSubtitleButton.disabled = true;
+  } else {
+    downloadSubtitleButton.disabled = false;
+  }
 }
 
 function updateWatchTime() {
@@ -99,7 +125,7 @@ function truncateTitle(title, maxLength = 24) {
   return title.length > maxLength ? title.slice(0, maxLength - 3) + "..." : title;
 }
 
-function playVideo(src, subtitle = "", title = null, type = "url") {
+function playVideo(src, subtitle = "", title = null, type = "url", subtitleType = "url") {
   if(currentType === "local" && currentVideo) URL.revokeObjectURL(currentVideo);
   player.innerHTML = "";
 
@@ -124,6 +150,9 @@ function playVideo(src, subtitle = "", title = null, type = "url") {
   currentVideo = src;
   currentType = type;
   currentTitle = title || (type==="url"? src.split("/").pop(): title);
+  currentSubtitle = subtitle;
+  currentSubtitleType = subtitleType;
+  updateDownloadButtons();
 }
 
 
@@ -311,7 +340,7 @@ form.addEventListener("submit", function(e) {
   e.preventDefault();
   const data = getFormData();
   if (!data) return;
-  playVideo(data.videoSrc, data.subSrc, data.videoTitle, data.videoType);
+  playVideo(data.videoSrc, data.subSrc, data.videoTitle, data.videoType, data.subType);
   saveRecent(data.videoTitle, data.videoSrc, data.videoType, data.subSrc, data.subType);
 });
 
@@ -338,6 +367,7 @@ window.addEventListener("DOMContentLoaded", () => {
   watchTime.textContent = formatTime(totalWatchTime);
   loadFromQuery();
   renderRecent();
+  updateDownloadButtons();
 });
 player.addEventListener("ended", () => {
   skipButton.style.display = "none";
@@ -476,5 +506,15 @@ installButton.addEventListener("click", async () => {
 
 closeInstallButton.addEventListener("click", () => {
   installBanner.style.display = "none";
+});
+
+downloadVideoButton.addEventListener("click", () => {
+  if (!currentVideo || currentType !== "url") return;
+  downloadFile(currentVideo);
+});
+
+downloadSubtitleButton.addEventListener("click", () => {
+  if (!currentSubtitle || currentSubtitleType !== "url") return;
+  downloadFile(currentSubtitle);
 });
 

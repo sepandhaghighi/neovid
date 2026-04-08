@@ -34,6 +34,7 @@ It supports both online and local video playback with optional subtitles.
 - **Watch time**: tracks total time spent watching videos
 - **Export recent history**: download your recent plays data as a JSON file  
 - **Import recent history**: restore or replace recent plays data from a previously exported file
+- **Direct download buttons**: download video and subtitle files from URL sources
 
 ## Usage
 
