@@ -33,12 +33,11 @@ const state = {
   currentType: "url",
   currentSubtitle: "",
   currentSubtitleType: "url",
-  currentTitle: ""
+  currentTitle: "",
+  videoLastTime: null
 }
 
 
-
-let videoLastTime = null;
 let totalWatchTime = parseInt(localStorage.getItem(watchTimeKey) || "0", 10);
 let accumulatedWatchTime = 0;
 
@@ -78,8 +77,8 @@ function updateDownloadButtons() {
 
 function updateWatchTime() {
   const videoCurrentTime = player.currentTime;
-  if (videoLastTime !== null) {
-    const diff = videoCurrentTime - videoLastTime;
+  if (state.videoLastTime !== null) {
+    const diff = videoCurrentTime - state.videoLastTime;
     if (diff > 0 && diff < 5) {
       accumulatedWatchTime += diff;
       while (accumulatedWatchTime >= 1) {
@@ -91,7 +90,7 @@ function updateWatchTime() {
       }
     }
   }
-  videoLastTime = videoCurrentTime;
+  state.videoLastTime = videoCurrentTime;
 }
 
 function handleSkipButton() {
