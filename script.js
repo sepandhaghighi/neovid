@@ -28,7 +28,11 @@ const watchTimeKey = "watchTime";
 const recentSize = 30;
 const skipThreshold = 60;
 
-let currentVideo = null;
+const state = {
+  currentVideo: null
+}
+
+
 let currentType = "url";
 let currentSubtitle = "";
 let currentSubtitleType = "url";
@@ -58,7 +62,7 @@ function downloadFile(src) {
 }
 
 function updateDownloadButtons() {
-  if (!currentVideo || currentType === "local") {
+  if (!state.currentVideo || currentType === "local") {
     downloadVideoButton.disabled = true;
   } else {
     downloadVideoButton.disabled = false;
@@ -126,7 +130,7 @@ function truncateTitle(title, maxLength = 24) {
 }
 
 function playVideo(src, subtitle = "", title = null, type = "url", subtitleType = "url") {
-  if(currentType === "local" && currentVideo) URL.revokeObjectURL(currentVideo);
+  if(currentType === "local" && state.currentVideo) URL.revokeObjectURL(state.currentVideo);
   player.innerHTML = "";
 
   const sourceElement = document.createElement("source");
@@ -147,7 +151,7 @@ function playVideo(src, subtitle = "", title = null, type = "url", subtitleType 
   player.load();
   player.play().catch(() => {});
 
-  currentVideo = src;
+  state.currentVideo = src;
   currentType = type;
   currentTitle = title || (type==="url"? src.split("/").pop(): title);
   currentSubtitle = subtitle;
@@ -184,10 +188,10 @@ function removeRecent(title) {
 }
 
 function updateProgress() {
-  if(!currentVideo || !player.duration) return;
+  if(!state.currentVideo || !player.duration) return;
   const percent = Math.min(100, Math.round((player.currentTime/player.duration)*100));
   let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
-  const idx = recent.findIndex(item => item.video===currentVideo);
+  const idx = recent.findIndex(item => item.video===state.currentVideo);
   if(idx!==-1) {
     recent[idx].progress = percent;
     localStorage.setItem(recentKey, JSON.stringify(recent));
@@ -196,9 +200,9 @@ function updateProgress() {
 }
 
 function loadPlayerTime() {
-  if(!currentVideo || !player.duration) return;
+  if(!state.currentVideo || !player.duration) return;
   let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
-  const idx = recent.findIndex(item => item.video===currentVideo);
+  const idx = recent.findIndex(item => item.video===state.currentVideo);
   if(idx!==-1) {
     const currentTime = (recent[idx].progress / 100) * player.duration
     player.currentTime = currentTime;
@@ -509,8 +513,8 @@ closeInstallButton.addEventListener("click", () => {
 });
 
 downloadVideoButton.addEventListener("click", () => {
-  if (!currentVideo || currentType !== "url") return;
-  downloadFile(currentVideo);
+  if (!state.currentVideo || currentType !== "url") return;
+  downloadFile(state.currentVideo);
 });
 
 downloadSubtitleButton.addEventListener("click", () => {
