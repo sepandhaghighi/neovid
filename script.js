@@ -34,11 +34,11 @@ const state = {
   currentSubtitle: "",
   currentSubtitleType: "url",
   currentTitle: "",
-  videoLastTime: null
+  videoLastTime: null,
+  totalWatchTime: parseInt(localStorage.getItem(watchTimeKey) || "0", 10)
 }
 
 
-let totalWatchTime = parseInt(localStorage.getItem(watchTimeKey) || "0", 10);
 let accumulatedWatchTime = 0;
 
 function formatTime(totalSeconds) {
@@ -82,10 +82,10 @@ function updateWatchTime() {
     if (diff > 0 && diff < 5) {
       accumulatedWatchTime += diff;
       while (accumulatedWatchTime >= 1) {
-        totalWatchTime += 1;
+        state.totalWatchTime += 1;
         accumulatedWatchTime -= 1;
-        localStorage.setItem(watchTimeKey, totalWatchTime);
-        watchTime.textContent = formatTime(totalWatchTime);
+        localStorage.setItem(watchTimeKey, state.totalWatchTime);
+        watchTime.textContent = formatTime(state.totalWatchTime);
         
       }
     }
@@ -368,7 +368,7 @@ player.addEventListener("timeupdate", () => {
 });
 player.addEventListener("loadedmetadata", loadPlayerTime);
 window.addEventListener("DOMContentLoaded", () => {
-  watchTime.textContent = formatTime(totalWatchTime);
+  watchTime.textContent = formatTime(state.totalWatchTime);
   loadFromQuery();
   renderRecent();
   updateDownloadButtons();
