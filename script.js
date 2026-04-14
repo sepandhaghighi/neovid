@@ -32,12 +32,12 @@ const state = {
   currentVideo: null,
   currentType: "url",
   currentSubtitle: "",
-  currentSubtitleType: "url"
+  currentSubtitleType: "url",
+  currentTitle: ""
 }
 
 
 
-let currentTitle = "";
 let videoLastTime = null;
 let totalWatchTime = parseInt(localStorage.getItem(watchTimeKey) || "0", 10);
 let accumulatedWatchTime = 0;
@@ -154,7 +154,7 @@ function playVideo(src, subtitle = "", title = null, type = "url", subtitleType 
 
   state.currentVideo = src;
   state.currentType = type;
-  currentTitle = title || (type==="url"? src.split("/").pop(): title);
+  state.currentTitle = title || (type==="url"? src.split("/").pop(): title);
   state.currentSubtitle = subtitle;
   state.currentSubtitleType = subtitleType;
   updateDownloadButtons();
