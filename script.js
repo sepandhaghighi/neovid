@@ -30,12 +30,12 @@ const skipThreshold = 60;
 
 const state = {
   currentVideo: null,
-  currentType: "url"
+  currentType: "url",
+  currentSubtitle: ""
 }
 
 
 
-let currentSubtitle = "";
 let currentSubtitleType = "url";
 let currentTitle = "";
 let videoLastTime = null;
@@ -69,7 +69,7 @@ function updateDownloadButtons() {
     downloadVideoButton.disabled = false;
   }
 
-  if (!currentSubtitle || currentSubtitleType === "local") {
+  if (!state.currentSubtitle || currentSubtitleType === "local") {
     downloadSubtitleButton.disabled = true;
   } else {
     downloadSubtitleButton.disabled = false;
@@ -155,7 +155,7 @@ function playVideo(src, subtitle = "", title = null, type = "url", subtitleType 
   state.currentVideo = src;
   state.currentType = type;
   currentTitle = title || (type==="url"? src.split("/").pop(): title);
-  currentSubtitle = subtitle;
+  state.currentSubtitle = subtitle;
   currentSubtitleType = subtitleType;
   updateDownloadButtons();
 }
@@ -519,7 +519,7 @@ downloadVideoButton.addEventListener("click", () => {
 });
 
 downloadSubtitleButton.addEventListener("click", () => {
-  if (!currentSubtitle || currentSubtitleType !== "url") return;
-  downloadFile(currentSubtitle);
+  if (!state.currentSubtitle || currentSubtitleType !== "url") return;
+  downloadFile(state.currentSubtitle);
 });
 
