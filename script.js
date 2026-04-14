@@ -35,11 +35,9 @@ const state = {
   currentSubtitleType: "url",
   currentTitle: "",
   videoLastTime: null,
-  totalWatchTime: parseInt(localStorage.getItem(watchTimeKey) || "0", 10)
+  totalWatchTime: parseInt(localStorage.getItem(watchTimeKey) || "0", 10),
+  accumulatedWatchTime: 0
 }
-
-
-let accumulatedWatchTime = 0;
 
 function formatTime(totalSeconds) {
   const hours = Math.floor(totalSeconds / 3600);
@@ -80,10 +78,10 @@ function updateWatchTime() {
   if (state.videoLastTime !== null) {
     const diff = videoCurrentTime - state.videoLastTime;
     if (diff > 0 && diff < 5) {
-      accumulatedWatchTime += diff;
-      while (accumulatedWatchTime >= 1) {
+      state.accumulatedWatchTime += diff;
+      while (state.accumulatedWatchTime >= 1) {
         state.totalWatchTime += 1;
-        accumulatedWatchTime -= 1;
+        state.accumulatedWatchTime -= 1;
         localStorage.setItem(watchTimeKey, state.totalWatchTime);
         watchTime.textContent = formatTime(state.totalWatchTime);
         
