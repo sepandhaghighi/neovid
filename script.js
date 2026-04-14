@@ -29,11 +29,12 @@ const recentSize = 30;
 const skipThreshold = 60;
 
 const state = {
-  currentVideo: null
+  currentVideo: null,
+  currentType: "url"
 }
 
 
-let currentType = "url";
+
 let currentSubtitle = "";
 let currentSubtitleType = "url";
 let currentTitle = "";
@@ -62,7 +63,7 @@ function downloadFile(src) {
 }
 
 function updateDownloadButtons() {
-  if (!state.currentVideo || currentType === "local") {
+  if (!state.currentVideo || state.currentType === "local") {
     downloadVideoButton.disabled = true;
   } else {
     downloadVideoButton.disabled = false;
@@ -130,7 +131,7 @@ function truncateTitle(title, maxLength = 24) {
 }
 
 function playVideo(src, subtitle = "", title = null, type = "url", subtitleType = "url") {
-  if(currentType === "local" && state.currentVideo) URL.revokeObjectURL(state.currentVideo);
+  if(state.currentType === "local" && state.currentVideo) URL.revokeObjectURL(state.currentVideo);
   player.innerHTML = "";
 
   const sourceElement = document.createElement("source");
@@ -152,7 +153,7 @@ function playVideo(src, subtitle = "", title = null, type = "url", subtitleType 
   player.play().catch(() => {});
 
   state.currentVideo = src;
-  currentType = type;
+  state.currentType = type;
   currentTitle = title || (type==="url"? src.split("/").pop(): title);
   currentSubtitle = subtitle;
   currentSubtitleType = subtitleType;
@@ -513,7 +514,7 @@ closeInstallButton.addEventListener("click", () => {
 });
 
 downloadVideoButton.addEventListener("click", () => {
-  if (!state.currentVideo || currentType !== "url") return;
+  if (!state.currentVideo || state.currentType !== "url") return;
   downloadFile(state.currentVideo);
 });
 
