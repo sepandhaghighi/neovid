@@ -28,14 +28,16 @@ const watchTimeKey = "watchTime";
 const recentSize = 30;
 const skipThreshold = 60;
 
-let currentVideo = null;
-let currentType = "url";
-let currentSubtitle = "";
-let currentSubtitleType = "url";
-let currentTitle = "";
-let videoLastTime = null;
-let totalWatchTime = parseInt(localStorage.getItem(watchTimeKey) || "0", 10);
-let accumulatedWatchTime = 0;
+const state = {
+  currentVideo: null,
+  currentType: "url",
+  currentSubtitle: "",
+  currentSubtitleType: "url",
+  currentTitle: "",
+  videoLastTime: null,
+  totalWatchTime: parseInt(localStorage.getItem(watchTimeKey) || "0", 10),
+  accumulatedWatchTime: 0
+}
 
 function formatTime(totalSeconds) {
   const hours = Math.floor(totalSeconds / 3600);
@@ -58,13 +60,13 @@ function downloadFile(src) {
 }
 
 function updateDownloadButtons() {
-  if (!currentVideo || currentType === "local") {
+  if (!state.currentVideo || state.currentType === "local") {
     downloadVideoButton.disabled = true;
   } else {
     downloadVideoButton.disabled = false;
   }
 
-  if (!currentSubtitle || currentSubtitleType === "local") {
+  if (!state.currentSubtitle || state.currentSubtitleType === "local") {
     downloadSubtitleButton.disabled = true;
   } else {
     downloadSubtitleButton.disabled = false;
@@ -73,20 +75,20 @@ function updateDownloadButtons() {
 
 function updateWatchTime() {
   const videoCurrentTime = player.currentTime;
-  if (videoLastTime !== null) {
-    const diff = videoCurrentTime - videoLastTime;
+  if (state.videoLastTime !== null) {
+    const diff = videoCurrentTime - state.videoLastTime;
     if (diff > 0 && diff < 5) {
-      accumulatedWatchTime += diff;
-      while (accumulatedWatchTime >= 1) {
-        totalWatchTime += 1;
-        accumulatedWatchTime -= 1;
-        localStorage.setItem(watchTimeKey, totalWatchTime);
-        watchTime.textContent = formatTime(totalWatchTime);
+      state.accumulatedWatchTime += diff;
+      while (state.accumulatedWatchTime >= 1) {
+        state.totalWatchTime += 1;
+        state.accumulatedWatchTime -= 1;
+        localStorage.setItem(watchTimeKey, state.totalWatchTime);
+        watchTime.textContent = formatTime(state.totalWatchTime);
         
       }
     }
   }
-  videoLastTime = videoCurrentTime;
+  state.videoLastTime = videoCurrentTime;
 }
 
 function handleSkipButton() {
@@ -126,7 +128,7 @@ function truncateTitle(title, maxLength = 24) {
 }
 
 function playVideo(src, subtitle = "", title = null, type = "url", subtitleType = "url") {
-  if(currentType === "local" && currentVideo) URL.revokeObjectURL(currentVideo);
+  if(state.currentType === "local" && state.currentVideo) URL.revokeObjectURL(state.currentVideo);
   player.innerHTML = "";
 
   const sourceElement = document.createElement("source");
@@ -147,11 +149,11 @@ function playVideo(src, subtitle = "", title = null, type = "url", subtitleType 
   player.load();
   player.play().catch(() => {});
 
-  currentVideo = src;
-  currentType = type;
-  currentTitle = title || (type==="url"? src.split("/").pop(): title);
-  currentSubtitle = subtitle;
-  currentSubtitleType = subtitleType;
+  state.currentVideo = src;
+  state.currentType = type;
+  state.currentTitle = title || (type==="url"? src.split("/").pop(): title);
+  state.currentSubtitle = subtitle;
+  state.currentSubtitleType = subtitleType;
   updateDownloadButtons();
 }
 
@@ -184,10 +186,10 @@ function removeRecent(title) {
 }
 
 function updateProgress() {
-  if(!currentVideo || !player.duration) return;
+  if(!state.currentVideo || !player.duration) return;
   const percent = Math.min(100, Math.round((player.currentTime/player.duration)*100));
   let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
-  const idx = recent.findIndex(item => item.video===currentVideo);
+  const idx = recent.findIndex(item => item.video===state.currentVideo);
   if(idx!==-1) {
     recent[idx].progress = percent;
     localStorage.setItem(recentKey, JSON.stringify(recent));
@@ -196,9 +198,9 @@ function updateProgress() {
 }
 
 function loadPlayerTime() {
-  if(!currentVideo || !player.duration) return;
+  if(!state.currentVideo || !player.duration) return;
   let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
-  const idx = recent.findIndex(item => item.video===currentVideo);
+  const idx = recent.findIndex(item => item.video===state.currentVideo);
   if(idx!==-1) {
     const currentTime = (recent[idx].progress / 100) * player.duration
     player.currentTime = currentTime;
@@ -364,7 +366,7 @@ player.addEventListener("timeupdate", () => {
 });
 player.addEventListener("loadedmetadata", loadPlayerTime);
 window.addEventListener("DOMContentLoaded", () => {
-  watchTime.textContent = formatTime(totalWatchTime);
+  watchTime.textContent = formatTime(state.totalWatchTime);
   loadFromQuery();
   renderRecent();
   updateDownloadButtons();
@@ -509,12 +511,12 @@ closeInstallButton.addEventListener("click", () => {
 });
 
 downloadVideoButton.addEventListener("click", () => {
-  if (!currentVideo || currentType !== "url") return;
-  downloadFile(currentVideo);
+  if (!state.currentVideo || state.currentType !== "url") return;
+  downloadFile(state.currentVideo);
 });
 
 downloadSubtitleButton.addEventListener("click", () => {
-  if (!currentSubtitle || currentSubtitleType !== "url") return;
-  downloadFile(currentSubtitle);
+  if (!state.currentSubtitle || state.currentSubtitleType !== "url") return;
+  downloadFile(state.currentSubtitle);
 });
 
