@@ -395,7 +395,7 @@ skipButton.addEventListener("click", () => {
   skipButton.style.display = "none";
 });
 exportButton.addEventListener("click", () => {
-  const data = localStorage.getItem(recentKey);
+  const data = getRecent();
   if (!data) {
     alert("No recent data to export.");
     return;
@@ -405,7 +405,7 @@ exportButton.addEventListener("click", () => {
   if (!fileName) {
     fileName = "neovid-recent.json";
   }
-  const blob = new Blob([data], { type: "application/json" });
+  const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = fileName;
