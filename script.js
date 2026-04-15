@@ -43,6 +43,10 @@ function getRecent() {
   return JSON.parse(localStorage.getItem(recentKey) || "[]");
 }
 
+function setRecent(data) {
+  localStorage.setItem(recentKey, JSON.stringify(data));
+}
+
 function formatTime(totalSeconds) {
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -175,7 +179,7 @@ function saveRecent(title, video, videoType, subtitle="", subtitleType="url") {
   recent.unshift({title, video, videoType, subtitle, subtitleType, progress});
   if(recent.length>recentSize) recent = recent.slice(0,recentSize);
 
-  localStorage.setItem(recentKey, JSON.stringify(recent));
+  setRecent(recent);
   renderRecent();
 }
 
@@ -184,7 +188,7 @@ function removeRecent(title) {
   if (userConfirmed) {
     let recent = getRecent();
     recent = recent.filter(item => !(item.title===title));
-    localStorage.setItem(recentKey, JSON.stringify(recent));
+    setRecent(recent);
     renderRecent();
   }
 }
@@ -196,7 +200,7 @@ function updateProgress() {
   const idx = recent.findIndex(item => item.video===state.currentVideo);
   if(idx!==-1) {
     recent[idx].progress = percent;
-    localStorage.setItem(recentKey, JSON.stringify(recent));
+    setRecent(recent);
     renderRecent();
   }
 }
@@ -434,7 +438,7 @@ recentFile.addEventListener("change", () => {
         item.progress <= 100
       );
       if (!isValid) throw new Error();
-      localStorage.setItem(recentKey, JSON.stringify(parsed));
+      setRecent(parsed);
       renderRecent();
       alert("Recent data imported successfully.");
     } catch {
