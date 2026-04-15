@@ -39,6 +39,10 @@ const state = {
   accumulatedWatchTime: 0
 }
 
+function getRecent() {
+  return JSON.parse(localStorage.getItem(recentKey) || "[]");
+}
+
 function formatTime(totalSeconds) {
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -159,7 +163,7 @@ function playVideo(src, subtitle = "", title = null, type = "url", subtitleType 
 
 
 function saveRecent(title, video, videoType, subtitle="", subtitleType="url") {
-  let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+  let recent = getRecent();
   let progress = 0;
   const idx = recent.findIndex(item => item.title===title);
   if(idx!==-1) {
@@ -178,7 +182,7 @@ function saveRecent(title, video, videoType, subtitle="", subtitleType="url") {
 function removeRecent(title) {
   const userConfirmed = confirm("Are you sure you want to remove this video?");
   if (userConfirmed) {
-    let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+    let recent = getRecent();
     recent = recent.filter(item => !(item.title===title));
     localStorage.setItem(recentKey, JSON.stringify(recent));
     renderRecent();
@@ -188,7 +192,7 @@ function removeRecent(title) {
 function updateProgress() {
   if(!state.currentVideo || !player.duration) return;
   const percent = Math.min(100, Math.round((player.currentTime/player.duration)*100));
-  let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+  let recent = getRecent();
   const idx = recent.findIndex(item => item.video===state.currentVideo);
   if(idx!==-1) {
     recent[idx].progress = percent;
@@ -199,7 +203,7 @@ function updateProgress() {
 
 function loadPlayerTime() {
   if(!state.currentVideo || !player.duration) return;
-  let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+  let recent = getRecent();
   const idx = recent.findIndex(item => item.video===state.currentVideo);
   if(idx!==-1) {
     const currentTime = (recent[idx].progress / 100) * player.duration
@@ -209,7 +213,7 @@ function loadPlayerTime() {
 }
 
 function renderRecent() {
-  const recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+  const recent = getRecent();
   recentItems.innerHTML="";
   let maxLimit = recentItems.offsetWidth  / 11;
   recent.forEach(item => {
@@ -397,7 +401,7 @@ exportButton.addEventListener("click", () => {
   URL.revokeObjectURL(a.href);
 });
 importButton.addEventListener("click", () => {
-  let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+  let recent = getRecent();
   if (recent.length > 0) {
     const ok = confirm(
     "Importing will REPLACE current recent data.\nThis action is NOT reversible.\n\nContinue?"
