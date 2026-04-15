@@ -28,6 +28,18 @@ const watchTimeKey = "watchTime";
 const recentSize = 30;
 const skipThreshold = 60;
 
+function getRecent() {
+  return JSON.parse(localStorage.getItem(recentKey) || "[]");
+}
+
+function setRecent(data) {
+  localStorage.setItem(recentKey, JSON.stringify(data));
+}
+
+function getWatchTime() {
+  return parseInt(localStorage.getItem(watchTimeKey) || "0", 10);
+}
+
 const state = {
   currentVideo: null,
   currentType: "url",
@@ -35,16 +47,8 @@ const state = {
   currentSubtitleType: "url",
   currentTitle: "",
   videoLastTime: null,
-  totalWatchTime: parseInt(localStorage.getItem(watchTimeKey) || "0", 10),
+  totalWatchTime: getWatchTime(),
   accumulatedWatchTime: 0
-}
-
-function getRecent() {
-  return JSON.parse(localStorage.getItem(recentKey) || "[]");
-}
-
-function setRecent(data) {
-  localStorage.setItem(recentKey, JSON.stringify(data));
 }
 
 function formatTime(totalSeconds) {
