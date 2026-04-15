@@ -40,6 +40,10 @@ function getWatchTime() {
   return parseInt(localStorage.getItem(watchTimeKey) || "0", 10);
 }
 
+function setWatchTime(value) {
+  localStorage.setItem(watchTimeKey, value);
+}
+
 const state = {
   currentVideo: null,
   currentType: "url",
@@ -94,7 +98,7 @@ function updateWatchTime() {
       while (state.accumulatedWatchTime >= 1) {
         state.totalWatchTime += 1;
         state.accumulatedWatchTime -= 1;
-        localStorage.setItem(watchTimeKey, state.totalWatchTime);
+        setWatchTime(state.totalWatchTime);
         watchTime.textContent = formatTime(state.totalWatchTime);
         
       }
