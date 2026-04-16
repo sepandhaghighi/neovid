@@ -12,9 +12,9 @@ const DOM = {
   importButton: document.getElementById("import-button"),
   installButton: document.getElementById("install-button"),
   closeInstallButton: document.getElementById("close-install"),
+  installBanner: document.getElementById("install-banner"),
 
 }
-const installBanner = document.getElementById("install-banner");
 const recentFile = document.getElementById("recent-file");
 const recentNotice = document.getElementById("recent-notice");
 
@@ -502,7 +502,7 @@ let isInstalled = false;
 window.addEventListener("appinstalled", () => {
   isInstalled = true;
   deferredPrompt = null;
-  installBanner.style.display = "none";
+  DOM.installBanner.style.display = "none";
 });
 
 window.addEventListener("beforeinstallprompt", (event) => {
@@ -511,7 +511,7 @@ window.addEventListener("beforeinstallprompt", (event) => {
   deferredPrompt = event;
 
   if (!isInstalled) {
-    installBanner.style.display = "block";
+    DOM.installBanner.style.display = "block";
   }
 });
 
@@ -523,11 +523,11 @@ DOM.installButton.addEventListener("click", async () => {
   const { outcome } = await deferredPrompt.userChoice;
 
   deferredPrompt = null;
-  installBanner.style.display = "none";
+  DOM.installBanner.style.display = "none";
 });
 
 DOM.closeInstallButton.addEventListener("click", () => {
-  installBanner.style.display = "none";
+  DOM.installBanner.style.display = "none";
 });
 
 DOM.downloadVideoButton.addEventListener("click", () => {
