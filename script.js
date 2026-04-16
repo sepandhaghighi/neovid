@@ -10,10 +10,10 @@ const DOM = {
   skipButton: document.getElementById("skip-button"),
   exportButton: document.getElementById("export-button"),
   importButton: document.getElementById("import-button"),
+  installButton: document.getElementById("install-button"),
+  closeInstallButton: document.getElementById("close-install"),
 
 }
-const installButton = document.getElementById("install-button");
-const closeInstallButton = document.getElementById("close-install");
 const installBanner = document.getElementById("install-banner");
 const recentFile = document.getElementById("recent-file");
 const recentNotice = document.getElementById("recent-notice");
@@ -515,7 +515,7 @@ window.addEventListener("beforeinstallprompt", (event) => {
   }
 });
 
-installButton.addEventListener("click", async () => {
+DOM.installButton.addEventListener("click", async () => {
   if (!deferredPrompt) return;
 
   deferredPrompt.prompt();
@@ -526,7 +526,7 @@ installButton.addEventListener("click", async () => {
   installBanner.style.display = "none";
 });
 
-closeInstallButton.addEventListener("click", () => {
+DOM.closeInstallButton.addEventListener("click", () => {
   installBanner.style.display = "none";
 });
 
