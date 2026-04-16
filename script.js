@@ -1,9 +1,9 @@
 
 const DOM = {
   form: document.getElementById("video-form"),
+  videoUrl: document.getElementById("video-url"),
 
 }
-const videoUrl = document.getElementById("video-url");
 const videoFile = document.getElementById("video-file");
 const videoLoadSelect = document.getElementById("video-load-type");
 const watchLaterButton = document.getElementById("watch-later-button");
@@ -135,7 +135,7 @@ function loadFromQuery() {
   const videoUrlQuery = videoMatch ? decodeURIComponent(videoMatch[1]) : null;
   const subtitleUrlQuery = subtitleMatch ? decodeURIComponent(subtitleMatch[1]) : null;
   if (videoUrlQuery) {
-    videoUrl.value = videoUrlQuery;
+    DOM.videoUrl.value = videoUrlQuery;
   }
   if (subtitleUrlQuery) {
     subtitleUrl.value = subtitleUrlQuery;
@@ -283,11 +283,11 @@ function renderRecent() {
     spanTitle.addEventListener("click", () => {
       let isDataLoaded = false;
       if(item.videoType==="url"){
-        videoUrl.value = item.video;
+        DOM.videoUrl.value = item.video;
         isDataLoaded = true;
       }
       else{
-        videoUrl.value = "";
+        DOM.videoUrl.value = "";
         alert("Please reselect the local video.");
       }
       if (item.subtitle) {
@@ -315,7 +315,7 @@ function renderRecent() {
 function getFormData() {
   let videoSrc = "", videoTitle = "", videoType = videoLoadSelect.value;
   if(videoType==="url") {
-    const url = videoUrl.value.trim();
+    const url = DOM.videoUrl.value.trim();
     if(!url) return alert("Please enter a video URL.");
     videoSrc = url;
     videoTitle = url.split("/").pop();
@@ -347,7 +347,7 @@ function getFormData() {
 
 videoLoadSelect.addEventListener("change", () => {
   const isLocal = videoLoadSelect.value === "local";
-  videoUrl.style.display = isLocal ? "none" : "block";
+  DOM.videoUrl.style.display = isLocal ? "none" : "block";
   videoFile.style.display = isLocal ? "block" : "none";
 });
 
