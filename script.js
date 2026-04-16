@@ -8,9 +8,9 @@ const DOM = {
   downloadVideoButton: document.getElementById("download-video-button"),
   downloadSubtitleButton: document.getElementById("download-subtitle-button"),
   skipButton: document.getElementById("skip-button"),
+  exportButton: document.getElementById("export-button"),
 
 }
-const exportButton = document.getElementById("export-button");
 const importButton = document.getElementById("import-button");
 const installButton = document.getElementById("install-button");
 const closeInstallButton = document.getElementById("close-install");
@@ -308,7 +308,7 @@ function renderRecent() {
     recentItems.appendChild(li);
   });
 
-  exportButton.style.display = recent.length ? "inline-block" : "none";
+  DOM.exportButton.style.display = recent.length ? "inline-block" : "none";
   recentNotice.style.display = recent.length ? "block" : "none";
 }
 
@@ -398,7 +398,7 @@ DOM.skipButton.addEventListener("click", () => {
   player.currentTime = Math.max(player.duration - 0.1, 0);
   DOM.skipButton.style.display = "none";
 });
-exportButton.addEventListener("click", () => {
+DOM.exportButton.addEventListener("click", () => {
   const data = getRecent();
   if (!data) {
     alert("No recent data to export.");
