@@ -3,9 +3,9 @@ const DOM = {
   form: document.getElementById("video-form"),
   videoUrl: document.getElementById("video-url"),
   videoFile: document.getElementById("video-file"),
+  videoLoadSelect: document.getElementById("video-load-type"),
 
 }
-const videoLoadSelect = document.getElementById("video-load-type");
 const watchLaterButton = document.getElementById("watch-later-button");
 const downloadVideoButton = document.getElementById("download-video-button");
 const downloadSubtitleButton = document.getElementById("download-subtitle-button");
@@ -313,7 +313,7 @@ function renderRecent() {
 }
 
 function getFormData() {
-  let videoSrc = "", videoTitle = "", videoType = videoLoadSelect.value;
+  let videoSrc = "", videoTitle = "", videoType = DOM.videoLoadSelect.value;
   if(videoType==="url") {
     const url = DOM.videoUrl.value.trim();
     if(!url) return alert("Please enter a video URL.");
@@ -345,8 +345,8 @@ function getFormData() {
 
 
 
-videoLoadSelect.addEventListener("change", () => {
-  const isLocal = videoLoadSelect.value === "local";
+DOM.videoLoadSelect.addEventListener("change", () => {
+  const isLocal = DOM.videoLoadSelect.value === "local";
   DOM.videoUrl.style.display = isLocal ? "none" : "block";
   DOM.videoFile.style.display = isLocal ? "block" : "none";
 });
