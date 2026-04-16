@@ -9,9 +9,9 @@ const DOM = {
   downloadSubtitleButton: document.getElementById("download-subtitle-button"),
   skipButton: document.getElementById("skip-button"),
   exportButton: document.getElementById("export-button"),
+  importButton: document.getElementById("import-button"),
 
 }
-const importButton = document.getElementById("import-button");
 const installButton = document.getElementById("install-button");
 const closeInstallButton = document.getElementById("close-install");
 const installBanner = document.getElementById("install-banner");
@@ -416,7 +416,7 @@ DOM.exportButton.addEventListener("click", () => {
   a.click();
   URL.revokeObjectURL(a.href);
 });
-importButton.addEventListener("click", () => {
+DOM.importButton.addEventListener("click", () => {
   let recent = getRecent();
   if (recent.length > 0) {
     const ok = confirm(
