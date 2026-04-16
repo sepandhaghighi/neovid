@@ -4,9 +4,9 @@ const DOM = {
   videoUrl: document.getElementById("video-url"),
   videoFile: document.getElementById("video-file"),
   videoLoadSelect: document.getElementById("video-load-type"),
+  watchLaterButton: document.getElementById("watch-later-button"),
 
 }
-const watchLaterButton = document.getElementById("watch-later-button");
 const downloadVideoButton = document.getElementById("download-video-button");
 const downloadSubtitleButton = document.getElementById("download-subtitle-button");
 const skipButton = document.getElementById("skip-button");
@@ -366,7 +366,7 @@ DOM.form.addEventListener("submit", function(e) {
   saveRecent(data.videoTitle, data.videoSrc, data.videoType, data.subSrc, data.subType);
 });
 
-watchLaterButton.addEventListener("click", () => {
+DOM.watchLaterButton.addEventListener("click", () => {
   const data = getFormData();
   if (!data) return;
   saveRecent(
