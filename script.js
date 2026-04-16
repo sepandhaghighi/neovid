@@ -16,9 +16,9 @@ const DOM = {
   recentFile: document.getElementById("recent-file"),
   recentNotice: document.getElementById("recent-notice"),
   subtitleUrl: document.getElementById("subtitle-url"),
+  subtitleFile: document.getElementById("subtitle-file"),
 
 }
-const subtitleFile = document.getElementById("subtitle-file");
 const subtitleLoadSelect = document.getElementById("subtitle-load-type");
 
 
@@ -329,7 +329,7 @@ function getFormData() {
   if(subType==="url") {
     subSrc = DOM.subtitleUrl.value.trim();
   } else {
-    const subFile = subtitleFile.files[0];
+    const subFile = DOM.subtitleFile.files[0];
     if(subFile) subSrc = URL.createObjectURL(subFile);
   }
   return {
@@ -352,7 +352,7 @@ DOM.videoLoadSelect.addEventListener("change", () => {
 subtitleLoadSelect.addEventListener("change", () => {
   const isLocal = subtitleLoadSelect.value === "local";
   DOM.subtitleUrl.style.display = isLocal ? "none" : "block";
-  subtitleFile.style.display = isLocal ? "block" : "none";
+  DOM.subtitleFile.style.display = isLocal ? "block" : "none";
 });
 
 
