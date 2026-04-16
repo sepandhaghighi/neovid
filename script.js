@@ -20,9 +20,9 @@ const DOM = {
   subtitleLoadSelect: document.getElementById("subtitle-load-type"),
   player: document.getElementById("video-player"),
   recentItems: document.getElementById("recent-items"),
+  watchTime: document.getElementById("watch-time"),
 
 }
-const watchTime = document.getElementById("watch-time");
 const recentKey = "recentVideos";
 const watchTimeKey = "watchTime";
 const recentSize = 30;
@@ -99,7 +99,7 @@ function updateWatchTime() {
         state.totalWatchTime += 1;
         state.accumulatedWatchTime -= 1;
         setWatchTime(state.totalWatchTime);
-        watchTime.textContent = formatTime(state.totalWatchTime);
+        DOM.watchTime.textContent = formatTime(state.totalWatchTime);
         
       }
     }
@@ -382,7 +382,7 @@ DOM.player.addEventListener("timeupdate", () => {
 });
 DOM.player.addEventListener("loadedmetadata", loadPlayerTime);
 window.addEventListener("DOMContentLoaded", () => {
-  watchTime.textContent = formatTime(state.totalWatchTime);
+  DOM.watchTime.textContent = formatTime(state.totalWatchTime);
   loadFromQuery();
   renderRecent();
   updateDownloadButtons();
