@@ -15,11 +15,9 @@ const DOM = {
   installBanner: document.getElementById("install-banner"),
   recentFile: document.getElementById("recent-file"),
   recentNotice: document.getElementById("recent-notice"),
+  subtitleUrl: document.getElementById("subtitle-url"),
 
 }
-
-
-const subtitleUrl = document.getElementById("subtitle-url");
 const subtitleFile = document.getElementById("subtitle-file");
 const subtitleLoadSelect = document.getElementById("subtitle-load-type");
 
@@ -138,7 +136,7 @@ function loadFromQuery() {
     DOM.videoUrl.value = videoUrlQuery;
   }
   if (subtitleUrlQuery) {
-    subtitleUrl.value = subtitleUrlQuery;
+    DOM.subtitleUrl.value = subtitleUrlQuery;
   }
 }
 
@@ -292,11 +290,11 @@ function renderRecent() {
       }
       if (item.subtitle) {
         if (item.subtitleType==="url") {
-          subtitleUrl.value = item.subtitle;
+          DOM.subtitleUrl.value = item.subtitle;
           isDataLoaded = true;   
         }
         else{
-          subtitleUrl.value = "";
+          DOM.subtitleUrl.value = "";
           alert("Please reselect the local subtitle.");
         }
       }
@@ -329,7 +327,7 @@ function getFormData() {
 
   let subSrc = "", subType = subtitleLoadSelect.value;
   if(subType==="url") {
-    subSrc = subtitleUrl.value.trim();
+    subSrc = DOM.subtitleUrl.value.trim();
   } else {
     const subFile = subtitleFile.files[0];
     if(subFile) subSrc = URL.createObjectURL(subFile);
@@ -353,7 +351,7 @@ DOM.videoLoadSelect.addEventListener("change", () => {
 
 subtitleLoadSelect.addEventListener("change", () => {
   const isLocal = subtitleLoadSelect.value === "local";
-  subtitleUrl.style.display = isLocal ? "none" : "block";
+  DOM.subtitleUrl.style.display = isLocal ? "none" : "block";
   subtitleFile.style.display = isLocal ? "block" : "none";
 });
 
