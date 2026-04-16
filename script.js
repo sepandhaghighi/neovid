@@ -1,4 +1,8 @@
-const form = document.getElementById("video-form");
+
+const DOM = {
+  form: document.getElementById("video-form"),
+
+}
 const videoUrl = document.getElementById("video-url");
 const videoFile = document.getElementById("video-file");
 const videoLoadSelect = document.getElementById("video-load-type");
@@ -297,7 +301,7 @@ function renderRecent() {
         }
       }
       if (isDataLoaded) {
-        form.scrollIntoView({"behavior": "smooth"});
+        DOM.form.scrollIntoView({"behavior": "smooth"});
       }
     });
 
@@ -354,7 +358,7 @@ subtitleLoadSelect.addEventListener("change", () => {
 });
 
 
-form.addEventListener("submit", function(e) {
+DOM.form.addEventListener("submit", function(e) {
   e.preventDefault();
   const data = getFormData();
   if (!data) return;
