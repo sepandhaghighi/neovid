@@ -28,6 +28,22 @@ const watchTimeKey = "watchTime";
 const recentSize = 30;
 const skipThreshold = 60;
 
+function getRecent() {
+  return JSON.parse(localStorage.getItem(recentKey) || "[]");
+}
+
+function setRecent(data) {
+  localStorage.setItem(recentKey, JSON.stringify(data));
+}
+
+function getWatchTime() {
+  return parseInt(localStorage.getItem(watchTimeKey) || "0", 10);
+}
+
+function setWatchTime(value) {
+  localStorage.setItem(watchTimeKey, value);
+}
+
 const state = {
   currentVideo: null,
   currentType: "url",
@@ -35,7 +51,7 @@ const state = {
   currentSubtitleType: "url",
   currentTitle: "",
   videoLastTime: null,
-  totalWatchTime: parseInt(localStorage.getItem(watchTimeKey) || "0", 10),
+  totalWatchTime: getWatchTime(),
   accumulatedWatchTime: 0
 }
 
@@ -82,7 +98,7 @@ function updateWatchTime() {
       while (state.accumulatedWatchTime >= 1) {
         state.totalWatchTime += 1;
         state.accumulatedWatchTime -= 1;
-        localStorage.setItem(watchTimeKey, state.totalWatchTime);
+        setWatchTime(state.totalWatchTime);
         watchTime.textContent = formatTime(state.totalWatchTime);
         
       }
@@ -159,7 +175,7 @@ function playVideo(src, subtitle = "", title = null, type = "url", subtitleType 
 
 
 function saveRecent(title, video, videoType, subtitle="", subtitleType="url") {
-  let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+  let recent = getRecent();
   let progress = 0;
   const idx = recent.findIndex(item => item.title===title);
   if(idx!==-1) {
@@ -171,16 +187,16 @@ function saveRecent(title, video, videoType, subtitle="", subtitleType="url") {
   recent.unshift({title, video, videoType, subtitle, subtitleType, progress});
   if(recent.length>recentSize) recent = recent.slice(0,recentSize);
 
-  localStorage.setItem(recentKey, JSON.stringify(recent));
+  setRecent(recent);
   renderRecent();
 }
 
 function removeRecent(title) {
   const userConfirmed = confirm("Are you sure you want to remove this video?");
   if (userConfirmed) {
-    let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+    let recent = getRecent();
     recent = recent.filter(item => !(item.title===title));
-    localStorage.setItem(recentKey, JSON.stringify(recent));
+    setRecent(recent);
     renderRecent();
   }
 }
@@ -188,18 +204,18 @@ function removeRecent(title) {
 function updateProgress() {
   if(!state.currentVideo || !player.duration) return;
   const percent = Math.min(100, Math.round((player.currentTime/player.duration)*100));
-  let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+  let recent = getRecent();
   const idx = recent.findIndex(item => item.video===state.currentVideo);
   if(idx!==-1) {
     recent[idx].progress = percent;
-    localStorage.setItem(recentKey, JSON.stringify(recent));
+    setRecent(recent);
     renderRecent();
   }
 }
 
 function loadPlayerTime() {
   if(!state.currentVideo || !player.duration) return;
-  let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+  let recent = getRecent();
   const idx = recent.findIndex(item => item.video===state.currentVideo);
   if(idx!==-1) {
     const currentTime = (recent[idx].progress / 100) * player.duration
@@ -209,7 +225,7 @@ function loadPlayerTime() {
 }
 
 function renderRecent() {
-  const recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+  const recent = getRecent();
   recentItems.innerHTML="";
   let maxLimit = recentItems.offsetWidth  / 11;
   recent.forEach(item => {
@@ -379,7 +395,7 @@ skipButton.addEventListener("click", () => {
   skipButton.style.display = "none";
 });
 exportButton.addEventListener("click", () => {
-  const data = localStorage.getItem(recentKey);
+  const data = getRecent();
   if (!data) {
     alert("No recent data to export.");
     return;
@@ -389,7 +405,7 @@ exportButton.addEventListener("click", () => {
   if (!fileName) {
     fileName = "neovid-recent.json";
   }
-  const blob = new Blob([data], { type: "application/json" });
+  const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = fileName;
@@ -397,7 +413,7 @@ exportButton.addEventListener("click", () => {
   URL.revokeObjectURL(a.href);
 });
 importButton.addEventListener("click", () => {
-  let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+  let recent = getRecent();
   if (recent.length > 0) {
     const ok = confirm(
     "Importing will REPLACE current recent data.\nThis action is NOT reversible.\n\nContinue?"
@@ -430,7 +446,7 @@ recentFile.addEventListener("change", () => {
         item.progress <= 100
       );
       if (!isValid) throw new Error();
-      localStorage.setItem(recentKey, JSON.stringify(parsed));
+      setRecent(parsed);
       renderRecent();
       alert("Recent data imported successfully.");
     } catch {
