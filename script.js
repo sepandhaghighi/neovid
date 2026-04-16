@@ -2,9 +2,9 @@
 const DOM = {
   form: document.getElementById("video-form"),
   videoUrl: document.getElementById("video-url"),
+  videoFile: document.getElementById("video-file"),
 
 }
-const videoFile = document.getElementById("video-file");
 const videoLoadSelect = document.getElementById("video-load-type");
 const watchLaterButton = document.getElementById("watch-later-button");
 const downloadVideoButton = document.getElementById("download-video-button");
@@ -320,7 +320,7 @@ function getFormData() {
     videoSrc = url;
     videoTitle = url.split("/").pop();
   } else {
-    const file = videoFile.files[0];
+    const file = DOM.videoFile.files[0];
     if(!file) return alert("Please select a local video file.");
     videoSrc = URL.createObjectURL(file);
     videoTitle = file.name;
@@ -348,7 +348,7 @@ function getFormData() {
 videoLoadSelect.addEventListener("change", () => {
   const isLocal = videoLoadSelect.value === "local";
   DOM.videoUrl.style.display = isLocal ? "none" : "block";
-  videoFile.style.display = isLocal ? "block" : "none";
+  DOM.videoFile.style.display = isLocal ? "block" : "none";
 });
 
 subtitleLoadSelect.addEventListener("change", () => {
