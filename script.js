@@ -7,9 +7,9 @@ const DOM = {
   watchLaterButton: document.getElementById("watch-later-button"),
   downloadVideoButton: document.getElementById("download-video-button"),
   downloadSubtitleButton: document.getElementById("download-subtitle-button"),
+  skipButton: document.getElementById("skip-button"),
 
 }
-const skipButton = document.getElementById("skip-button");
 const exportButton = document.getElementById("export-button");
 const importButton = document.getElementById("import-button");
 const installButton = document.getElementById("install-button");
@@ -115,9 +115,9 @@ function handleSkipButton() {
   if (player.duration && player.currentTime) {
     const remaining = player.duration - player.currentTime;
     if (player.duration > 3 * skipThreshold && remaining <= skipThreshold && !player.ended) {
-      skipButton.style.display = "block";
+      DOM.skipButton.style.display = "block";
     } else {
-      skipButton.style.display = "none";
+      DOM.skipButton.style.display = "none";
     }
   }   
 }
@@ -392,11 +392,11 @@ window.addEventListener("DOMContentLoaded", () => {
   updateDownloadButtons();
 });
 player.addEventListener("ended", () => {
-  skipButton.style.display = "none";
+  DOM.skipButton.style.display = "none";
 });
-skipButton.addEventListener("click", () => {
+DOM.skipButton.addEventListener("click", () => {
   player.currentTime = Math.max(player.duration - 0.1, 0);
-  skipButton.style.display = "none";
+  DOM.skipButton.style.display = "none";
 });
 exportButton.addEventListener("click", () => {
   const data = getRecent();
