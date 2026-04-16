@@ -19,10 +19,9 @@ const DOM = {
   subtitleFile: document.getElementById("subtitle-file"),
   subtitleLoadSelect: document.getElementById("subtitle-load-type"),
   player: document.getElementById("video-player"),
+  recentItems: document.getElementById("recent-items"),
 
 }
-
-const recentItems = document.getElementById("recent-items");
 const watchTime = document.getElementById("watch-time");
 const recentKey = "recentVideos";
 const watchTimeKey = "watchTime";
@@ -227,8 +226,8 @@ function loadPlayerTime() {
 
 function renderRecent() {
   const recent = getRecent();
-  recentItems.innerHTML="";
-  let maxLimit = recentItems.offsetWidth  / 11;
+  DOM.recentItems.innerHTML="";
+  let maxLimit = DOM.recentItems.offsetWidth  / 11;
   recent.forEach(item => {
     const li = document.createElement("li");
     const spanTitle = document.createElement("span");
@@ -302,7 +301,7 @@ function renderRecent() {
       }
     });
 
-    recentItems.appendChild(li);
+    DOM.recentItems.appendChild(li);
   });
 
   DOM.exportButton.style.display = recent.length ? "inline-block" : "none";
