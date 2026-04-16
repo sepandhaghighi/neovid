@@ -1,4 +1,3 @@
-
 const DOM = {
   form: document.getElementById("video-form"),
   videoUrl: document.getElementById("video-url"),
@@ -21,8 +20,8 @@ const DOM = {
   player: document.getElementById("video-player"),
   recentItems: document.getElementById("recent-items"),
   watchTime: document.getElementById("watch-time"),
-
 }
+
 const recentKey = "recentVideos";
 const watchTimeKey = "watchTime";
 const recentSize = 30;
