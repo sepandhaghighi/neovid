@@ -18,12 +18,10 @@ const DOM = {
   subtitleUrl: document.getElementById("subtitle-url"),
   subtitleFile: document.getElementById("subtitle-file"),
   subtitleLoadSelect: document.getElementById("subtitle-load-type"),
+  player: document.getElementById("video-player"),
 
 }
 
-
-
-const player = document.getElementById("video-player");
 const recentItems = document.getElementById("recent-items");
 const watchTime = document.getElementById("watch-time");
 const recentKey = "recentVideos";
@@ -93,7 +91,7 @@ function updateDownloadButtons() {
 }
 
 function updateWatchTime() {
-  const videoCurrentTime = player.currentTime;
+  const videoCurrentTime = DOM.player.currentTime;
   if (state.videoLastTime !== null) {
     const diff = videoCurrentTime - state.videoLastTime;
     if (diff > 0 && diff < 5) {
@@ -111,9 +109,9 @@ function updateWatchTime() {
 }
 
 function handleSkipButton() {
-  if (player.duration && player.currentTime) {
-    const remaining = player.duration - player.currentTime;
-    if (player.duration > 3 * skipThreshold && remaining <= skipThreshold && !player.ended) {
+  if (DOM.player.duration && DOM.player.currentTime) {
+    const remaining = DOM.player.duration - DOM.player.currentTime;
+    if (DOM.player.duration > 3 * skipThreshold && remaining <= skipThreshold && !DOM.player.ended) {
       DOM.skipButton.style.display = "block";
     } else {
       DOM.skipButton.style.display = "none";
@@ -148,11 +146,11 @@ function truncateTitle(title, maxLength = 24) {
 
 function playVideo(src, subtitle = "", title = null, type = "url", subtitleType = "url") {
   if(state.currentType === "local" && state.currentVideo) URL.revokeObjectURL(state.currentVideo);
-  player.innerHTML = "";
+  DOM.player.innerHTML = "";
 
   const sourceElement = document.createElement("source");
   sourceElement.src = src;
-  player.appendChild(sourceElement);
+  DOM.player.appendChild(sourceElement);
 
   if(subtitle) {
     const track = document.createElement("track");
@@ -161,12 +159,12 @@ function playVideo(src, subtitle = "", title = null, type = "url", subtitleType 
     track.srclang = "en";
     track.label = "English";
     track.default = true;
-    player.appendChild(track);
-    player.textTracks[0].mode = "showing";
+    DOM.player.appendChild(track);
+    DOM.player.textTracks[0].mode = "showing";
   }
 
-  player.load();
-  player.play().catch(() => {});
+  DOM.player.load();
+  DOM.player.play().catch(() => {});
 
   state.currentVideo = src;
   state.currentType = type;
@@ -205,8 +203,8 @@ function removeRecent(title) {
 }
 
 function updateProgress() {
-  if(!state.currentVideo || !player.duration) return;
-  const percent = Math.min(100, Math.round((player.currentTime/player.duration)*100));
+  if(!state.currentVideo || !DOM.player.duration) return;
+  const percent = Math.min(100, Math.round((DOM.player.currentTime/DOM.player.duration)*100));
   let recent = getRecent();
   const idx = recent.findIndex(item => item.video===state.currentVideo);
   if(idx!==-1) {
@@ -217,12 +215,12 @@ function updateProgress() {
 }
 
 function loadPlayerTime() {
-  if(!state.currentVideo || !player.duration) return;
+  if(!state.currentVideo || !DOM.player.duration) return;
   let recent = getRecent();
   const idx = recent.findIndex(item => item.video===state.currentVideo);
   if(idx!==-1) {
-    const currentTime = (recent[idx].progress / 100) * player.duration
-    player.currentTime = currentTime;
+    const currentTime = (recent[idx].progress / 100) * DOM.player.duration
+    DOM.player.currentTime = currentTime;
     
   }
 }
@@ -378,23 +376,23 @@ DOM.watchLaterButton.addEventListener("click", () => {
   alert("Video added to list.");
 });
 
-player.addEventListener("timeupdate", () => {
+DOM.player.addEventListener("timeupdate", () => {
   updateProgress();
   updateWatchTime();
   handleSkipButton();
 });
-player.addEventListener("loadedmetadata", loadPlayerTime);
+DOM.player.addEventListener("loadedmetadata", loadPlayerTime);
 window.addEventListener("DOMContentLoaded", () => {
   watchTime.textContent = formatTime(state.totalWatchTime);
   loadFromQuery();
   renderRecent();
   updateDownloadButtons();
 });
-player.addEventListener("ended", () => {
+DOM.player.addEventListener("ended", () => {
   DOM.skipButton.style.display = "none";
 });
 DOM.skipButton.addEventListener("click", () => {
-  player.currentTime = Math.max(player.duration - 0.1, 0);
+  DOM.player.currentTime = Math.max(DOM.player.duration - 0.1, 0);
   DOM.skipButton.style.display = "none";
 });
 DOM.exportButton.addEventListener("click", () => {
