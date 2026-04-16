@@ -5,9 +5,9 @@ const DOM = {
   videoFile: document.getElementById("video-file"),
   videoLoadSelect: document.getElementById("video-load-type"),
   watchLaterButton: document.getElementById("watch-later-button"),
+  downloadVideoButton: document.getElementById("download-video-button"),
 
 }
-const downloadVideoButton = document.getElementById("download-video-button");
 const downloadSubtitleButton = document.getElementById("download-subtitle-button");
 const skipButton = document.getElementById("skip-button");
 const exportButton = document.getElementById("export-button");
@@ -81,9 +81,9 @@ function downloadFile(src) {
 
 function updateDownloadButtons() {
   if (!state.currentVideo || state.currentType === "local") {
-    downloadVideoButton.disabled = true;
+    DOM.downloadVideoButton.disabled = true;
   } else {
-    downloadVideoButton.disabled = false;
+    DOM.downloadVideoButton.disabled = false;
   }
 
   if (!state.currentSubtitle || state.currentSubtitleType === "local") {
@@ -530,7 +530,7 @@ closeInstallButton.addEventListener("click", () => {
   installBanner.style.display = "none";
 });
 
-downloadVideoButton.addEventListener("click", () => {
+DOM.downloadVideoButton.addEventListener("click", () => {
   if (!state.currentVideo || state.currentType !== "url") return;
   downloadFile(state.currentVideo);
 });
