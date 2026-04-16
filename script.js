@@ -14,9 +14,9 @@ const DOM = {
   closeInstallButton: document.getElementById("close-install"),
   installBanner: document.getElementById("install-banner"),
   recentFile: document.getElementById("recent-file"),
+  recentNotice: document.getElementById("recent-notice"),
 
 }
-const recentNotice = document.getElementById("recent-notice");
 
 
 const subtitleUrl = document.getElementById("subtitle-url");
@@ -309,7 +309,7 @@ function renderRecent() {
   });
 
   DOM.exportButton.style.display = recent.length ? "inline-block" : "none";
-  recentNotice.style.display = recent.length ? "block" : "none";
+  DOM.recentNotice.style.display = recent.length ? "block" : "none";
 }
 
 function getFormData() {
