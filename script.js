@@ -17,9 +17,10 @@ const DOM = {
   recentNotice: document.getElementById("recent-notice"),
   subtitleUrl: document.getElementById("subtitle-url"),
   subtitleFile: document.getElementById("subtitle-file"),
+  subtitleLoadSelect: document.getElementById("subtitle-load-type"),
 
 }
-const subtitleLoadSelect = document.getElementById("subtitle-load-type");
+
 
 
 const player = document.getElementById("video-player");
@@ -325,7 +326,7 @@ function getFormData() {
   }
 
 
-  let subSrc = "", subType = subtitleLoadSelect.value;
+  let subSrc = "", subType = DOM.subtitleLoadSelect.value;
   if(subType==="url") {
     subSrc = DOM.subtitleUrl.value.trim();
   } else {
@@ -349,8 +350,8 @@ DOM.videoLoadSelect.addEventListener("change", () => {
   DOM.videoFile.style.display = isLocal ? "block" : "none";
 });
 
-subtitleLoadSelect.addEventListener("change", () => {
-  const isLocal = subtitleLoadSelect.value === "local";
+DOM.subtitleLoadSelect.addEventListener("change", () => {
+  const isLocal = DOM.subtitleLoadSelect.value === "local";
   DOM.subtitleUrl.style.display = isLocal ? "none" : "block";
   DOM.subtitleFile.style.display = isLocal ? "block" : "none";
 });
