@@ -1,28 +1,27 @@
-const form = document.getElementById("video-form");
-const videoUrl = document.getElementById("video-url");
-const videoFile = document.getElementById("video-file");
-const videoLoadSelect = document.getElementById("video-load-type");
-const watchLaterButton = document.getElementById("watch-later-button");
-const downloadVideoButton = document.getElementById("download-video-button");
-const downloadSubtitleButton = document.getElementById("download-subtitle-button");
-const skipButton = document.getElementById("skip-button");
-const exportButton = document.getElementById("export-button");
-const importButton = document.getElementById("import-button");
-const installButton = document.getElementById("install-button");
-const closeInstallButton = document.getElementById("close-install");
-const installBanner = document.getElementById("install-banner");
-const recentFile = document.getElementById("recent-file");
-const recentNotice = document.getElementById("recent-notice");
+const DOM = {
+  form: document.getElementById("video-form"),
+  videoUrl: document.getElementById("video-url"),
+  videoFile: document.getElementById("video-file"),
+  videoLoadSelect: document.getElementById("video-load-type"),
+  watchLaterButton: document.getElementById("watch-later-button"),
+  downloadVideoButton: document.getElementById("download-video-button"),
+  downloadSubtitleButton: document.getElementById("download-subtitle-button"),
+  skipButton: document.getElementById("skip-button"),
+  exportButton: document.getElementById("export-button"),
+  importButton: document.getElementById("import-button"),
+  installButton: document.getElementById("install-button"),
+  closeInstallButton: document.getElementById("close-install"),
+  installBanner: document.getElementById("install-banner"),
+  recentFile: document.getElementById("recent-file"),
+  recentNotice: document.getElementById("recent-notice"),
+  subtitleUrl: document.getElementById("subtitle-url"),
+  subtitleFile: document.getElementById("subtitle-file"),
+  subtitleLoadSelect: document.getElementById("subtitle-load-type"),
+  player: document.getElementById("video-player"),
+  recentItems: document.getElementById("recent-items"),
+  watchTime: document.getElementById("watch-time"),
+}
 
-
-const subtitleUrl = document.getElementById("subtitle-url");
-const subtitleFile = document.getElementById("subtitle-file");
-const subtitleLoadSelect = document.getElementById("subtitle-load-type");
-
-
-const player = document.getElementById("video-player");
-const recentItems = document.getElementById("recent-items");
-const watchTime = document.getElementById("watch-time");
 const recentKey = "recentVideos";
 const watchTimeKey = "watchTime";
 const recentSize = 30;
@@ -77,20 +76,20 @@ function downloadFile(src) {
 
 function updateDownloadButtons() {
   if (!state.currentVideo || state.currentType === "local") {
-    downloadVideoButton.disabled = true;
+    DOM.downloadVideoButton.disabled = true;
   } else {
-    downloadVideoButton.disabled = false;
+    DOM.downloadVideoButton.disabled = false;
   }
 
   if (!state.currentSubtitle || state.currentSubtitleType === "local") {
-    downloadSubtitleButton.disabled = true;
+    DOM.downloadSubtitleButton.disabled = true;
   } else {
-    downloadSubtitleButton.disabled = false;
+    DOM.downloadSubtitleButton.disabled = false;
   }
 }
 
 function updateWatchTime() {
-  const videoCurrentTime = player.currentTime;
+  const videoCurrentTime = DOM.player.currentTime;
   if (state.videoLastTime !== null) {
     const diff = videoCurrentTime - state.videoLastTime;
     if (diff > 0 && diff < 5) {
@@ -99,7 +98,7 @@ function updateWatchTime() {
         state.totalWatchTime += 1;
         state.accumulatedWatchTime -= 1;
         setWatchTime(state.totalWatchTime);
-        watchTime.textContent = formatTime(state.totalWatchTime);
+        DOM.watchTime.textContent = formatTime(state.totalWatchTime);
         
       }
     }
@@ -108,12 +107,12 @@ function updateWatchTime() {
 }
 
 function handleSkipButton() {
-  if (player.duration && player.currentTime) {
-    const remaining = player.duration - player.currentTime;
-    if (player.duration > 3 * skipThreshold && remaining <= skipThreshold && !player.ended) {
-      skipButton.style.display = "block";
+  if (DOM.player.duration && DOM.player.currentTime) {
+    const remaining = DOM.player.duration - DOM.player.currentTime;
+    if (DOM.player.duration > 3 * skipThreshold && remaining <= skipThreshold && !DOM.player.ended) {
+      DOM.skipButton.style.display = "block";
     } else {
-      skipButton.style.display = "none";
+      DOM.skipButton.style.display = "none";
     }
   }   
 }
@@ -131,10 +130,10 @@ function loadFromQuery() {
   const videoUrlQuery = videoMatch ? decodeURIComponent(videoMatch[1]) : null;
   const subtitleUrlQuery = subtitleMatch ? decodeURIComponent(subtitleMatch[1]) : null;
   if (videoUrlQuery) {
-    videoUrl.value = videoUrlQuery;
+    DOM.videoUrl.value = videoUrlQuery;
   }
   if (subtitleUrlQuery) {
-    subtitleUrl.value = subtitleUrlQuery;
+    DOM.subtitleUrl.value = subtitleUrlQuery;
   }
 }
 
@@ -145,11 +144,11 @@ function truncateTitle(title, maxLength = 24) {
 
 function playVideo(src, subtitle = "", title = null, type = "url", subtitleType = "url") {
   if(state.currentType === "local" && state.currentVideo) URL.revokeObjectURL(state.currentVideo);
-  player.innerHTML = "";
+  DOM.player.innerHTML = "";
 
   const sourceElement = document.createElement("source");
   sourceElement.src = src;
-  player.appendChild(sourceElement);
+  DOM.player.appendChild(sourceElement);
 
   if(subtitle) {
     const track = document.createElement("track");
@@ -158,12 +157,12 @@ function playVideo(src, subtitle = "", title = null, type = "url", subtitleType 
     track.srclang = "en";
     track.label = "English";
     track.default = true;
-    player.appendChild(track);
-    player.textTracks[0].mode = "showing";
+    DOM.player.appendChild(track);
+    DOM.player.textTracks[0].mode = "showing";
   }
 
-  player.load();
-  player.play().catch(() => {});
+  DOM.player.load();
+  DOM.player.play().catch(() => {});
 
   state.currentVideo = src;
   state.currentType = type;
@@ -202,8 +201,8 @@ function removeRecent(title) {
 }
 
 function updateProgress() {
-  if(!state.currentVideo || !player.duration) return;
-  const percent = Math.min(100, Math.round((player.currentTime/player.duration)*100));
+  if(!state.currentVideo || !DOM.player.duration) return;
+  const percent = Math.min(100, Math.round((DOM.player.currentTime/DOM.player.duration)*100));
   let recent = getRecent();
   const idx = recent.findIndex(item => item.video===state.currentVideo);
   if(idx!==-1) {
@@ -214,20 +213,20 @@ function updateProgress() {
 }
 
 function loadPlayerTime() {
-  if(!state.currentVideo || !player.duration) return;
+  if(!state.currentVideo || !DOM.player.duration) return;
   let recent = getRecent();
   const idx = recent.findIndex(item => item.video===state.currentVideo);
   if(idx!==-1) {
-    const currentTime = (recent[idx].progress / 100) * player.duration
-    player.currentTime = currentTime;
+    const currentTime = (recent[idx].progress / 100) * DOM.player.duration
+    DOM.player.currentTime = currentTime;
     
   }
 }
 
 function renderRecent() {
   const recent = getRecent();
-  recentItems.innerHTML="";
-  let maxLimit = recentItems.offsetWidth  / 11;
+  DOM.recentItems.innerHTML="";
+  let maxLimit = DOM.recentItems.offsetWidth  / 11;
   recent.forEach(item => {
     const li = document.createElement("li");
     const spanTitle = document.createElement("span");
@@ -279,55 +278,55 @@ function renderRecent() {
     spanTitle.addEventListener("click", () => {
       let isDataLoaded = false;
       if(item.videoType==="url"){
-        videoUrl.value = item.video;
+        DOM.videoUrl.value = item.video;
         isDataLoaded = true;
       }
       else{
-        videoUrl.value = "";
+        DOM.videoUrl.value = "";
         alert("Please reselect the local video.");
       }
       if (item.subtitle) {
         if (item.subtitleType==="url") {
-          subtitleUrl.value = item.subtitle;
+          DOM.subtitleUrl.value = item.subtitle;
           isDataLoaded = true;   
         }
         else{
-          subtitleUrl.value = "";
+          DOM.subtitleUrl.value = "";
           alert("Please reselect the local subtitle.");
         }
       }
       if (isDataLoaded) {
-        form.scrollIntoView({"behavior": "smooth"});
+        DOM.form.scrollIntoView({"behavior": "smooth"});
       }
     });
 
-    recentItems.appendChild(li);
+    DOM.recentItems.appendChild(li);
   });
 
-  exportButton.style.display = recent.length ? "inline-block" : "none";
-  recentNotice.style.display = recent.length ? "block" : "none";
+  DOM.exportButton.style.display = recent.length ? "inline-block" : "none";
+  DOM.recentNotice.style.display = recent.length ? "block" : "none";
 }
 
 function getFormData() {
-  let videoSrc = "", videoTitle = "", videoType = videoLoadSelect.value;
+  let videoSrc = "", videoTitle = "", videoType = DOM.videoLoadSelect.value;
   if(videoType==="url") {
-    const url = videoUrl.value.trim();
+    const url = DOM.videoUrl.value.trim();
     if(!url) return alert("Please enter a video URL.");
     videoSrc = url;
     videoTitle = url.split("/").pop();
   } else {
-    const file = videoFile.files[0];
+    const file = DOM.videoFile.files[0];
     if(!file) return alert("Please select a local video file.");
     videoSrc = URL.createObjectURL(file);
     videoTitle = file.name;
   }
 
 
-  let subSrc = "", subType = subtitleLoadSelect.value;
+  let subSrc = "", subType = DOM.subtitleLoadSelect.value;
   if(subType==="url") {
-    subSrc = subtitleUrl.value.trim();
+    subSrc = DOM.subtitleUrl.value.trim();
   } else {
-    const subFile = subtitleFile.files[0];
+    const subFile = DOM.subtitleFile.files[0];
     if(subFile) subSrc = URL.createObjectURL(subFile);
   }
   return {
@@ -341,20 +340,20 @@ function getFormData() {
 
 
 
-videoLoadSelect.addEventListener("change", () => {
-  const isLocal = videoLoadSelect.value === "local";
-  videoUrl.style.display = isLocal ? "none" : "block";
-  videoFile.style.display = isLocal ? "block" : "none";
+DOM.videoLoadSelect.addEventListener("change", () => {
+  const isLocal = DOM.videoLoadSelect.value === "local";
+  DOM.videoUrl.style.display = isLocal ? "none" : "block";
+  DOM.videoFile.style.display = isLocal ? "block" : "none";
 });
 
-subtitleLoadSelect.addEventListener("change", () => {
-  const isLocal = subtitleLoadSelect.value === "local";
-  subtitleUrl.style.display = isLocal ? "none" : "block";
-  subtitleFile.style.display = isLocal ? "block" : "none";
+DOM.subtitleLoadSelect.addEventListener("change", () => {
+  const isLocal = DOM.subtitleLoadSelect.value === "local";
+  DOM.subtitleUrl.style.display = isLocal ? "none" : "block";
+  DOM.subtitleFile.style.display = isLocal ? "block" : "none";
 });
 
 
-form.addEventListener("submit", function(e) {
+DOM.form.addEventListener("submit", function(e) {
   e.preventDefault();
   const data = getFormData();
   if (!data) return;
@@ -362,7 +361,7 @@ form.addEventListener("submit", function(e) {
   saveRecent(data.videoTitle, data.videoSrc, data.videoType, data.subSrc, data.subType);
 });
 
-watchLaterButton.addEventListener("click", () => {
+DOM.watchLaterButton.addEventListener("click", () => {
   const data = getFormData();
   if (!data) return;
   saveRecent(
@@ -375,26 +374,26 @@ watchLaterButton.addEventListener("click", () => {
   alert("Video added to list.");
 });
 
-player.addEventListener("timeupdate", () => {
+DOM.player.addEventListener("timeupdate", () => {
   updateProgress();
   updateWatchTime();
   handleSkipButton();
 });
-player.addEventListener("loadedmetadata", loadPlayerTime);
+DOM.player.addEventListener("loadedmetadata", loadPlayerTime);
 window.addEventListener("DOMContentLoaded", () => {
-  watchTime.textContent = formatTime(state.totalWatchTime);
+  DOM.watchTime.textContent = formatTime(state.totalWatchTime);
   loadFromQuery();
   renderRecent();
   updateDownloadButtons();
 });
-player.addEventListener("ended", () => {
-  skipButton.style.display = "none";
+DOM.player.addEventListener("ended", () => {
+  DOM.skipButton.style.display = "none";
 });
-skipButton.addEventListener("click", () => {
-  player.currentTime = Math.max(player.duration - 0.1, 0);
-  skipButton.style.display = "none";
+DOM.skipButton.addEventListener("click", () => {
+  DOM.player.currentTime = Math.max(DOM.player.duration - 0.1, 0);
+  DOM.skipButton.style.display = "none";
 });
-exportButton.addEventListener("click", () => {
+DOM.exportButton.addEventListener("click", () => {
   const data = getRecent();
   if (!data) {
     alert("No recent data to export.");
@@ -412,21 +411,21 @@ exportButton.addEventListener("click", () => {
   a.click();
   URL.revokeObjectURL(a.href);
 });
-importButton.addEventListener("click", () => {
+DOM.importButton.addEventListener("click", () => {
   let recent = getRecent();
   if (recent.length > 0) {
     const ok = confirm(
     "Importing will REPLACE current recent data.\nThis action is NOT reversible.\n\nContinue?"
     );
-  if (ok) recentFile.click();
+  if (ok) DOM.recentFile.click();
   }
   else {
-    recentFile.click();
+    DOM.recentFile.click();
   }
   
 });
-recentFile.addEventListener("change", () => {
-  const file = recentFile.files[0];
+DOM.recentFile.addEventListener("change", () => {
+  const file = DOM.recentFile.files[0];
   if (!file) return;
   const reader = new FileReader();
   reader.onload = () => {
@@ -452,7 +451,7 @@ recentFile.addEventListener("change", () => {
     } catch {
       alert("Invalid recent data file.");
     }
-    recentFile.value = "";
+    DOM.recentFile.value = "";
   };
   reader.readAsText(file);
 });
@@ -498,7 +497,7 @@ let isInstalled = false;
 window.addEventListener("appinstalled", () => {
   isInstalled = true;
   deferredPrompt = null;
-  installBanner.style.display = "none";
+  DOM.installBanner.style.display = "none";
 });
 
 window.addEventListener("beforeinstallprompt", (event) => {
@@ -507,11 +506,11 @@ window.addEventListener("beforeinstallprompt", (event) => {
   deferredPrompt = event;
 
   if (!isInstalled) {
-    installBanner.style.display = "block";
+    DOM.installBanner.style.display = "block";
   }
 });
 
-installButton.addEventListener("click", async () => {
+DOM.installButton.addEventListener("click", async () => {
   if (!deferredPrompt) return;
 
   deferredPrompt.prompt();
@@ -519,19 +518,19 @@ installButton.addEventListener("click", async () => {
   const { outcome } = await deferredPrompt.userChoice;
 
   deferredPrompt = null;
-  installBanner.style.display = "none";
+  DOM.installBanner.style.display = "none";
 });
 
-closeInstallButton.addEventListener("click", () => {
-  installBanner.style.display = "none";
+DOM.closeInstallButton.addEventListener("click", () => {
+  DOM.installBanner.style.display = "none";
 });
 
-downloadVideoButton.addEventListener("click", () => {
+DOM.downloadVideoButton.addEventListener("click", () => {
   if (!state.currentVideo || state.currentType !== "url") return;
   downloadFile(state.currentVideo);
 });
 
-downloadSubtitleButton.addEventListener("click", () => {
+DOM.downloadSubtitleButton.addEventListener("click", () => {
   if (!state.currentSubtitle || state.currentSubtitleType !== "url") return;
   downloadFile(state.currentSubtitle);
 });
