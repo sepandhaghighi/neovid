@@ -8,9 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Video download button
 - Subtitle download button
+- `getRecent` function
+- `setRecent` function
+- `getWatchTime` function
+- `setWatchTime` function
 ### Changed
 - `README.md` updated
 - `service-worker.js` modified
+- `playVideo` function modified
 ## [0.8] - 2026-03-26
 ### Added
 - Watch later button
