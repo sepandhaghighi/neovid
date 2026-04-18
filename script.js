@@ -142,12 +142,12 @@ function truncateTitle(title, maxLength = 24) {
   return title.length > maxLength ? title.slice(0, maxLength - 3) + "..." : title;
 }
 
-function playVideo(src, subtitle = "", title = null, type = "url", subtitleType = "url") {
+function playVideo(video, subtitle = "", title = null, videoType = "url", subtitleType = "url") {
   if(state.currentType === "local" && state.currentVideo) URL.revokeObjectURL(state.currentVideo);
   DOM.player.innerHTML = "";
 
   const sourceElement = document.createElement("source");
-  sourceElement.src = src;
+  sourceElement.src = video;
   DOM.player.appendChild(sourceElement);
 
   if(subtitle) {
@@ -164,9 +164,9 @@ function playVideo(src, subtitle = "", title = null, type = "url", subtitleType 
   DOM.player.load();
   DOM.player.play().catch(() => {});
 
-  state.currentVideo = src;
-  state.currentType = type;
-  state.currentTitle = title || (type==="url"? src.split("/").pop(): title);
+  state.currentVideo = video;
+  state.currentType = videoType;
+  state.currentTitle = title || (videoType==="url"? video.split("/").pop(): title);
   state.currentSubtitle = subtitle;
   state.currentSubtitleType = subtitleType;
   updateDownloadButtons();
