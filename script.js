@@ -271,18 +271,12 @@ function createRecentItem(item, maxLimit) {
     return { li, spanTitle, spanRemove };
 }
 
-
-function renderRecent() {
-  const recent = getRecent();
-  DOM.recentItems.innerHTML="";
-  let maxLimit = DOM.recentItems.offsetWidth  / 11;
-  recent.forEach(item => {
-    
-
-    spanRemove.addEventListener("click", () => {
+function attachRecentEvents(li, item, spanTitle, spanRemove) {
+  spanRemove.addEventListener("click", () => {
       removeRecent(item.title);
-    });
-    spanTitle.addEventListener("click", () => {
+  });
+
+  spanTitle.addEventListener("click", () => {
       let isDataLoaded = false;
       if(item.videoType==="url"){
         DOM.videoUrl.value = item.video;
@@ -305,7 +299,19 @@ function renderRecent() {
       if (isDataLoaded) {
         DOM.form.scrollIntoView({"behavior": "smooth"});
       }
-    });
+  });
+}
+
+
+function renderRecent() {
+  const recent = getRecent();
+  DOM.recentItems.innerHTML="";
+  let maxLimit = DOM.recentItems.offsetWidth  / 11;
+  recent.forEach(item => {
+    
+
+    
+    
 
     DOM.recentItems.appendChild(li);
   });
