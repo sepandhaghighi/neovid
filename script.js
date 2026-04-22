@@ -308,11 +308,8 @@ function renderRecent() {
   DOM.recentItems.innerHTML="";
   let maxLimit = DOM.recentItems.offsetWidth  / 11;
   recent.forEach(item => {
-    
-
-    
-    
-
+    const { li, spanTitle, spanRemove } = createRecentItem(item, maxLimit);
+    attachRecentEvents(li, item, spanTitle, spanRemove);
     DOM.recentItems.appendChild(li);
   });
 
