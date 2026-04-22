@@ -223,12 +223,8 @@ function loadPlayerTime() {
   }
 }
 
-function renderRecent() {
-  const recent = getRecent();
-  DOM.recentItems.innerHTML="";
-  let maxLimit = DOM.recentItems.offsetWidth  / 11;
-  recent.forEach(item => {
-    const li = document.createElement("li");
+function createRecentItem(item, maxLimit) {
+  const li = document.createElement("li");
     const spanTitle = document.createElement("span");
     const spanRemove = document.createElement("span");
     li.style.background = getProgressBackground(item.progress);
@@ -271,6 +267,17 @@ function renderRecent() {
     li.appendChild(spanRemove);
     li.appendChild(spanTitle);
     li.appendChild(spanProgress);
+
+    return { li, spanTitle, spanRemove };
+}
+
+
+function renderRecent() {
+  const recent = getRecent();
+  DOM.recentItems.innerHTML="";
+  let maxLimit = DOM.recentItems.offsetWidth  / 11;
+  recent.forEach(item => {
+    
 
     spanRemove.addEventListener("click", () => {
       removeRecent(item.title);
