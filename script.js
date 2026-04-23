@@ -271,7 +271,7 @@ function createRecentItem(item, maxLimit) {
     return { li, spanTitle, spanRemove };
 }
 
-function attachRecentEvents(li, item, spanTitle, spanRemove) {
+function attachRecentEvents(item, spanTitle, spanRemove) {
   spanRemove.addEventListener("click", () => {
       removeRecent(item.title);
   });
@@ -309,7 +309,7 @@ function renderRecent() {
   let maxLimit = DOM.recentItems.offsetWidth  / 11;
   recent.forEach(item => {
     const { li, spanTitle, spanRemove } = createRecentItem(item, maxLimit);
-    attachRecentEvents(li, item, spanTitle, spanRemove);
+    attachRecentEvents(item, spanTitle, spanRemove);
     DOM.recentItems.appendChild(li);
   });
 
