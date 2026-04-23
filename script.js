@@ -225,80 +225,80 @@ function loadPlayerTime() {
 
 function createRecentItem(item, maxLimit) {
   const li = document.createElement("li");
-    const spanTitle = document.createElement("span");
-    const spanRemove = document.createElement("span");
-    li.style.background = getProgressBackground(item.progress);
-    spanTitle.textContent = truncateTitle(item.title, maxLimit);
-    spanTitle.className = "recent-title";
-    spanRemove.textContent = "🗑️";
-    spanRemove.className = "recent-remove";
-    if(item.videoType==="url") {
-      const tag = document.createElement("span");
-      tag.className="url-tag";
-      tag.textContent="🌐";
-      spanTitle.appendChild(tag);
-    }
-    if(item.videoType==="local") {
-      const tag = document.createElement("span");
-      tag.className="local-tag";
-      tag.textContent="💾";
-      spanTitle.appendChild(tag);
-    }
-    if(item.subtitle && item.subtitleType==="local") {
-      const tag = document.createElement("span");
-      tag.className="local-tag";
-      tag.textContent="📄";
-      spanTitle.appendChild(tag);
-    }
-    if(item.subtitle && item.subtitleType==="url") {
-      const tag = document.createElement("span");
-      tag.className="url-tag";
-      tag.textContent="💬";
-      spanTitle.appendChild(tag);
-    }
-    const spanProgress = document.createElement("span");
-    spanProgress.className="recent-progress";
-    spanProgress.textContent = `${item.progress||0}%`;
+  const spanTitle = document.createElement("span");
+  const spanRemove = document.createElement("span");
+  li.style.background = getProgressBackground(item.progress);
+  spanTitle.textContent = truncateTitle(item.title, maxLimit);
+  spanTitle.className = "recent-title";
+  spanRemove.textContent = "🗑️";
+  spanRemove.className = "recent-remove";
+  if(item.videoType==="url") {
+    const tag = document.createElement("span");
+    tag.className="url-tag";
+    tag.textContent="🌐";
+    spanTitle.appendChild(tag);
+  }
+  if(item.videoType==="local") {
+    const tag = document.createElement("span");
+    tag.className="local-tag";
+    tag.textContent="💾";
+    spanTitle.appendChild(tag);
+  }
+  if(item.subtitle && item.subtitleType==="local") {
+    const tag = document.createElement("span");
+    tag.className="local-tag";
+    tag.textContent="📄";
+    spanTitle.appendChild(tag);
+  }
+  if(item.subtitle && item.subtitleType==="url") {
+    const tag = document.createElement("span");
+    tag.className="url-tag";
+    tag.textContent="💬";
+    spanTitle.appendChild(tag);
+  }
+  const spanProgress = document.createElement("span");
+  spanProgress.className="recent-progress";
+  spanProgress.textContent = `${item.progress||0}%`;
 
-    if(item.progress>=97) {
-      spanProgress.textContent = "✔️";
-    }
+  if(item.progress>=97) {
+    spanProgress.textContent = "✔️";
+  }
 
-    li.appendChild(spanRemove);
-    li.appendChild(spanTitle);
-    li.appendChild(spanProgress);
+  li.appendChild(spanRemove);
+  li.appendChild(spanTitle);
+  li.appendChild(spanProgress);
 
-    return { li, spanTitle, spanRemove };
+  return { li, spanTitle, spanRemove };
 }
 
 function attachRecentEvents(item, spanTitle, spanRemove) {
   spanRemove.addEventListener("click", () => {
-      removeRecent(item.title);
+    removeRecent(item.title);
   });
 
   spanTitle.addEventListener("click", () => {
-      let isDataLoaded = false;
-      if(item.videoType==="url"){
-        DOM.videoUrl.value = item.video;
-        isDataLoaded = true;
+    let isDataLoaded = false;
+    if(item.videoType==="url"){
+      DOM.videoUrl.value = item.video;
+      isDataLoaded = true;
+    }
+    else{
+      DOM.videoUrl.value = "";
+      alert("Please reselect the local video.");
+    }
+    if (item.subtitle) {
+      if (item.subtitleType==="url") {
+        DOM.subtitleUrl.value = item.subtitle;
+        isDataLoaded = true;   
       }
       else{
-        DOM.videoUrl.value = "";
-        alert("Please reselect the local video.");
+        DOM.subtitleUrl.value = "";
+        alert("Please reselect the local subtitle.");
       }
-      if (item.subtitle) {
-        if (item.subtitleType==="url") {
-          DOM.subtitleUrl.value = item.subtitle;
-          isDataLoaded = true;   
-        }
-        else{
-          DOM.subtitleUrl.value = "";
-          alert("Please reselect the local subtitle.");
-        }
-      }
-      if (isDataLoaded) {
-        DOM.form.scrollIntoView({"behavior": "smooth"});
-      }
+    }
+    if (isDataLoaded) {
+      DOM.form.scrollIntoView({"behavior": "smooth"});
+    }
   });
 }
 
