@@ -144,6 +144,7 @@ function truncateTitle(title, maxLength = 24) {
 
 function playVideo(video, subtitle = "", title = null, videoType = "url", subtitleType = "url") {
   if(state.currentVideoType === "local" && state.currentVideo) URL.revokeObjectURL(state.currentVideo);
+  if(state.currentSubtitleType === "local" && state.currentSubtitle) URL.revokeObjectURL(state.currentSubtitle);
   DOM.player.innerHTML = "";
 
   const sourceElement = document.createElement("source");
