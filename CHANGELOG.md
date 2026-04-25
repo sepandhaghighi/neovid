@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changed
 - `renderRecent` function modified
+- `playVideo` function modified
 ## [0.9] - 2026-04-21
 ### Added
 - Video download button
