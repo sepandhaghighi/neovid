@@ -45,7 +45,7 @@ function setWatchTime(value) {
 
 const state = {
   currentVideo: null,
-  currentType: "url",
+  currentVideoType: "url",
   currentSubtitle: "",
   currentSubtitleType: "url",
   currentTitle: "",
@@ -75,7 +75,7 @@ function downloadFile(src) {
 }
 
 function updateDownloadButtons() {
-  if (!state.currentVideo || state.currentType === "local") {
+  if (!state.currentVideo || state.currentVideoType === "local") {
     DOM.downloadVideoButton.disabled = true;
   } else {
     DOM.downloadVideoButton.disabled = false;
@@ -143,7 +143,7 @@ function truncateTitle(title, maxLength = 24) {
 }
 
 function playVideo(video, subtitle = "", title = null, videoType = "url", subtitleType = "url") {
-  if(state.currentType === "local" && state.currentVideo) URL.revokeObjectURL(state.currentVideo);
+  if(state.currentVideoType === "local" && state.currentVideo) URL.revokeObjectURL(state.currentVideo);
   DOM.player.innerHTML = "";
 
   const sourceElement = document.createElement("source");
@@ -165,7 +165,7 @@ function playVideo(video, subtitle = "", title = null, videoType = "url", subtit
   DOM.player.play().catch(() => {});
 
   state.currentVideo = video;
-  state.currentType = videoType;
+  state.currentVideoType = videoType;
   state.currentTitle = title || (videoType==="url"? video.split("/").pop(): title);
   state.currentSubtitle = subtitle;
   state.currentSubtitleType = subtitleType;
@@ -536,7 +536,7 @@ DOM.closeInstallButton.addEventListener("click", () => {
 });
 
 DOM.downloadVideoButton.addEventListener("click", () => {
-  if (!state.currentVideo || state.currentType !== "url") return;
+  if (!state.currentVideo || state.currentVideoType !== "url") return;
   downloadFile(state.currentVideo);
 });
 
