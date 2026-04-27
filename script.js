@@ -333,8 +333,8 @@ function getFormData() {
   }
 
 
-  let subtitleSrc = "", subType = DOM.subtitleLoadSelect.value;
-  if(subType==="url") {
+  let subtitleSrc = "", subtitleType = DOM.subtitleLoadSelect.value;
+  if(subtitleType==="url") {
     subtitleSrc = DOM.subtitleUrl.value.trim();
   } else {
     const subFile = DOM.subtitleFile.files[0];
@@ -345,7 +345,7 @@ function getFormData() {
     videoTitle,
     videoType,
     subtitleSrc,
-    subType
+    subtitleType
   };
 }
 
@@ -368,8 +368,8 @@ DOM.form.addEventListener("submit", function(e) {
   e.preventDefault();
   const data = getFormData();
   if (!data) return;
-  playVideo(data.videoSrc, data.subtitleSrc, data.videoTitle, data.videoType, data.subType);
-  saveRecent(data.videoTitle, data.videoSrc, data.videoType, data.subtitleSrc, data.subType);
+  playVideo(data.videoSrc, data.subtitleSrc, data.videoTitle, data.videoType, data.subtitleType);
+  saveRecent(data.videoTitle, data.videoSrc, data.videoType, data.subtitleSrc, data.subtitleType);
 });
 
 DOM.watchLaterButton.addEventListener("click", () => {
@@ -380,7 +380,7 @@ DOM.watchLaterButton.addEventListener("click", () => {
     data.videoSrc,
     data.videoType,
     data.subtitleSrc,
-    data.subType
+    data.subtitleType
   );
   alert("Video added to list.");
 });
