@@ -333,19 +333,19 @@ function getFormData() {
   }
 
 
-  let subSrc = "", subType = DOM.subtitleLoadSelect.value;
-  if(subType==="url") {
-    subSrc = DOM.subtitleUrl.value.trim();
+  let subtitleSrc = "", subtitleType = DOM.subtitleLoadSelect.value;
+  if(subtitleType==="url") {
+    subtitleSrc = DOM.subtitleUrl.value.trim();
   } else {
     const subFile = DOM.subtitleFile.files[0];
-    if(subFile) subSrc = URL.createObjectURL(subFile);
+    if(subFile) subtitleSrc = URL.createObjectURL(subFile);
   }
   return {
     videoSrc,
     videoTitle,
     videoType,
-    subSrc,
-    subType
+    subtitleSrc,
+    subtitleType
   };
 }
 
@@ -368,8 +368,8 @@ DOM.form.addEventListener("submit", function(e) {
   e.preventDefault();
   const data = getFormData();
   if (!data) return;
-  playVideo(data.videoSrc, data.subSrc, data.videoTitle, data.videoType, data.subType);
-  saveRecent(data.videoTitle, data.videoSrc, data.videoType, data.subSrc, data.subType);
+  playVideo(data.videoSrc, data.subtitleSrc, data.videoTitle, data.videoType, data.subtitleType);
+  saveRecent(data.videoTitle, data.videoSrc, data.videoType, data.subtitleSrc, data.subtitleType);
 });
 
 DOM.watchLaterButton.addEventListener("click", () => {
@@ -379,8 +379,8 @@ DOM.watchLaterButton.addEventListener("click", () => {
     data.videoTitle,
     data.videoSrc,
     data.videoType,
-    data.subSrc,
-    data.subType
+    data.subtitleSrc,
+    data.subtitleType
   );
   alert("Video added to list.");
 });
