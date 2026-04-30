@@ -1,6 +1,7 @@
 const CONFIG = {
   STORAGE_KEYS: {
     RECENT: "recentVideos",
+    WATCH_TIME: "watchTime",
   },
 
 };
@@ -29,7 +30,6 @@ const DOM = {
   recentItems: document.getElementById("recent-items"),
   watchTime: document.getElementById("watch-time"),
 }
-const watchTimeKey = "watchTime";
 const recentSize = 30;
 const skipThreshold = 60;
 
@@ -42,11 +42,11 @@ function setRecent(data) {
 }
 
 function getWatchTime() {
-  return parseInt(localStorage.getItem(watchTimeKey) || "0", 10);
+  return parseInt(localStorage.getItem(CONFIG.STORAGE_KEYS.WATCH_TIME) || "0", 10);
 }
 
 function setWatchTime(value) {
-  localStorage.setItem(watchTimeKey, value);
+  localStorage.setItem(CONFIG.STORAGE_KEYS.WATCH_TIME, value);
 }
 
 const state = {
