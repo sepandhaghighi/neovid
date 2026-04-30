@@ -337,8 +337,8 @@ function getFormData() {
   if(subtitleType==="url") {
     subtitleSrc = DOM.subtitleUrl.value.trim();
   } else {
-    const subFile = DOM.subtitleFile.files[0];
-    if(subFile) subtitleSrc = URL.createObjectURL(subFile);
+    const subtitleFile = DOM.subtitleFile.files[0];
+    if(subtitleFile) subtitleSrc = URL.createObjectURL(subtitleFile);
   }
   return {
     videoSrc,
