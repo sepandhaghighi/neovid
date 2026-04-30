@@ -6,6 +6,7 @@ const CONFIG = {
 
   LIMITS: {
     RECENT_SIZE: 30,
+    SKIP_THRESHOLD: 60,
   },
 
 };
@@ -34,7 +35,6 @@ const DOM = {
   recentItems: document.getElementById("recent-items"),
   watchTime: document.getElementById("watch-time"),
 }
-const skipThreshold = 60;
 
 function getRecent() {
   return JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEYS.RECENT) || "[]");
@@ -118,7 +118,7 @@ function updateWatchTime() {
 function handleSkipButton() {
   if (DOM.player.duration && DOM.player.currentTime) {
     const remaining = DOM.player.duration - DOM.player.currentTime;
-    if (DOM.player.duration > 3 * skipThreshold && remaining <= skipThreshold && !DOM.player.ended) {
+    if (DOM.player.duration > 3 * CONFIG.LIMITS.SKIP_THRESHOLD && remaining <= CONFIG.LIMITS.SKIP_THRESHOLD && !DOM.player.ended) {
       DOM.skipButton.style.display = "block";
     } else {
       DOM.skipButton.style.display = "none";
