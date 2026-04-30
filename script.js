@@ -4,6 +4,10 @@ const CONFIG = {
     WATCH_TIME: "watchTime",
   },
 
+  LIMITS: {
+    RECENT_SIZE: 30,
+  },
+
 };
 
 
@@ -30,7 +34,6 @@ const DOM = {
   recentItems: document.getElementById("recent-items"),
   watchTime: document.getElementById("watch-time"),
 }
-const recentSize = 30;
 const skipThreshold = 60;
 
 function getRecent() {
@@ -191,7 +194,7 @@ function saveRecent(title, video, videoType, subtitle="", subtitleType="url") {
   recent = recent.filter(item => !(item.title===title));
 
   recent.unshift({title, video, videoType, subtitle, subtitleType, progress});
-  if(recent.length>recentSize) recent = recent.slice(0,recentSize);
+  if(recent.length>CONFIG.LIMITS.RECENT_SIZE) recent = recent.slice(0,CONFIG.LIMITS.RECENT_SIZE);
 
   setRecent(recent);
   renderRecent();
