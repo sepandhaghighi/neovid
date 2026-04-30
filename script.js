@@ -1,3 +1,11 @@
+const CONFIG = {
+  STORAGE_KEYS: {
+    RECENT: "recentVideos",
+  },
+
+};
+
+
 const DOM = {
   form: document.getElementById("video-form"),
   videoUrl: document.getElementById("video-url"),
@@ -21,18 +29,16 @@ const DOM = {
   recentItems: document.getElementById("recent-items"),
   watchTime: document.getElementById("watch-time"),
 }
-
-const recentKey = "recentVideos";
 const watchTimeKey = "watchTime";
 const recentSize = 30;
 const skipThreshold = 60;
 
 function getRecent() {
-  return JSON.parse(localStorage.getItem(recentKey) || "[]");
+  return JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEYS.RECENT) || "[]");
 }
 
 function setRecent(data) {
-  localStorage.setItem(recentKey, JSON.stringify(data));
+  localStorage.setItem(CONFIG.STORAGE_KEYS.RECENT, JSON.stringify(data));
 }
 
 function getWatchTime() {
