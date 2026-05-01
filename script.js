@@ -1,3 +1,17 @@
+const CONFIG = {
+  STORAGE_KEYS: {
+    RECENT: "recentVideos",
+    WATCH_TIME: "watchTime",
+  },
+
+  LIMITS: {
+    RECENT_SIZE: 30,
+    SKIP_THRESHOLD: 60,
+  },
+
+};
+
+
 const DOM = {
   form: document.getElementById("video-form"),
   videoUrl: document.getElementById("video-url"),
@@ -22,25 +36,20 @@ const DOM = {
   watchTime: document.getElementById("watch-time"),
 }
 
-const recentKey = "recentVideos";
-const watchTimeKey = "watchTime";
-const recentSize = 30;
-const skipThreshold = 60;
-
 function getRecent() {
-  return JSON.parse(localStorage.getItem(recentKey) || "[]");
+  return JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEYS.RECENT) || "[]");
 }
 
 function setRecent(data) {
-  localStorage.setItem(recentKey, JSON.stringify(data));
+  localStorage.setItem(CONFIG.STORAGE_KEYS.RECENT, JSON.stringify(data));
 }
 
 function getWatchTime() {
-  return parseInt(localStorage.getItem(watchTimeKey) || "0", 10);
+  return parseInt(localStorage.getItem(CONFIG.STORAGE_KEYS.WATCH_TIME) || "0", 10);
 }
 
 function setWatchTime(value) {
-  localStorage.setItem(watchTimeKey, value);
+  localStorage.setItem(CONFIG.STORAGE_KEYS.WATCH_TIME, value);
 }
 
 const state = {
@@ -109,7 +118,7 @@ function updateWatchTime() {
 function handleSkipButton() {
   if (DOM.player.duration && DOM.player.currentTime) {
     const remaining = DOM.player.duration - DOM.player.currentTime;
-    if (DOM.player.duration > 3 * skipThreshold && remaining <= skipThreshold && !DOM.player.ended) {
+    if (DOM.player.duration > 3 * CONFIG.LIMITS.SKIP_THRESHOLD && remaining <= CONFIG.LIMITS.SKIP_THRESHOLD && !DOM.player.ended) {
       DOM.skipButton.style.display = "block";
     } else {
       DOM.skipButton.style.display = "none";
@@ -185,7 +194,7 @@ function saveRecent(title, video, videoType, subtitle="", subtitleType="url") {
   recent = recent.filter(item => !(item.title===title));
 
   recent.unshift({title, video, videoType, subtitle, subtitleType, progress});
-  if(recent.length>recentSize) recent = recent.slice(0,recentSize);
+  if(recent.length>CONFIG.LIMITS.RECENT_SIZE) recent = recent.slice(0,CONFIG.LIMITS.RECENT_SIZE);
 
   setRecent(recent);
   renderRecent();
