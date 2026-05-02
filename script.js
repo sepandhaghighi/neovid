@@ -15,7 +15,21 @@ const CONFIG = {
   FILES: {
     EXPORT_DEFAULT_NAME: "neovid-recent.json",
     EXPORT_TYPE: "application/json"
-  }
+  },
+
+  MESSAGES: {
+    CONFIRM_REMOVE: "Are you sure you want to remove this video?",
+    EXPORT_EMPTY: "No recent data to export.",
+    IMPORT_CONFIRM: "Importing will REPLACE current recent data.\nThis action is NOT reversible.\n\nContinue?",
+    IMPORT_SUCCESS: "Recent data imported successfully.",
+    IMPORT_ERROR: "Invalid recent data file.",
+    WATCH_LATER_ADDED: "Video added to list.",
+    SELECT_VIDEO: "Please enter a video URL.",
+    SELECT_LOCAL_VIDEO: "Please select a local video file.",
+    RESELECT_LOCAL_VIDEO: "Please reselect the local video.",
+    RESELECT_LOCAL_SUBTITLE: "Please reselect the local subtitle.",
+    UPDATE_AVAILABLE: "🚀 A new version is available. Reload now?"
+  },
 
 };
 
@@ -209,7 +223,7 @@ function saveRecent(title, video, videoType, subtitle="", subtitleType="url") {
 }
 
 function removeRecent(title) {
-  const userConfirmed = confirm("Are you sure you want to remove this video?");
+  const userConfirmed = confirm(CONFIG.MESSAGES.CONFIRM_REMOVE);
   if (userConfirmed) {
     let recent = getRecent();
     recent = recent.filter(item => !(item.title===title));
@@ -302,7 +316,7 @@ function attachRecentEvents(item, spanTitle, spanRemove) {
     }
     else{
       DOM.videoUrl.value = "";
-      alert("Please reselect the local video.");
+      alert(CONFIG.MESSAGES.RESELECT_LOCAL_VIDEO);
     }
     if (item.subtitle) {
       if (item.subtitleType==="url") {
@@ -311,7 +325,7 @@ function attachRecentEvents(item, spanTitle, spanRemove) {
       }
       else{
         DOM.subtitleUrl.value = "";
-        alert("Please reselect the local subtitle.");
+        alert(CONFIG.MESSAGES.RESELECT_LOCAL_SUBTITLE);
       }
     }
     if (isDataLoaded) {
@@ -339,12 +353,12 @@ function getFormData() {
   let videoSrc = "", videoTitle = "", videoType = DOM.videoLoadSelect.value;
   if(videoType==="url") {
     const url = DOM.videoUrl.value.trim();
-    if(!url) return alert("Please enter a video URL.");
+    if(!url) return alert(CONFIG.MESSAGES.SELECT_VIDEO);
     videoSrc = url;
     videoTitle = url.split("/").pop();
   } else {
     const file = DOM.videoFile.files[0];
-    if(!file) return alert("Please select a local video file.");
+    if(!file) return alert(CONFIG.MESSAGES.SELECT_LOCAL_VIDEO);
     videoSrc = URL.createObjectURL(file);
     videoTitle = file.name;
   }
@@ -399,7 +413,7 @@ DOM.watchLaterButton.addEventListener("click", () => {
     data.subtitleSrc,
     data.subtitleType
   );
-  alert("Video added to list.");
+  alert(CONFIG.MESSAGES.WATCH_LATER_ADDED);
 });
 
 DOM.player.addEventListener("timeupdate", () => {
@@ -424,7 +438,7 @@ DOM.skipButton.addEventListener("click", () => {
 DOM.exportButton.addEventListener("click", () => {
   const data = getRecent();
   if (!data) {
-    alert("No recent data to export.");
+    alert(CONFIG.MESSAGES.EXPORT_EMPTY);
     return;
   }
   let fileName = prompt("File Name:", CONFIG.FILES.EXPORT_DEFAULT_NAME).trim();
@@ -443,7 +457,7 @@ DOM.importButton.addEventListener("click", () => {
   let recent = getRecent();
   if (recent.length > 0) {
     const ok = confirm(
-    "Importing will REPLACE current recent data.\nThis action is NOT reversible.\n\nContinue?"
+    CONFIG.MESSAGES.IMPORT_CONFIRM
     );
   if (ok) DOM.recentFile.click();
   }
@@ -475,9 +489,9 @@ DOM.recentFile.addEventListener("change", () => {
       if (!isValid) throw new Error();
       setRecent(parsed);
       renderRecent();
-      alert("Recent data imported successfully.");
+      alert(CONFIG.MESSAGES.IMPORT_SUCCESS);
     } catch {
-      alert("Invalid recent data file.");
+      alert(CONFIG.MESSAGES.IMPORT_ERROR);
     }
     DOM.recentFile.value = "";
   };
@@ -488,7 +502,7 @@ window.addEventListener("resize", () => {
 });
 
 function showUpdateAlert(registration) {
-  if (confirm("🚀 A new version is available. Reload now?")) {
+  if (confirm(CONFIG.MESSAGES.UPDATE_AVAILABLE)) {
     registration.waiting.postMessage({ type: "SKIP_WAITING" });
   }
 }
