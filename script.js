@@ -12,6 +12,11 @@ const CONFIG = {
     COMPLETED_PERCENT: 97,
   },
 
+  FILES: {
+    EXPORT_DEFAULT_NAME: "neovid-recent.json",
+    EXPORT_TYPE: "application/json"
+  }
+
 };
 
 
@@ -422,12 +427,12 @@ DOM.exportButton.addEventListener("click", () => {
     alert("No recent data to export.");
     return;
   }
-  let fileName = prompt("File Name:", "neovid-recent.json").trim();
+  let fileName = prompt("File Name:", CONFIG.FILES.EXPORT_DEFAULT_NAME).trim();
   fileName = fileName.replaceAll(" ", "-");
   if (!fileName) {
-    fileName = "neovid-recent.json";
+    fileName = CONFIG.FILES.EXPORT_DEFAULT_NAME;
   }
-  const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+  const blob = new Blob([JSON.stringify(data)], { type: CONFIG.FILES.EXPORT_TYPE });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = fileName;
