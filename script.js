@@ -7,6 +7,9 @@ const CONFIG = {
   LIMITS: {
     RECENT_SIZE: 30,
     SKIP_THRESHOLD: 60,
+    TITLE_MAX_LENGTH: 24,
+    RECENT_TITLE_RATIO: 11,
+    COMPLETED_PERCENT: 97,
   },
 
 };
@@ -146,7 +149,7 @@ function loadFromQuery() {
   }
 }
 
-function truncateTitle(title, maxLength = 24) {
+function truncateTitle(title, maxLength = CONFIG.LIMITS.TITLE_MAX_LENGTH) {
   if (!title) return "";
   return title.length > maxLength ? title.slice(0, maxLength - 3) + "..." : title;
 }
@@ -270,7 +273,7 @@ function createRecentItem(item, maxLimit) {
   spanProgress.className="recent-progress";
   spanProgress.textContent = `${item.progress||0}%`;
 
-  if(item.progress>=97) {
+  if(item.progress>=CONFIG.LIMITS.COMPLETED_PERCENT) {
     spanProgress.textContent = "✔️";
   }
 
@@ -316,7 +319,7 @@ function attachRecentEvents(item, spanTitle, spanRemove) {
 function renderRecent() {
   const recent = getRecent();
   DOM.recentItems.innerHTML="";
-  let maxLimit = DOM.recentItems.offsetWidth  / 11;
+  let maxLimit = DOM.recentItems.offsetWidth  / CONFIG.LIMITS.RECENT_TITLE_RATIO;
   recent.forEach(item => {
     const { li, spanTitle, spanRemove } = createRecentItem(item, maxLimit);
     attachRecentEvents(item, spanTitle, spanRemove);
