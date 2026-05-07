@@ -345,7 +345,7 @@ function attachRecentEvents(item, spanTitle, spanRemove) {
     }
     else{
       DOM.videoUrl.value = "";
-      alert(CONFIG.MESSAGES.RESELECT_LOCAL_VIDEO);
+      showAlert(CONFIG.MESSAGES.RESELECT_LOCAL_VIDEO, "info");
     }
     if (item.subtitle) {
       if (item.subtitleType==="url") {
@@ -354,7 +354,7 @@ function attachRecentEvents(item, spanTitle, spanRemove) {
       }
       else{
         DOM.subtitleUrl.value = "";
-        alert(CONFIG.MESSAGES.RESELECT_LOCAL_SUBTITLE);
+        showAlert(CONFIG.MESSAGES.RESELECT_LOCAL_SUBTITLE, "info");
       }
     }
     if (isDataLoaded) {
@@ -382,12 +382,18 @@ function getFormData() {
   let videoSrc = "", videoTitle = "", videoType = DOM.videoLoadSelect.value;
   if(videoType==="url") {
     const url = DOM.videoUrl.value.trim();
-    if(!url) return alert(CONFIG.MESSAGES.SELECT_VIDEO);
+    if(!url) {
+      showAlert(CONFIG.MESSAGES.SELECT_VIDEO, "warning");
+      return;
+    }
     videoSrc = url;
     videoTitle = url.split("/").pop();
   } else {
     const file = DOM.videoFile.files[0];
-    if(!file) return alert(CONFIG.MESSAGES.SELECT_LOCAL_VIDEO);
+    if(!file) {
+      showAlert(CONFIG.MESSAGES.SELECT_LOCAL_VIDEO, "warning");
+      return;
+    }
     videoSrc = URL.createObjectURL(file);
     videoTitle = file.name;
   }
@@ -442,7 +448,7 @@ DOM.watchLaterButton.addEventListener("click", () => {
     data.subtitleSrc,
     data.subtitleType
   );
-  alert(CONFIG.MESSAGES.WATCH_LATER_ADDED);
+  showAlert(CONFIG.MESSAGES.WATCH_LATER_ADDED, "success");
 });
 
 DOM.player.addEventListener("timeupdate", () => {
@@ -518,9 +524,9 @@ DOM.recentFile.addEventListener("change", () => {
       if (!isValid) throw new Error();
       setRecent(parsed);
       renderRecent();
-      alert(CONFIG.MESSAGES.IMPORT_SUCCESS);
+      showAlert(CONFIG.MESSAGES.IMPORT_SUCCESS, "success");
     } catch {
-      alert(CONFIG.MESSAGES.IMPORT_ERROR);
+      showAlert(CONFIG.MESSAGES.IMPORT_ERROR, "error");
     }
     DOM.recentFile.value = "";
   };
