@@ -58,6 +58,35 @@ const DOM = {
   watchTime: document.getElementById("watch-time"),
 }
 
+function showAlert(text, icon = "info") {
+  return Swal.fire({
+    icon,
+    text,
+    confirmButtonText: "OK"
+  });
+}
+
+function showConfirm(text, options = {}) {
+  return Swal.fire({
+    icon: options.icon || "warning",
+    text,
+    showCancelButton: true,
+    confirmButtonText: options.confirmText || "OK",
+    cancelButtonText: options.cancelText || "Cancel"
+  });
+}
+
+function showPrompt(title, defaultValue = "", options = {}) {
+  return Swal.fire({
+    title,
+    input: "text",
+    inputValue: defaultValue,
+    showCancelButton: true,
+    confirmButtonText: options.confirmText || "OK",
+    cancelButtonText: options.cancelText || "Cancel"
+  });
+}
+
 function getRecent() {
   return JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEYS.RECENT) || "[]");
 }
