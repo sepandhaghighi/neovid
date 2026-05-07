@@ -252,13 +252,16 @@ function saveRecent(title, video, videoType, subtitle="", subtitleType="url") {
 }
 
 function removeRecent(title) {
-  const userConfirmed = confirm(CONFIG.MESSAGES.CONFIRM_REMOVE);
-  if (userConfirmed) {
-    let recent = getRecent();
-    recent = recent.filter(item => !(item.title===title));
-    setRecent(recent);
-    renderRecent();
-  }
+  showConfirm(CONFIG.MESSAGES.CONFIRM_REMOVE, {
+    confirmText: "Remove"
+  }).then((result) => {
+      if (result.isConfirmed) {
+        let recent = getRecent();
+        recent = recent.filter(item => !(item.title===title));
+        setRecent(recent);
+        renderRecent();
+      }
+    });
 }
 
 function updateProgress() {
@@ -491,10 +494,13 @@ DOM.exportButton.addEventListener("click", () => {
 DOM.importButton.addEventListener("click", () => {
   let recent = getRecent();
   if (recent.length > 0) {
-    const ok = confirm(
-    CONFIG.MESSAGES.IMPORT_CONFIRM
-    );
-  if (ok) DOM.recentFile.click();
+    showConfirm(CONFIG.MESSAGES.IMPORT_CONFIRM, {
+      confirmText: "Import"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          DOM.recentFile.click();
+        }
+      });
   }
   else {
     DOM.recentFile.click();
@@ -537,9 +543,14 @@ window.addEventListener("resize", () => {
 });
 
 function showUpdateAlert(registration) {
-  if (confirm(CONFIG.MESSAGES.UPDATE_AVAILABLE)) {
-    registration.waiting.postMessage({ type: "SKIP_WAITING" });
-  }
+  showConfirm(CONFIG.MESSAGES.UPDATE_AVAILABLE, {
+    icon: "info",
+    confirmText: "Reload"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      registration.waiting.postMessage({ type: "SKIP_WAITING" });
+    }
+  });
 }
 
 if ("serviceWorker" in navigator) {
