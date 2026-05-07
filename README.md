@@ -69,6 +69,10 @@ Then open your browser and visit:
 http://localhost:8000
 ```
 
+## Dependencies
+
+- [SweetAlert2](https://sweetalert2.github.io/) v11.26.24
+
 ## Issues & Bug Reports
 
 Just fill an issue and describe it. We'll check it ASAP! or send an email to [info@neovid.top](mailto:info@neovid.top "info@neovid.top"). 
