@@ -476,11 +476,23 @@ DOM.skipButton.addEventListener("click", () => {
 DOM.exportButton.addEventListener("click", () => {
   const data = getRecent();
   if (!data) {
-    alert(CONFIG.MESSAGES.EXPORT_EMPTY);
+    showAlert(CONFIG.MESSAGES.EXPORT_EMPTY, "info");
     return;
   }
-  let fileName = prompt("File Name:", CONFIG.FILES.EXPORT_DEFAULT_NAME).trim();
-  fileName = fileName.replaceAll(" ", "-");
+  showPrompt(
+    "File Name",
+    CONFIG.FILES.EXPORT_DEFAULT_NAME,
+    {
+      confirmText: "Export"
+    }
+  ).then((result) => {
+
+    if (!result.isConfirmed) return;
+
+    let fileName = (result.value || CONFIG.FILES.EXPORT_DEFAULT_NAME)
+    .trim()
+    .replaceAll(" ", "-");
+  
   if (!fileName) {
     fileName = CONFIG.FILES.EXPORT_DEFAULT_NAME;
   }
@@ -490,7 +502,9 @@ DOM.exportButton.addEventListener("click", () => {
   a.download = fileName;
   a.click();
   URL.revokeObjectURL(a.href);
+  });
 });
+
 DOM.importButton.addEventListener("click", () => {
   let recent = getRecent();
   if (recent.length > 0) {
