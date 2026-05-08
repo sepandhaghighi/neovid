@@ -9,7 +9,7 @@
 
 ## Overview
 
-**Neovid** is a minimal, zero-dependency web-based video player designed to be simple, fast, and mobile-friendly.  
+**Neovid** is a minimal web-based video player designed to be simple, fast, and mobile-friendly.  
 It supports both online and local video playback with optional subtitles.
 
 🌐 **Live Demo:** [https://neovid.top](https://neovid.top)
@@ -24,7 +24,6 @@ It supports both online and local video playback with optional subtitles.
 
 ## Features
 
-- **Zero dependencies**: pure HTML, CSS, and JavaScript  
 - **Mobile responsive** design  
 - **Play video from URL or local file**  
 - **Subtitle support**  
@@ -68,6 +67,10 @@ Then open your browser and visit:
 ```console
 http://localhost:8000
 ```
+
+## Dependencies
+
+- [SweetAlert2](https://sweetalert2.github.io/) v11.26.24
 
 ## Issues & Bug Reports
 

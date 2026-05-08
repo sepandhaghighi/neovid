@@ -58,6 +58,35 @@ const DOM = {
   watchTime: document.getElementById("watch-time"),
 }
 
+function showAlert(text, icon = "info") {
+  return Swal.fire({
+    icon,
+    text,
+    confirmButtonText: "OK"
+  });
+}
+
+function showConfirm(text, options = {}) {
+  return Swal.fire({
+    icon: options.icon || "warning",
+    text,
+    showCancelButton: true,
+    confirmButtonText: options.confirmText || "OK",
+    cancelButtonText: options.cancelText || "Cancel"
+  });
+}
+
+function showPrompt(title, defaultValue = "", options = {}) {
+  return Swal.fire({
+    title,
+    input: "text",
+    inputValue: defaultValue,
+    showCancelButton: true,
+    confirmButtonText: options.confirmText || "OK",
+    cancelButtonText: options.cancelText || "Cancel"
+  });
+}
+
 function getRecent() {
   return JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEYS.RECENT) || "[]");
 }
@@ -223,13 +252,16 @@ function saveRecent(title, video, videoType, subtitle="", subtitleType="url") {
 }
 
 function removeRecent(title) {
-  const userConfirmed = confirm(CONFIG.MESSAGES.CONFIRM_REMOVE);
-  if (userConfirmed) {
-    let recent = getRecent();
-    recent = recent.filter(item => !(item.title===title));
-    setRecent(recent);
-    renderRecent();
-  }
+  showConfirm(CONFIG.MESSAGES.CONFIRM_REMOVE, {
+    confirmText: "Remove"
+  }).then((result) => {
+      if (result.isConfirmed) {
+        let recent = getRecent();
+        recent = recent.filter(item => !(item.title===title));
+        setRecent(recent);
+        renderRecent();
+      }
+    });
 }
 
 function updateProgress() {
@@ -316,7 +348,7 @@ function attachRecentEvents(item, spanTitle, spanRemove) {
     }
     else{
       DOM.videoUrl.value = "";
-      alert(CONFIG.MESSAGES.RESELECT_LOCAL_VIDEO);
+      showAlert(CONFIG.MESSAGES.RESELECT_LOCAL_VIDEO, "info");
     }
     if (item.subtitle) {
       if (item.subtitleType==="url") {
@@ -325,7 +357,7 @@ function attachRecentEvents(item, spanTitle, spanRemove) {
       }
       else{
         DOM.subtitleUrl.value = "";
-        alert(CONFIG.MESSAGES.RESELECT_LOCAL_SUBTITLE);
+        showAlert(CONFIG.MESSAGES.RESELECT_LOCAL_SUBTITLE, "info");
       }
     }
     if (isDataLoaded) {
@@ -353,12 +385,18 @@ function getFormData() {
   let videoSrc = "", videoTitle = "", videoType = DOM.videoLoadSelect.value;
   if(videoType==="url") {
     const url = DOM.videoUrl.value.trim();
-    if(!url) return alert(CONFIG.MESSAGES.SELECT_VIDEO);
+    if(!url) {
+      showAlert(CONFIG.MESSAGES.SELECT_VIDEO, "warning");
+      return;
+    }
     videoSrc = url;
     videoTitle = url.split("/").pop();
   } else {
     const file = DOM.videoFile.files[0];
-    if(!file) return alert(CONFIG.MESSAGES.SELECT_LOCAL_VIDEO);
+    if(!file) {
+      showAlert(CONFIG.MESSAGES.SELECT_LOCAL_VIDEO, "warning");
+      return;
+    }
     videoSrc = URL.createObjectURL(file);
     videoTitle = file.name;
   }
@@ -413,7 +451,7 @@ DOM.watchLaterButton.addEventListener("click", () => {
     data.subtitleSrc,
     data.subtitleType
   );
-  alert(CONFIG.MESSAGES.WATCH_LATER_ADDED);
+  showAlert(CONFIG.MESSAGES.WATCH_LATER_ADDED, "success");
 });
 
 DOM.player.addEventListener("timeupdate", () => {
@@ -438,11 +476,23 @@ DOM.skipButton.addEventListener("click", () => {
 DOM.exportButton.addEventListener("click", () => {
   const data = getRecent();
   if (!data) {
-    alert(CONFIG.MESSAGES.EXPORT_EMPTY);
+    showAlert(CONFIG.MESSAGES.EXPORT_EMPTY, "info");
     return;
   }
-  let fileName = prompt("File Name:", CONFIG.FILES.EXPORT_DEFAULT_NAME).trim();
-  fileName = fileName.replaceAll(" ", "-");
+  showPrompt(
+    "File Name",
+    CONFIG.FILES.EXPORT_DEFAULT_NAME,
+    {
+      confirmText: "Export"
+    }
+  ).then((result) => {
+
+    if (!result.isConfirmed) return;
+
+    let fileName = (result.value || CONFIG.FILES.EXPORT_DEFAULT_NAME)
+    .trim()
+    .replaceAll(" ", "-");
+  
   if (!fileName) {
     fileName = CONFIG.FILES.EXPORT_DEFAULT_NAME;
   }
@@ -452,14 +502,19 @@ DOM.exportButton.addEventListener("click", () => {
   a.download = fileName;
   a.click();
   URL.revokeObjectURL(a.href);
+  });
 });
+
 DOM.importButton.addEventListener("click", () => {
   let recent = getRecent();
   if (recent.length > 0) {
-    const ok = confirm(
-    CONFIG.MESSAGES.IMPORT_CONFIRM
-    );
-  if (ok) DOM.recentFile.click();
+    showConfirm(CONFIG.MESSAGES.IMPORT_CONFIRM, {
+      confirmText: "Import"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          DOM.recentFile.click();
+        }
+      });
   }
   else {
     DOM.recentFile.click();
@@ -489,9 +544,9 @@ DOM.recentFile.addEventListener("change", () => {
       if (!isValid) throw new Error();
       setRecent(parsed);
       renderRecent();
-      alert(CONFIG.MESSAGES.IMPORT_SUCCESS);
+      showAlert(CONFIG.MESSAGES.IMPORT_SUCCESS, "success");
     } catch {
-      alert(CONFIG.MESSAGES.IMPORT_ERROR);
+      showAlert(CONFIG.MESSAGES.IMPORT_ERROR, "error");
     }
     DOM.recentFile.value = "";
   };
@@ -502,9 +557,14 @@ window.addEventListener("resize", () => {
 });
 
 function showUpdateAlert(registration) {
-  if (confirm(CONFIG.MESSAGES.UPDATE_AVAILABLE)) {
-    registration.waiting.postMessage({ type: "SKIP_WAITING" });
-  }
+  showConfirm(CONFIG.MESSAGES.UPDATE_AVAILABLE, {
+    icon: "info",
+    confirmText: "Reload"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      registration.waiting.postMessage({ type: "SKIP_WAITING" });
+    }
+  });
 }
 
 if ("serviceWorker" in navigator) {
