@@ -12,7 +12,9 @@ const appShell = [
   "assets/web-app-manifest-512x512.png",
   "assets/favicon/favicon.svg",
   "assets/favicon/favicon.ico",
-  "assets/favicon/favicon-96x96.png"
+  "assets/favicon/favicon-96x96.png",
+  "libs/sweetalert2/sweetalert2.min.css",
+  "libs/sweetalert2/sweetalert2.min.js",
 ];
 
 
