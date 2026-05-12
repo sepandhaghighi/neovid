@@ -58,11 +58,11 @@ const DOM = {
   watchTime: document.getElementById("watch-time"),
 }
 
-function showAlert(text, icon = "info") {
+function showAlert(text, options = {}) {
   return Swal.fire({
-    icon,
+    icon: options.icon || "info",
     text,
-    confirmButtonText: "OK"
+    confirmButtonText: options.confirmText || "OK",
   });
 }
 
