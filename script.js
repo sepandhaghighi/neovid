@@ -557,6 +557,7 @@ window.addEventListener("resize", () => {
 });
 
 function showUpdateAlert(registration) {
+  if (!registration.waiting) return;
   showConfirm(CONFIG.MESSAGES.UPDATE_AVAILABLE, {
     icon: "info",
     confirmText: "Reload"
