@@ -578,8 +578,9 @@ if ("serviceWorker" in navigator) {
 
     reg.addEventListener("updatefound", () => {
       const sw = reg.installing;
+      if (!sw) return;
       sw.addEventListener("statechange", () => {
-        if (sw.state === "installed" && navigator.serviceWorker.controller) {
+        if (sw.state === "installed" && navigator.serviceWorker.controller && reg.waiting) {
           showUpdateAlert(reg);
         }
       });
