@@ -58,11 +58,11 @@ const DOM = {
   watchTime: document.getElementById("watch-time"),
 }
 
-function showAlert(text, icon = "info") {
+function showAlert(text, options = {}) {
   return Swal.fire({
-    icon,
+    icon: options.icon || "info",
     text,
-    confirmButtonText: "OK"
+    confirmButtonText: options.confirmText || "OK",
   });
 }
 
@@ -348,7 +348,7 @@ function attachRecentEvents(item, spanTitle, spanRemove) {
     }
     else{
       DOM.videoUrl.value = "";
-      showAlert(CONFIG.MESSAGES.RESELECT_LOCAL_VIDEO, "info");
+      showAlert(CONFIG.MESSAGES.RESELECT_LOCAL_VIDEO, {icon: "info"});
     }
     if (item.subtitle) {
       if (item.subtitleType==="url") {
@@ -357,7 +357,7 @@ function attachRecentEvents(item, spanTitle, spanRemove) {
       }
       else{
         DOM.subtitleUrl.value = "";
-        showAlert(CONFIG.MESSAGES.RESELECT_LOCAL_SUBTITLE, "info");
+        showAlert(CONFIG.MESSAGES.RESELECT_LOCAL_SUBTITLE, {icon: "info"});
       }
     }
     if (isDataLoaded) {
@@ -386,7 +386,7 @@ function getFormData() {
   if(videoType==="url") {
     const url = DOM.videoUrl.value.trim();
     if(!url) {
-      showAlert(CONFIG.MESSAGES.SELECT_VIDEO, "warning");
+      showAlert(CONFIG.MESSAGES.SELECT_VIDEO, {icon: "warning"});
       return;
     }
     videoSrc = url;
@@ -394,7 +394,7 @@ function getFormData() {
   } else {
     const file = DOM.videoFile.files[0];
     if(!file) {
-      showAlert(CONFIG.MESSAGES.SELECT_LOCAL_VIDEO, "warning");
+      showAlert(CONFIG.MESSAGES.SELECT_LOCAL_VIDEO, {icon: "warning"});
       return;
     }
     videoSrc = URL.createObjectURL(file);
@@ -451,7 +451,7 @@ DOM.watchLaterButton.addEventListener("click", () => {
     data.subtitleSrc,
     data.subtitleType
   );
-  showAlert(CONFIG.MESSAGES.WATCH_LATER_ADDED, "success");
+  showAlert(CONFIG.MESSAGES.WATCH_LATER_ADDED, {icon: "success"});
 });
 
 DOM.player.addEventListener("timeupdate", () => {
@@ -476,7 +476,7 @@ DOM.skipButton.addEventListener("click", () => {
 DOM.exportButton.addEventListener("click", () => {
   const data = getRecent();
   if (!data) {
-    showAlert(CONFIG.MESSAGES.EXPORT_EMPTY, "info");
+    showAlert(CONFIG.MESSAGES.EXPORT_EMPTY, {icon: "info"});
     return;
   }
   showPrompt(
@@ -544,9 +544,9 @@ DOM.recentFile.addEventListener("change", () => {
       if (!isValid) throw new Error();
       setRecent(parsed);
       renderRecent();
-      showAlert(CONFIG.MESSAGES.IMPORT_SUCCESS, "success");
+      showAlert(CONFIG.MESSAGES.IMPORT_SUCCESS, {icon: "success"});
     } catch {
-      showAlert(CONFIG.MESSAGES.IMPORT_ERROR, "error");
+      showAlert(CONFIG.MESSAGES.IMPORT_ERROR, {icon: "error"});
     }
     DOM.recentFile.value = "";
   };
