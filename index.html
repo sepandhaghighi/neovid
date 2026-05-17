@@ -7,6 +7,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 <link rel="canonical" href="https://neovid.top">
 <link rel="manifest" href="site.webmanifest">
+<link href="libs/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
 <link href="libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
 <link href="style.css" rel="stylesheet" type="text/css">
 <title>🎬 Neovid: Minimal Web Video Player</title>
@@ -30,13 +31,13 @@
 </head>
 <body>
 <div id="install-banner">
-<button id="install-button">📲 Install Neovid</button>
+<button id="install-button"><i class="fa-solid fa-download"></i> Install Neovid</button>
 <button id="close-install">&times;</button>
 </div>
-<h1>🎬 Neovid: Minimal Web Video Player</h1>
+<h1><i class="fa-solid fa-clapperboard"></i> Neovid: Minimal Web Video Player</h1>
 <div class="version">Version 1.0</div>
 <div class="notice">
-⚠️ <strong>Notice:</strong> Only external or local <code>.vtt</code>/<code>.srt</code> subtitle files are supported.<br>
+<i class="fa-solid fa-triangle-exclamation"></i> <strong>Notice:</strong> Only external or local <code>.vtt</code>/<code>.srt</code> subtitle files are supported.<br>
 Embedded subtitles inside video files are not supported.
 </div>
 
@@ -66,18 +67,18 @@ Embedded subtitles inside video files are not supported.
     <input type="file" id="subtitle-file" accept=".vtt,.srt" style="display:none" aria-label="Select local subtitle file">
   </fieldset>
   <div class="action-buttons">
-    <button type="submit" id="play-button">► Play Video</button>
-    <button type="button" id="watch-later-button">🕒 Watch Later</button>
+    <button type="submit" id="play-button"><i class="fa-solid fa-play"></i> Play Video</button>
+    <button type="button" id="watch-later-button"><i class="fa-regular fa-clock"></i> Watch Later</button>
   </div>
   <div class="download-buttons">
-    <button type="button" id="download-video-button">⬇️ Download Video</button>
-    <button type="button" id="download-subtitle-button">⬇️ Download Subtitle</button>
+    <button type="button" id="download-video-button"><i class="fa-solid fa-download"></i> Download Video</button>
+    <button type="button" id="download-subtitle-button"><i class="fa-solid fa-download"></i> Download Subtitle</button>
   </div>
 </form>
 
 <div class="video-wrapper">
   <video id="video-player" controls preload="auto"></video>
-  <button id="skip-button" aria-label="Skip video ending">⏭️ Skip Ending</button>
+  <button id="skip-button" aria-label="Skip video ending"><i class="fa-solid fa-forward"></i> Skip Ending</button>
 </div>
 
 <div class="watch-time-container">
@@ -88,22 +89,22 @@ Embedded subtitles inside video files are not supported.
 <div id="recent-list">
   <p id="recent-header">Recently Played</p>
   <div class="recent-actions">
-    <button id="export-button" type="button" aria-label="Export recently played list">⬆️ Export</button>
-    <button id="import-button" type="button" aria-label="Import recently played list">⬇️ Import</button>
+    <button id="export-button" type="button" aria-label="Export recently played list"><i class="fa-solid fa-file-export"></i> Export</button>
+    <button id="import-button" type="button" aria-label="Import recently played list"><i class="fa-solid fa-file-import"></i> Import</button>
     <input id="recent-file" type="file" accept="application/json" aria-label="Import recently played list file" hidden>
   </div>
   <div class="notice" id="recent-notice">
-      <p>💾 Local Video</p>
-      <p>📄 Local Subtitle</p>
-      <p>🌐 URL Video</p>
-      <p>💬 URL Subtitle</p>
-      <p>✔️ Completed Video</p>
+      <p><i class="fa-solid fa-hard-drive"></i> Local Video</p>
+      <p><i class="fa-regular fa-file-lines"></i> Local Subtitle</p>
+      <p><i class="fa-solid fa-globe"></i> URL Video</p>
+      <p><i class="fa-solid fa-closed-captioning"></i> URL Subtitle</p>
+      <p><i class="fa-solid fa-check"></i> Completed Video</p>
   </div>
   <ul id="recent-items"></ul>
 </div>
 
 <footer>
-  © 2026 🎬 Neovid | Open-Source on 
+  &copy; 2026 <i class="fa-solid fa-clapperboard"></i> Neovid | Open-Source on 
   <a href="https://github.com/sepandhaghighi/neovid" target="_blank" rel="noopener noreferrer">
     GitHub
   </a>
