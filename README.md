@@ -71,6 +71,7 @@ http://localhost:8000
 ## Dependencies
 
 - [SweetAlert2](https://sweetalert2.github.io/) v11.26.24
+- [Font Awesome](https://fontawesome.com/) v7.2.0
 
 ## Issues & Bug Reports
 
