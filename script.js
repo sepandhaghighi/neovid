@@ -28,7 +28,7 @@ const CONFIG = {
     SELECT_LOCAL_VIDEO: "Please select a local video file.",
     RESELECT_LOCAL_VIDEO: "Please reselect the local video.",
     RESELECT_LOCAL_SUBTITLE: "Please reselect the local subtitle.",
-    UPDATE_AVAILABLE: "🚀 A new version is available. Reload now?"
+    UPDATE_AVAILABLE: "A new version is available. Reload now?"
   },
 
 };
@@ -294,30 +294,30 @@ function createRecentItem(item, maxLimit) {
   li.style.background = getProgressBackground(item.progress);
   spanTitle.textContent = truncateTitle(item.title, maxLimit);
   spanTitle.className = "recent-title";
-  spanRemove.textContent = "🗑️";
+  spanRemove.innerHTML = '<i class="fa-solid fa-trash"></i>';
   spanRemove.className = "recent-remove";
   if(item.videoType==="url") {
     const tag = document.createElement("span");
     tag.className="url-tag";
-    tag.textContent="🌐";
+    tag.innerHTML = '<i class="fa-solid fa-globe"></i>';
     spanTitle.appendChild(tag);
   }
   if(item.videoType==="local") {
     const tag = document.createElement("span");
     tag.className="local-tag";
-    tag.textContent="💾";
+    tag.innerHTML = '<i class="fa-solid fa-hard-drive"></i>';
     spanTitle.appendChild(tag);
   }
   if(item.subtitle && item.subtitleType==="local") {
     const tag = document.createElement("span");
     tag.className="local-tag";
-    tag.textContent="📄";
+    tag.innerHTML = '<i class="fa-regular fa-file-lines"></i>';
     spanTitle.appendChild(tag);
   }
   if(item.subtitle && item.subtitleType==="url") {
     const tag = document.createElement("span");
     tag.className="url-tag";
-    tag.textContent="💬";
+    tag.innerHTML = '<i class="fa-solid fa-closed-captioning"></i>';
     spanTitle.appendChild(tag);
   }
   const spanProgress = document.createElement("span");
@@ -325,7 +325,7 @@ function createRecentItem(item, maxLimit) {
   spanProgress.textContent = `${item.progress||0}%`;
 
   if(item.progress>=CONFIG.LIMITS.COMPLETED_PERCENT) {
-    spanProgress.textContent = "✔️";
+    spanProgress.innerHTML = '<i class="fa-solid fa-check"></i>';
   }
 
   li.appendChild(spanRemove);
