@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Icons updated
 - `service-worker.js` modified
+- `README.md` updated
 ## [1.0] - 2026-05-15
 ### Added
 - `showAlert` function
