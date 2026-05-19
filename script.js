@@ -19,6 +19,7 @@ const CONFIG = {
 
   MESSAGES: {
     CONFIRM_REMOVE: "Are you sure you want to remove this video?",
+    CONFIRM_REMOVE_ALL: "Are you sure you want to remove all videos? This action cannot be undone.",
     EXPORT_EMPTY: "No recent data to export.",
     IMPORT_CONFIRM: "Importing will REPLACE current recent data.\nThis action is NOT reversible.\n\nContinue?",
     IMPORT_SUCCESS: "Recent data imported successfully.",
@@ -49,6 +50,7 @@ const DOM = {
   closeInstallButton: document.getElementById("close-install"),
   installBanner: document.getElementById("install-banner"),
   recentFile: document.getElementById("recent-file"),
+  removeAllButton: document.getElementById("remove-all-button"),
   recentNotice: document.getElementById("recent-notice"),
   subtitleUrl: document.getElementById("subtitle-url"),
   subtitleFile: document.getElementById("subtitle-file"),
@@ -264,6 +266,16 @@ function removeRecent(title) {
     });
 }
 
+function removeAllVideos() {
+  showConfirm(CONFIG.MESSAGES.CONFIRM_REMOVE_ALL)
+  .then(result => {
+    if (result.isConfirmed) {
+      setRecent([]);
+      renderRecent();
+    }
+  });
+}
+
 function updateProgress() {
   if(!state.currentVideo || !DOM.player.duration) return;
   const percent = Math.min(100, Math.round((DOM.player.currentTime/DOM.player.duration)*100));
@@ -379,6 +391,7 @@ function renderRecent() {
 
   DOM.exportButton.style.display = recent.length ? "inline-block" : "none";
   DOM.recentNotice.style.display = recent.length ? "block" : "none";
+  DOM.removeAllButton.style.display = recent.length ? "inline-block" : "none";
 }
 
 function getFormData() {
@@ -639,3 +652,4 @@ DOM.downloadSubtitleButton.addEventListener("click", () => {
   downloadFile(state.currentSubtitle);
 });
 
+DOM.removeAllButton.addEventListener("click", removeAllVideos);
