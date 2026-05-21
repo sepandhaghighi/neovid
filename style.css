@@ -159,9 +159,10 @@ input[type="url"], input[type="file"], select {
 .download-buttons button:disabled {
   background-color: gray;
   text-decoration: line-through;
+  cursor: not-allowed;
 }
 
-.download-buttons button:hover {
+.download-buttons button:not(:disabled):hover {
   background-color: #0056b3;
 }
 
