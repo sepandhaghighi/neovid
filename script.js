@@ -41,6 +41,7 @@ const DOM = {
   videoFile: document.getElementById("video-file"),
   videoLoadSelect: document.getElementById("video-load-type"),
   watchLaterButton: document.getElementById("watch-later-button"),
+  resumeButton: document.getElementById("resume-button"),
   downloadVideoButton: document.getElementById("download-video-button"),
   downloadSubtitleButton: document.getElementById("download-subtitle-button"),
   skipButton: document.getElementById("skip-button"),
@@ -653,3 +654,18 @@ DOM.downloadSubtitleButton.addEventListener("click", () => {
 });
 
 DOM.removeAllButton.addEventListener("click", removeAllVideos);
+
+DOM.resumeButton.addEventListener("click", () => {
+  const recent = getRecent();
+  if (!recent.length) {
+    return;
+  }
+  const item = recent[0];
+  if (item.videoType !== "url") {
+    showAlert(CONFIG.MESSAGES.RESELECT_LOCAL_VIDEO, {icon: "info"});
+    return;
+  }
+  DOM.videoUrl.value = item.video;
+  DOM.subtitleUrl.value = item.subtitle || "";
+  DOM.form.requestSubmit();
+});
