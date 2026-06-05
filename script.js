@@ -151,6 +151,10 @@ function updateDownloadButtons() {
   }
 }
 
+function updateResumeButton() {
+  DOM.resumeButton.disabled = getRecent().length === 0;
+}
+
 function updateWatchTime() {
   const videoCurrentTime = DOM.player.currentTime;
   if (state.videoLastTime !== null) {
@@ -393,6 +397,7 @@ function renderRecent() {
   DOM.exportButton.style.display = recent.length ? "inline-block" : "none";
   DOM.recentNotice.style.display = recent.length ? "block" : "none";
   DOM.removeAllButton.style.display = recent.length ? "inline-block" : "none";
+  updateResumeButton()
 }
 
 function getFormData() {
@@ -479,6 +484,7 @@ window.addEventListener("DOMContentLoaded", () => {
   loadFromQuery();
   renderRecent();
   updateDownloadButtons();
+  updateResumeButton()
 });
 DOM.player.addEventListener("ended", () => {
   DOM.skipButton.style.display = "none";

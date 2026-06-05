@@ -152,10 +152,6 @@ select:hover {
   background-color: #0056b3;
 }
 
-#resume-button:hover {
-  background-color: #0056b3;
-}
-
 .download-buttons button:disabled {
   background-color: gray;
   text-decoration: line-through;
@@ -163,6 +159,16 @@ select:hover {
 }
 
 .download-buttons button:not(:disabled):hover {
+  background-color: #0056b3;
+}
+
+#resume-button:disabled {
+  background-color: gray;
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+#resume-button:not(:disabled):hover {
   background-color: #0056b3;
 }
 
