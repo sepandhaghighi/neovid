@@ -144,11 +144,7 @@ select:hover {
   transition: background 0.2s, transform 0.05s;
 }
 
-#play-button:hover {
-  background-color: #0056b3;
-}
-
-#watch-later-button:hover {
+.action-buttons button:not(:disabled):hover {
   background-color: #0056b3;
 }
 
