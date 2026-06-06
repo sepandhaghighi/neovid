@@ -106,11 +106,7 @@ input[type="url"], input[type="file"], select {
     margin-top: 7px;
 }
 
-#video-load-type:hover {
-    cursor: pointer;
-}
-
-#subtitle-load-type:hover {
+select:hover {
     cursor: pointer;
 }
 
@@ -124,7 +120,7 @@ input[type="url"], input[type="file"], select {
   gap: 0.5rem;
 }
 
-#play-button, #watch-later-button {
+#play-button, #watch-later-button, #resume-button {
   flex: 1;
   padding: 0.75rem;
   font-size: 1rem;
@@ -163,6 +159,16 @@ input[type="url"], input[type="file"], select {
 }
 
 .download-buttons button:not(:disabled):hover {
+  background-color: #0056b3;
+}
+
+#resume-button:disabled {
+  background-color: gray;
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+#resume-button:not(:disabled):hover {
   background-color: #0056b3;
 }
 
