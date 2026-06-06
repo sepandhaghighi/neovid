@@ -120,7 +120,7 @@ select:hover {
   gap: 0.5rem;
 }
 
-#play-button, #watch-later-button, #resume-button {
+.action-buttons button {
   flex: 1;
   padding: 0.75rem;
   font-size: 1rem;
