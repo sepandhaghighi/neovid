@@ -306,7 +306,7 @@ video {
   font-weight: bold;
 }
 
-#clear-watch-time-button {
+#reset-watch-time-button {
   position: absolute;
   right: 0;
   top: 50%;
@@ -322,12 +322,12 @@ video {
   transition: opacity 0.15s ease, transform 0.15s ease;
 }
 
-#clear-watch-time-button:hover {
+#reset-watch-time-button:hover {
   opacity: 1;
   transform: translateY(-50%) scale(1.1);
 }
 
-#clear-watch-time-button:active {
+#reset-watch-time-button:active {
   transform: translateY(-50%) scale(0.95);
 }
 
