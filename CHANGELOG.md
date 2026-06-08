@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- Resume-last button 
+- Resume-last button
+- Reset watch time button
 ## [1.1] - 2026-05-24
 ### Added
 - Remove-all button
