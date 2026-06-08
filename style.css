@@ -299,10 +299,36 @@ video {
   margin-top: 5px;
   margin-bottom: 5px;
   text-align: center;
+  position: relative;
 }
 
 #watch-time-label {
   font-weight: bold;
+}
+
+#clear-watch-time-button {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #777;
+  cursor: pointer;
+  opacity: 0.65;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+#clear-watch-time-button:hover {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.1);
+}
+
+#clear-watch-time-button:active {
+  transform: translateY(-50%) scale(0.95);
 }
 
 .recent-remove, .recent-title, .recent-progress {
