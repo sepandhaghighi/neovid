@@ -20,6 +20,7 @@ const CONFIG = {
   MESSAGES: {
     CONFIRM_REMOVE: "Are you sure you want to remove this video?",
     CONFIRM_REMOVE_ALL: "Are you sure you want to remove all videos? This action cannot be undone.",
+    CONFIRM_RESET_WATCH_TIME: "Reset total watch time?",
     EXPORT_EMPTY: "No recent data to export.",
     IMPORT_CONFIRM: "Importing will REPLACE current recent data.\nThis action is NOT reversible.\n\nContinue?",
     IMPORT_SUCCESS: "Recent data imported successfully.",
@@ -59,6 +60,7 @@ const DOM = {
   player: document.getElementById("video-player"),
   recentItems: document.getElementById("recent-items"),
   watchTime: document.getElementById("watch-time"),
+  resetWatchTimeButton: document.getElementById("reset-watch-time-button"),
 }
 
 function showAlert(text, options = {}) {
@@ -674,4 +676,15 @@ DOM.resumeButton.addEventListener("click", () => {
   DOM.videoUrl.value = item.video;
   DOM.subtitleUrl.value = item.subtitle || "";
   DOM.form.requestSubmit();
+});
+
+DOM.resetWatchTimeButton.addEventListener("click", () => {
+  showConfirm(CONFIG.MESSAGES.CONFIRM_RESET_WATCH_TIME)
+  .then(result => {
+    if (!result.isConfirmed) return;
+    state.totalWatchTime = 0;
+    state.accumulatedWatchTime = 0;
+    setWatchTime(0);
+    DOM.watchTime.textContent = formatTime(0);
+  });
 });
