@@ -63,6 +63,13 @@ const DOM = {
   resetWatchTimeButton: document.getElementById("reset-watch-time-button"),
 }
 
+function createTag(className, icon) {
+  const tag = document.createElement("span");
+  tag.className = className;
+  tag.innerHTML = icon;
+  return tag;
+}
+
 function showAlert(text, options = {}) {
   return Swal.fire({
     icon: options.icon || "info",
