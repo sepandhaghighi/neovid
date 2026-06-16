@@ -63,6 +63,13 @@ const DOM = {
   resetWatchTimeButton: document.getElementById("reset-watch-time-button"),
 }
 
+function createTag(className, icon) {
+  const tag = document.createElement("span");
+  tag.className = className;
+  tag.innerHTML = icon;
+  return tag;
+}
+
 function showAlert(text, options = {}) {
   return Swal.fire({
     icon: options.icon || "info",
@@ -316,28 +323,16 @@ function createRecentItem(item, maxLimit) {
   spanRemove.innerHTML = '<i class="fa-solid fa-trash"></i>';
   spanRemove.className = "recent-remove";
   if(item.videoType==="url") {
-    const tag = document.createElement("span");
-    tag.className="url-tag";
-    tag.innerHTML = '<i class="fa-solid fa-globe"></i>';
-    spanTitle.appendChild(tag);
+    spanTitle.appendChild(createTag("url-tag", '<i class="fa-solid fa-globe"></i>'));
   }
   if(item.videoType==="local") {
-    const tag = document.createElement("span");
-    tag.className="local-tag";
-    tag.innerHTML = '<i class="fa-solid fa-hard-drive"></i>';
-    spanTitle.appendChild(tag);
+    spanTitle.appendChild(createTag("local-tag", '<i class="fa-solid fa-hard-drive"></i>'));
   }
   if(item.subtitle && item.subtitleType==="local") {
-    const tag = document.createElement("span");
-    tag.className="local-tag";
-    tag.innerHTML = '<i class="fa-regular fa-file-lines"></i>';
-    spanTitle.appendChild(tag);
+    spanTitle.appendChild(createTag("local-tag", '<i class="fa-regular fa-file-lines"></i>'));
   }
   if(item.subtitle && item.subtitleType==="url") {
-    const tag = document.createElement("span");
-    tag.className="url-tag";
-    tag.innerHTML = '<i class="fa-solid fa-closed-captioning"></i>';
-    spanTitle.appendChild(tag);
+    spanTitle.appendChild(createTag("url-tag", '<i class="fa-solid fa-closed-captioning"></i>'));
   }
   const spanProgress = document.createElement("span");
   spanProgress.className="recent-progress";

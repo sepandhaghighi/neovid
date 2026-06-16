@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Resume-last button
 - Reset watch time button
+### Changed
+- `createRecentItem` function modified
 ## [1.1] - 2026-05-24
 ### Added
 - Remove-all button
