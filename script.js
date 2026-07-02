@@ -683,3 +683,34 @@ DOM.resetWatchTimeButton.addEventListener("click", () => {
     DOM.watchTime.textContent = formatTime(0);
   });
 });
+
+document.addEventListener("keydown", (event) => {
+  if (event.target.tagName === "INPUT" ||
+      event.target.tagName === "SELECT") {
+    return;
+  }
+
+  switch(event.code){
+    case "Space":
+      event.preventDefault();
+      if (DOM.player.paused) {
+        DOM.player.play();
+      } else {
+        DOM.player.pause();
+      }
+      break;
+
+    case "ArrowLeft":
+      DOM.player.currentTime =
+        Math.max(0, DOM.player.currentTime - 10);
+      break;
+
+    case "ArrowRight":
+      DOM.player.currentTime =
+        Math.min(
+          DOM.player.duration,
+          DOM.player.currentTime + 10
+        );
+      break;
+  }
+});
