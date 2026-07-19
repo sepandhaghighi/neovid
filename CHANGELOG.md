@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `Space` keyboard shortcut
 - `ArrowLeft` keyboard shortcut
 - `ArrowRight` keyboard shortcut
+### Changed
+- `README.md` updated
 ## [1.2] - 2026-06-22
 ### Added
 - Resume-last button
