@@ -434,6 +434,18 @@ function getFormData() {
   };
 }
 
+function revokeCurrentMedia() {
+  if (state.currentVideoType === "local" &&
+      state.currentVideo) {
+    URL.revokeObjectURL(state.currentVideo);
+  }
+
+  if (state.currentSubtitleType === "local" &&
+      state.currentSubtitle) {
+    URL.revokeObjectURL(state.currentSubtitle);
+  }
+}
+
 
 
 DOM.videoLoadSelect.addEventListener("change", () => {
