@@ -434,13 +434,11 @@ function getFormData() {
 }
 
 function revokeCurrentMedia() {
-  if (state.currentVideoType === "local" &&
-      state.currentVideo) {
+  if (state.currentVideoType === "local" && state.currentVideo) {
     URL.revokeObjectURL(state.currentVideo);
   }
 
-  if (state.currentSubtitleType === "local" &&
-      state.currentSubtitle) {
+  if (state.currentSubtitleType === "local" && state.currentSubtitle) {
     URL.revokeObjectURL(state.currentSubtitle);
   }
 }
