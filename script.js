@@ -219,8 +219,7 @@ function truncateTitle(title, maxLength = CONFIG.LIMITS.TITLE_MAX_LENGTH) {
 }
 
 function playVideo(video, subtitle = "", title = null, videoType = "url", subtitleType = "url") {
-  if(state.currentVideoType === "local" && state.currentVideo) URL.revokeObjectURL(state.currentVideo);
-  if(state.currentSubtitleType === "local" && state.currentSubtitle) URL.revokeObjectURL(state.currentSubtitle);
+  revokeCurrentMedia();
   DOM.player.innerHTML = "";
 
   const sourceElement = document.createElement("source");
@@ -432,6 +431,16 @@ function getFormData() {
     subtitleSrc,
     subtitleType
   };
+}
+
+function revokeCurrentMedia() {
+  if (state.currentVideoType === "local" && state.currentVideo) {
+    URL.revokeObjectURL(state.currentVideo);
+  }
+
+  if (state.currentSubtitleType === "local" && state.currentSubtitle) {
+    URL.revokeObjectURL(state.currentSubtitle);
+  }
 }
 
 
