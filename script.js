@@ -10,6 +10,7 @@ const CONFIG = {
     TITLE_MAX_LENGTH: 24,
     RECENT_TITLE_RATIO: 11,
     COMPLETED_PERCENT: 97,
+    VOLUME_STEP: 0.1,
   },
 
   FILES: {
@@ -720,6 +721,18 @@ document.addEventListener("keydown", (event) => {
           DOM.player.duration,
           DOM.player.currentTime + 10
         );
+      break;
+    
+    case "ArrowUp":
+      event.preventDefault();
+      DOM.player.muted = false;
+      DOM.player.volume = Math.min(1, DOM.player.volume + CONFIG.LIMITS.VOLUME_STEP);
+      break;
+
+    case "ArrowDown":
+      event.preventDefault();
+      DOM.player.muted = false;
+      DOM.player.volume = Math.max(0, DOM.player.volume - CONFIG.LIMITS.VOLUME_STEP);
       break;
   }
 });

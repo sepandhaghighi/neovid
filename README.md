@@ -61,6 +61,8 @@ The following keyboard shortcuts are available on desktop browsers:
 | Play / Pause | <kbd>Space</kbd> |
 | Rewind 10 seconds | <kbd>←</kbd> |
 | Forward 10 seconds | <kbd>→</kbd> |
+| Volume Up | <kbd>↑</kbd> |
+| Volume Down | <kbd>↓</kbd> |
 
 > **Note**
 >
