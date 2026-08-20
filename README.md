@@ -64,8 +64,7 @@ The following keyboard shortcuts are available on desktop browsers:
 | Volume Up | <kbd>↑</kbd> |
 | Volume Down | <kbd>↓</kbd> |
 
-> **Note**
->
+> [!NOTE]
 > Keyboard shortcuts are disabled while typing in an input field or interacting with a dropdown menu.
 
 ## Local Development
