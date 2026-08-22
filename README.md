@@ -64,8 +64,7 @@ The following keyboard shortcuts are available on desktop browsers:
 | Volume Up | <kbd>↑</kbd> |
 | Volume Down | <kbd>↓</kbd> |
 
-> **Note**
->
+> [!NOTE]
 > Keyboard shortcuts are disabled while typing in an input field or interacting with a dropdown menu.
 
 ## Local Development
@@ -75,13 +74,13 @@ To test Neovid locally, you can use [Ghps](https://github.com/sepandhaghighi/ghp
 Run:
 
 ```console
-ghps --port 8000
+ghps --port 5005
 ```
 
 Then open your browser and visit:
 
 ```console
-http://localhost:8000
+http://localhost:5005
 ```
 
 ## Dependencies
