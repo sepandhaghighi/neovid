@@ -734,5 +734,13 @@ document.addEventListener("keydown", (event) => {
       DOM.player.muted = false;
       DOM.player.volume = Math.max(0, DOM.player.volume - CONFIG.LIMITS.VOLUME_STEP);
       break;
+    
+    case "KeyF":
+      if (!document.fullscreenElement) {
+        DOM.player.requestFullscreen?.();
+      } else {
+        document.exitFullscreen?.();
+      }
+      break;
   }
 });
