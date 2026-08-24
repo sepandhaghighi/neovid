@@ -735,6 +735,10 @@ document.addEventListener("keydown", (event) => {
       DOM.player.volume = Math.max(0, DOM.player.volume - CONFIG.LIMITS.VOLUME_STEP);
       break;
     
+    case "KeyM":
+      DOM.player.muted = !DOM.player.muted;
+      break;
+    
     case "KeyF":
       if (!document.fullscreenElement) {
         DOM.player.requestFullscreen?.();
