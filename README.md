@@ -63,6 +63,7 @@ The following keyboard shortcuts are available on desktop browsers:
 | Forward 10 seconds | <kbd>→</kbd> |
 | Volume Up | <kbd>↑</kbd> |
 | Volume Down | <kbd>↓</kbd> |
+| Fullscreen | <kbd>F</kbd> |
 
 > [!NOTE]
 > Keyboard shortcuts are disabled while typing in an input field or interacting with a dropdown menu.
