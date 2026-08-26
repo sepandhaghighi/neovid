@@ -63,6 +63,7 @@ The following keyboard shortcuts are available on desktop browsers:
 | Forward 10 seconds | <kbd>→</kbd> |
 | Volume Up | <kbd>↑</kbd> |
 | Volume Down | <kbd>↓</kbd> |
+| Mute / Unmute | <kbd>M</kbd> |
 | Fullscreen | <kbd>F</kbd> |
 
 > [!NOTE]
