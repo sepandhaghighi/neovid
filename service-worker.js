@@ -1,4 +1,4 @@
-const cacheName = "neovid-v1.2";
+const cacheName = "neovid-v1.3";
 const appShell = [
   "./",
   "index.html",
