@@ -746,5 +746,15 @@ document.addEventListener("keydown", (event) => {
         document.exitFullscreen?.();
       }
       break;
+    
+    case "KeyP":
+      if (document.pictureInPictureEnabled && !DOM.player.disablePictureInPicture) {
+        if (document.pictureInPictureElement) {
+          document.exitPictureInPicture().catch(() => {});
+        } else {
+          DOM.player.requestPictureInPicture().catch(() => {});
+        }
+      }
+      break;
   }
 });

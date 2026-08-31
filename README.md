@@ -65,6 +65,7 @@ The following keyboard shortcuts are available on desktop browsers:
 | Volume Down | <kbd>↓</kbd> |
 | Mute / Unmute | <kbd>M</kbd> |
 | Fullscreen | <kbd>F</kbd> |
+| Picture-in-Picture | <kbd>P</kbd> |
 
 > [!NOTE]
 > Keyboard shortcuts are disabled while typing in an input field or interacting with a dropdown menu.
