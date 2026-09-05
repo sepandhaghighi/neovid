@@ -758,6 +758,7 @@ document.addEventListener("keydown", (event) => {
       break;
 
     case "End":
+      event.preventDefault();
       if (DOM.player.duration) {
         DOM.player.currentTime = DOM.player.duration;
       }
