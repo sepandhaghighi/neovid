@@ -66,6 +66,7 @@ The following keyboard shortcuts are available on desktop browsers:
 | Mute / Unmute | <kbd>M</kbd> |
 | Fullscreen | <kbd>F</kbd> |
 | Picture-in-Picture | <kbd>P</kbd> |
+| Jump to End | <kbd>End</kbd> |
 
 > [!NOTE]
 > Keyboard shortcuts are disabled while typing in an input field or interacting with a dropdown menu.
