@@ -148,6 +148,11 @@ function setMuted(value) {
   localStorage.setItem(CONFIG.STORAGE_KEYS.MUTED, Boolean(value));
 }
 
+function restoreAudioSettings() {
+  DOM.player.volume = getVolume();
+  DOM.player.muted = getMuted();
+}
+
 const state = {
   currentVideo: null,
   currentVideoType: "url",
