@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - `KeyP` keyboard shortcut
 - `End` keyboard shortcut
+- Remember volume and mute state
+- `getVolume` function
+- `setVolume` function
+- `getMuted` function
+- `setMuted` function
+- `restoreAudioSettings` function
 ### Changed
 - `README.md` updated
 ## [1.3] - 2026-08-29
