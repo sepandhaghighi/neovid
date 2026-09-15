@@ -528,10 +528,15 @@ window.addEventListener("DOMContentLoaded", () => {
   loadFromQuery();
   renderRecent();
   updateDownloadButtons();
-  updateResumeButton()
+  updateResumeButton();
+  restoreAudioSettings();
 });
 DOM.player.addEventListener("ended", () => {
   DOM.skipButton.style.display = "none";
+});
+DOM.player.addEventListener("volumechange", () => {
+  setVolume(DOM.player.volume);
+  setMuted(DOM.player.muted);
 });
 DOM.skipButton.addEventListener("click", () => {
   DOM.player.currentTime = Math.max(DOM.player.duration - 0.1, 0);
