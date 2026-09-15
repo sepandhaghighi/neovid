@@ -2,6 +2,8 @@ const CONFIG = {
   STORAGE_KEYS: {
     RECENT: "recentVideos",
     WATCH_TIME: "watchTime",
+    VOLUME: "volume",
+    MUTED: "muted",
   },
 
   LIMITS: {
