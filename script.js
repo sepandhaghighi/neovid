@@ -118,6 +118,36 @@ function setWatchTime(value) {
   localStorage.setItem(CONFIG.STORAGE_KEYS.WATCH_TIME, value);
 }
 
+function getVolume() {
+  const volume = parseFloat(
+    localStorage.getItem(CONFIG.STORAGE_KEYS.VOLUME)
+  );
+
+  if (!Number.isFinite(volume)) {
+    return 1;
+  }
+
+  return Math.max(0, Math.min(1, volume));
+}
+
+function setVolume(value) {
+  const volume = Number(value);
+
+  if (!Number.isFinite(volume)) {
+    return;
+  }
+
+  localStorage.setItem(CONFIG.STORAGE_KEYS.VOLUME, Math.max(0, Math.min(1, volume)));
+}
+
+function getMuted() {
+  return localStorage.getItem(CONFIG.STORAGE_KEYS.MUTED) === "true";
+}
+
+function setMuted(value) {
+  localStorage.setItem(CONFIG.STORAGE_KEYS.MUTED, Boolean(value));
+}
+
 const state = {
   currentVideo: null,
   currentVideoType: "url",
