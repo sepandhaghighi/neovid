@@ -2,6 +2,8 @@ const CONFIG = {
   STORAGE_KEYS: {
     RECENT: "recentVideos",
     WATCH_TIME: "watchTime",
+    VOLUME: "volume",
+    MUTED: "muted",
   },
 
   LIMITS: {
@@ -114,6 +116,41 @@ function getWatchTime() {
 
 function setWatchTime(value) {
   localStorage.setItem(CONFIG.STORAGE_KEYS.WATCH_TIME, value);
+}
+
+function getVolume() {
+  const volume = parseFloat(
+    localStorage.getItem(CONFIG.STORAGE_KEYS.VOLUME)
+  );
+
+  if (!Number.isFinite(volume)) {
+    return 1;
+  }
+
+  return Math.max(0, Math.min(1, volume));
+}
+
+function setVolume(value) {
+  const volume = Number(value);
+
+  if (!Number.isFinite(volume)) {
+    return;
+  }
+
+  localStorage.setItem(CONFIG.STORAGE_KEYS.VOLUME, Math.max(0, Math.min(1, volume)));
+}
+
+function getMuted() {
+  return localStorage.getItem(CONFIG.STORAGE_KEYS.MUTED) === "true";
+}
+
+function setMuted(value) {
+  localStorage.setItem(CONFIG.STORAGE_KEYS.MUTED, Boolean(value));
+}
+
+function restoreAudioSettings() {
+  DOM.player.volume = getVolume();
+  DOM.player.muted = getMuted();
 }
 
 const state = {
@@ -491,10 +528,15 @@ window.addEventListener("DOMContentLoaded", () => {
   loadFromQuery();
   renderRecent();
   updateDownloadButtons();
-  updateResumeButton()
+  updateResumeButton();
+  restoreAudioSettings();
 });
 DOM.player.addEventListener("ended", () => {
   DOM.skipButton.style.display = "none";
+});
+DOM.player.addEventListener("volumechange", () => {
+  setVolume(DOM.player.volume);
+  setMuted(DOM.player.muted);
 });
 DOM.skipButton.addEventListener("click", () => {
   DOM.player.currentTime = Math.max(DOM.player.duration - 0.1, 0);
