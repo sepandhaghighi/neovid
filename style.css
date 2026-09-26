@@ -138,13 +138,8 @@ select:hover {
   background-color: #0056b3;
 }
 
+.action-buttons button:disabled,
 .download-buttons button:disabled {
-  background-color: gray;
-  text-decoration: line-through;
-  cursor: not-allowed;
-}
-
-.action-buttons button:disabled {
   background-color: gray;
   text-decoration: line-through;
   cursor: not-allowed;
