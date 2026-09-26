@@ -133,7 +133,8 @@ select:hover {
   transition: background 0.2s, transform 0.05s;
 }
 
-.action-buttons button:not(:disabled):hover {
+.action-buttons button:not(:disabled):hover,
+.download-buttons button:not(:disabled):hover {
   background-color: #0056b3;
 }
 
@@ -141,10 +142,6 @@ select:hover {
   background-color: gray;
   text-decoration: line-through;
   cursor: not-allowed;
-}
-
-.download-buttons button:not(:disabled):hover {
-  background-color: #0056b3;
 }
 
 .action-buttons button:disabled {
