@@ -78,7 +78,7 @@ To test Neovid locally, you can use [Ghps](https://github.com/sepandhaghighi/ghp
 Run:
 
 ```console
-ghps --port 5005
+ghps --port=5005 --auto-open
 ```
 
 Then open your browser and visit:
