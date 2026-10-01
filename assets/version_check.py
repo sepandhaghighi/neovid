@@ -5,7 +5,7 @@ import sys
 import codecs
 
 Failed = 0
-VERSION = "1.3"
+VERSION = "1.4"
 
 INDEX_ITEMS = ['<div class="version">Version {0}</div>']
 CHANGELOG_ITEMS = [
