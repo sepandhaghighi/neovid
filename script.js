@@ -240,7 +240,6 @@ function loadFromQuery() {
   const params = new URLSearchParams(window.location.search);
   const videoUrlQuery = params.get("video");
   const subtitleUrlQuery = params.get("subtitle");
-  
   if (videoUrlQuery) {
     DOM.videoUrl.value = videoUrlQuery;
   }
