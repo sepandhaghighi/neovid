@@ -237,12 +237,9 @@ function getProgressBackground(progress) {
 }
 
 function loadFromQuery() {
-  const query = window.location.search.substring(1);
-  if (!query) return;
-  const videoMatch = query.match(/(?:^|&)video=([^&]*)/);
-  const subtitleMatch = query.match(/(?:^|&)subtitle=([^&]*)/);
-  const videoUrlQuery = videoMatch ? decodeURIComponent(videoMatch[1]) : null;
-  const subtitleUrlQuery = subtitleMatch ? decodeURIComponent(subtitleMatch[1]) : null;
+  const params = new URLSearchParams(window.location.search);
+  const videoUrlQuery = params.get("video");
+  const subtitleUrlQuery = params.get("subtitle");
   if (videoUrlQuery) {
     DOM.videoUrl.value = videoUrlQuery;
   }
