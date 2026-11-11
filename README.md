@@ -73,12 +73,12 @@ The following keyboard shortcuts are available on desktop browsers:
 
 ## Local Development
 
-To test Neovid locally, you can use [Ghps](https://github.com/sepandhaghighi/ghps) a minimal GitHub Pages simulator written in pure Python.
+To test Neovid locally, you can use [Ghps](https://github.com/sepandhaghighi/ghps)(>= 0.8) a minimal GitHub Pages simulator written in pure Python.
 
 Run:
 
 ```console
-ghps --port=5005 --auto-open
+ghps
 ```
 
 Then open your browser and visit:
