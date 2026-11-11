@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Unnecessary page reload bug fixed
 - `loadFromQuery` function modified
+- `README.md` updated
 ## [1.4] - 2026-10-03
 ### Added
 - `KeyP` keyboard shortcut
